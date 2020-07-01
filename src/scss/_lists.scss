@@ -20,6 +20,10 @@
     .list {
       padding: 5px;
 
+      .list-select {
+        display: inline;
+      }
+
       i:first-child {
         font-weight: 400;
       }
