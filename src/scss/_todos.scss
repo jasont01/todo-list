@@ -1,0 +1,44 @@
+// TODOS
+.todo-container {
+  position: absolute;
+  top: 120px;
+  right: 10px;
+  width: 470px;
+  height: 480px;
+  //background: rgba(218, 165, 32, 0.445);
+
+  ul {
+    list-style: none;
+
+    li {
+      //text style strike-through when checked
+      font-family: "Nanum Pen Script", cursive;
+      font-size: 1.5em;
+
+      .due-date {
+        float: right;
+        margin-right: 20px;
+      }
+
+      i {
+        font-size: 0.7em;
+        line-height: 2em;
+        float: right;
+        margin-right: 20px;
+      }
+    }
+    .priority {
+      display: block;
+      text-align: center;
+    }
+    .priority-high {
+      color: red;
+    }
+    .priority-med {
+      color: goldenrod;
+    }
+    .priority-low {
+      color: green;
+    }
+  }
+}

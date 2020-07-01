@@ -1,0 +1,58 @@
+// LISTS
+.list-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 420px;
+  height: 400px;
+  font-size: 1.2em;
+  //background: rgba(149, 255, 250, 0.5);
+
+  .lists-header {
+    font-family: "Chelsea Market", cursive;
+    font-size: 2em;
+  }
+
+  .lists {
+    display: flex;
+    flex-direction: column;
+
+    .list {
+      padding: 5px;
+
+      i:first-child {
+        font-weight: 400;
+      }
+
+      .list-name {
+        margin-left: 5px;
+        font-size: 1.1em;
+        font-family: "Pangolin", cursive;
+        font-variant: small-caps;
+      }
+
+      .list-controls {
+        font-size: 0.7em;
+        line-height: 2em;
+        float: right;
+        margin-right: 20px;
+      }
+
+      .list-10 {
+        margin-right: 150px;
+      }
+
+      .list-11 {
+        margin-right: 110px;
+      }
+
+      .list-12 {
+        margin-right: 70px;
+      }
+
+      i.active {
+        font-weight: 900;
+      }
+    }
+  }
+}

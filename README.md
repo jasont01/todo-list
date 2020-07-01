@@ -24,7 +24,7 @@ In this project, you are asked to create a todo-list app using JavaScript.<p>
 
 ## Live version
 
-<p><a href="https://jasont01.github.io/todo-list">github.io</a></p>
+<p><a href="https://jasont01.github.io/todo-list"><img src="https://avatars0.githubusercontent.com/u/9919?s=20&v=4">GitHub Pages</a></p>
 
 ## The Odin Project ![GitHub stars](https://img.shields.io/github/stars/TheOdinProject/curriculum?style=social)
 <p>The Odin Project is a open source, full stack curriculum focused on helping you learn web development.</p>

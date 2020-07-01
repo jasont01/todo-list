@@ -1,0 +1,31 @@
+// BACKGROUND
+.notebook {
+  display: flex;
+  //width: 100%;
+  height: 100vh;
+  background: url("../img/notebook.jpg") no-repeat;
+  background-size: contain;
+}
+
+// CONTENT
+.content {
+  position: absolute;
+  top: 10vw;
+  bottom: 7vw;
+  left: 13vw;
+  right: 16vw;
+  display: flex;
+  //background: #bbda5569;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a:hover, i:hover,
+  .item-check:hover, //should no longer need
+  .item-title:hover {
+    color: $primary;
+    cursor: pointer;
+  }
+}
