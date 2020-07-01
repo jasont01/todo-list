@@ -9,6 +9,7 @@
 
   ul {
     list-style: none;
+    user-select: none;
 
     li {
       //text style strike-through when checked
@@ -17,6 +18,10 @@
 
       .item-select {
         display: inline;
+
+        .item-title.done {
+          text-decoration: line-through;
+        }
       }
 
       .due-date {
