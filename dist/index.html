@@ -4,15 +4,217 @@
 <head>
   <meta charset="UTF-8">
   <title>ToDo List</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="wclassth=device-wclassth, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/22f61d7fe5.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <div class="page-wrapper">
-    <div id="content">
-      <i class="far fa-list-alt"></i>
+  <div class="notebook">
+
+    <div class="content">
+
+      <div class="header">
+        <h1 class="title">ToDo List</h1>
+        <hr>
+        <h6 class="item-header">Item</h6>
+        <h6 class="duedate-header">Due Date</h6>
+      </div>
+
+      <div class="list-container">
+        <h3 class="lists-header">-Lists-</h3>
+        <div class="lists">
+          <div class="list">
+            <i class="fas fa-folder-open active"><span class="list-name">Default List</span></i>
+            <i class="fas fa-trash list-controls"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+          <div class="list">
+            <i class="fas fa-folder"><span class="list-name">Untitled List</span></i>
+            <i class="fas fa-trash list-controls"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+          <div class="list">
+            <i class="fas fa-folder"><span class="list-name">The Odin Project</span></i>
+            <i class="fas fa-trash list-controls"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+          <div class="list">
+            <i class="fas fa-folder"><span class="list-name">Default List</span></i>
+            <i class="fas fa-trash list-controls"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+          <div class="list">
+            <i class="fas fa-folder"><span class="list-name">Untitled List</span></i>
+            <i class="fas fa-trash list-controls"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+          <div class="list">
+            <i class="fas fa-folder"><span class="list-name">The Odin Project</span></i>
+            <i class="fas fa-trash list-controls"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+          <div class="list">
+            <i class="fas fa-folder-open active"><span class="list-name">This list name is extra long</span></i>
+            <i class="fas fa-trash list-controls"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+          <div class="list">
+            <i class="fas fa-folder"><span class="list-name">Untitled List</span></i>
+            <i class="fas fa-trash list-controls"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+          <div class="list">
+            <i class="fas fa-folder"><span class="list-name">The Odin Project</span></i>
+            <i class="fas fa-trash list-controls"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+          <div class="list">
+            <i class="fas fa-folder"><span class="list-name">Default List</span></i>
+            <i class="fas fa-trash list-controls list-10"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+          <div class="list">
+            <i class="fas fa-folder"><span class="list-name">Untitled List</span></i>
+            <i class="fas fa-trash list-controls list-11"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+          <div class="list">
+            <i class="fas fa-folder"><span class="list-name">The Odin Project</span></i>
+            <i class="fas fa-trash list-controls list-12"></i>
+            <i class="fas fa-edit list-controls"></i>
+          </div>
+        </div>
+
+        <button id="new-list-btn" class="btn btn-primary">new list</button>
+
+        <div class="new-list-form">
+          <input class="form-control form-control-sm" type="text" id="form-list-name" placeholder="list name">
+          <button id="new-item-form-btn" class="btn btn-sm btn-primary">Add</button>
+          <button id="new-item-cancel" class="btn btn-sm btn-secondary">cancel</button>
+        </div>
+
+      </div>
+
+      <div class="todo-container">
+        <ul>
+
+          <span class="priority priority-high">High Priority</span>
+          <li>
+            <div class="squaredThree">
+              <input type="checkbox" value="None" id="squaredThree" name="check" class="item-check">
+              <label for="squaredThree"></label>
+            </div>
+            <span class="item-title">walk the dog</span>
+            <i class="fas fa-trash"></i>
+            <i class="fas fa-edit"></i>
+            <span class="due-date">in 2 days</span>
+          </li>
+          <li>
+            <div class="squaredThree">
+              <input type="checkbox" value="None" id="squaredThree2" name="check" class="item-check">
+              <label for="squaredThree2"></label>
+            </div>
+            <span class="item-title">walk the dog</span>
+            <i class="fas fa-trash"></i>
+            <i class="fas fa-edit"></i>
+            <span class="due-date">in 2 days</span>
+          </li>
+          <span class="priority priority-med">Medium Priority</span>
+
+          <li>
+            <div class="squaredThree">
+              <input type="checkbox" value="None" id="squaredThree3" name="check" class="item-check">
+              <label for="squaredThree3"></label>
+            </div>
+            <span class="item-title">walk the dog</span>
+            <i class="fas fa-trash"></i>
+            <i class="fas fa-edit"></i>
+            <span class="due-date">in 2 days</span>
+          </li>
+          <li>
+            <div class="squaredThree">
+              <input type="checkbox" value="None" id="squaredThree4" name="check" class="item-check">
+              <label for="squaredThree4"></label>
+            </div>
+            <span class="item-title">walk the dog</span>
+            <i class="fas fa-trash"></i>
+            <i class="fas fa-edit"></i>
+            <span class="due-date">in 2 days</span>
+          </li>
+          <li>
+            <div class="squaredThree">
+              <input type="checkbox" value="None" id="squaredThree5" name="check" class="item-check">
+              <label for="squaredThree5"></label>
+            </div>
+            <span class="item-title">walk the dog</span>
+            <i class="fas fa-trash"></i>
+            <i class="fas fa-edit"></i>
+            <span class="due-date">in 2 days</span>
+          </li>
+          <span class="priority priority-low">Low Priority</span>
+          <li>
+            <div class="squaredThree">
+              <input type="checkbox" value="None" id="squaredThree6" name="check" class="item-check">
+              <label for="squaredThree6"></label>
+            </div>
+            <span class="item-title">walk the dog</span>
+            <i class="fas fa-trash"></i>
+            <i class="fas fa-edit"></i>
+            <span class="due-date">in 2 days</span>
+          </li>
+          <li>
+            <div class="squaredThree">
+              <input type="checkbox" value="None" id="squaredThree7" name="check" class="item-check">
+              <label for="squaredThree7"></label>
+            </div>
+            <span class="item-title">walk the dog</span>
+            <i class="fas fa-trash"></i>
+            <i class="fas fa-edit"></i>
+            <span class="due-date">in 2 days</span>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="controls">
+
+        <div class="new-item-form">
+          <div class="form-group">
+            <label for="form-item-title">Item</label>
+            <input class="form-control form-control-sm" type="text" id="form-item-title" placeholder="item">
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="form-due-date">Due Date<i class="far fa-calendar-alt"></i></label>
+              <input class="form-control form-control-sm" type="text" id="form-due-date" placeholder="due date">
+              
+            </div>
+            <div class="form-goup col">
+              <label for="form-priority">Priority</label>
+              <select class="form-control form-control-sm" id="form-priority">
+                <option value="priority-high">High</option>
+                <option value="priority-med" selected>Medium</option>
+                <option value="priority-low">Low</option>
+              </select>
+            </div>
+          </div>
+          <button id="new-item-form-btn" class="btn btn-sm btn-primary">Add</button>
+          <button id="new-item-cancel" class="btn btn-sm btn-secondary">cancel</button>
+        </div>
+
+        <button id="new-item-btn" class="btn btn-primary"><i class="fas fa-plus"></i></button>
+      </div>
+
+      <div class="footer text-muted">
+        
+        <a href="https://github.com/jasont01/todo-list">
+        <i class="fas fa-code"><span> created by Jason Thompson</span></i>
+        <i class="fab fa-github"></i></a>
+        <br><i class="fab fa-unsplash"><span> background by <a href="https://unsplash.com/photos/3ym6i13Y9LU">Mike Tinnion</a> on <a href="https://unsplash.com/photos/3ym6i13Y9LU">Unsplash</a></span></i>
+      </div>
+
     </div>
+
   </div>
   <script src="bundle.js"></script>
 </body>

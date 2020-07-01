@@ -7,7 +7,7 @@
   </a>
 </p>
 
-<h3 align="center">Project: Restaurant Page</h3>
+<h3 align="center">Project: ToDo List</h3>
 
 <p align="center">
   <a href="https://www.theodinproject.com/courses/javascript/lessons/todo-list"><strong>View the assignment »</strong></a>
