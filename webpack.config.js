@@ -1,4 +1,10 @@
 const path = require('path');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
+  template: __dirname + '/src/index.html',
+  filename: 'index.html',
+  inject: 'body'
+});
 
 module.exports = {
   entry: './src/js/app.js',
@@ -10,6 +16,11 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [ 'babel-loader' ],
+      },
       {
         test: /\.(scss)$/,
         use: [
@@ -40,10 +51,9 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader',
-        ],
+        use: [ 'file-loader' ],
       }
     ]
-  }
+  },
+  plugins: [HTMLWebpackPluginConfig]
 };
