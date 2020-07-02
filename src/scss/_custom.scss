@@ -1,1 +1,7 @@
+// Bootstrap
 $primary: #bada55;
+
+// React DatePicker
+.react-datepicker__day--selected {
+  background: $primary !important;
+}

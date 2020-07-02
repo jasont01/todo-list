@@ -54,6 +54,7 @@ function createNewItem() {
   const priorityField = document.getElementById('new-item-priority');
 
   //create new item
+  console.log(itemNameField.value, dateField.value, priorityField.value);
   // itemNameField.value, dateField.value,  priorityField.value
   // store in localstorage
 
@@ -97,3 +98,4 @@ function openList(e) {
 // GET TODOs
 
 // RESIZE WINDOW ??
+
