@@ -14,19 +14,37 @@
   }
 
   .lists {
-    display: flex;
-    flex-direction: column;
     user-select: none;
+    list-style: none;
+    padding-left: 0px;
 
     .list {
-      padding: 5px;
+      font-weight: 300;
 
-      .list-select {
-        display: inline;
+      label {
+        margin-bottom: 0px;
+
+        &:before {
+          content: "\f07b";
+          font-family: "Font Awesome 5 Free";
+          display: inline-block;
+          margin-right: 5px;
+        }
+        &:hover::before {
+          content: "\f07c";
+          color: black;
+        }
       }
 
-      i:first-child {
-        font-weight: 400;
+      input[type="radio"] {
+        display: none;
+
+        &:checked + label {
+          font-weight: 900;
+          &:before {
+            content: "\f07c";
+          }
+        }
       }
 
       .list-name {
@@ -42,22 +60,22 @@
         float: right;
         margin-right: 20px;
       }
+    }
 
-      .list-10 {
-        margin-right: 150px;
-      }
+    .list-10 {
+      margin-right: 160px;
+    }
 
-      .list-11 {
-        margin-right: 110px;
-      }
+    .list-11 {
+      margin-right: 120px;
+    }
 
-      .list-12 {
-        margin-right: 70px;
-      }
-
-      i.active {
-        font-weight: 900;
-      }
+    .list-12 {
+      margin-right: 80px;
+    }
+    
+    .list-13 {
+      margin-right: 40px;
     }
   }
 }

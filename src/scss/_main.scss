@@ -22,7 +22,9 @@
     color: inherit;
   }
 
-  a:hover, i:hover,
+  a:hover,
+  i:hover,
+  .list-name:hover,
   .item-title:hover {
     color: $primary;
     cursor: pointer;

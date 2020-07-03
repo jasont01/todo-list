@@ -10,7 +10,6 @@
 
 <body>
   <div class="notebook">
-
     <div class="content">
 
       <div class="header">
@@ -22,204 +21,35 @@
 
       <div class="list-container">
         <h3 class="lists-header">-Lists-</h3>
-        <div class="lists">
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder-open active" data-list-id="1"><span class="list-name" data-list-id="1">Default List</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete" data-list-id="1"></i>
-            <i class="fas fa-edit list-controls list-edit" data-list-id="1"></i>
-          </div>
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder list-inactive"><span class="list-name list-inactive">Untitled List</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete"></i>
-            <i class="fas fa-edit list-controls list-edit"></i>
-          </div>
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder list-inactive"><span class="list-name list-inactive">Untitled List</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete"></i>
-            <i class="fas fa-edit list-controls list-edit"></i>
-          </div>
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder list-inactive"><span class="list-name list-inactive">Untitled List</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete"></i>
-            <i class="fas fa-edit list-controls list-edit"></i>
-          </div>
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder list-inactive"><span class="list-name list-inactive">Untitled List</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete"></i>
-            <i class="fas fa-edit list-controls list-edit"></i>
-          </div>
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder list-inactive"><span class="list-name list-inactive">Untitled List</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete"></i>
-            <i class="fas fa-edit list-controls list-edit"></i>
-          </div>
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder list-inactive"><span class="list-name list-inactive">Untitled List</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete"></i>
-            <i class="fas fa-edit list-controls list-edit"></i>
-          </div>
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder list-inactive"><span class="list-name list-inactive">Untitled List</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete"></i>
-            <i class="fas fa-edit list-controls list-edit"></i>
-          </div>
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder list-inactive"><span class="list-name list-inactive">Untitled List</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete"></i>
-            <i class="fas fa-edit list-controls list-edit"></i>
-          </div>
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder list-inactive"><span class="list-name list-inactive">Default List</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete list-10"></i>
-            <i class="fas fa-edit list-controls list-edit"></i>
-          </div>
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder list-inactive"><span class="list-name list-inactive">Untitled List</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete list-11"></i>
-            <i class="fas fa-edit list-controls list-edit"></i>
-          </div>
-          <div class="list">
-            <div class="list-select">
-              <i class="fas fa-folder list-inactive"><span class="list-name list-inactive">The Odin Project</span></i>
-            </div>
-            <i class="fas fa-trash list-controls list-delete list-12"></i>
-            <i class="fas fa-edit list-controls list-edit"></i>
-          </div>
-        </div>
+        <ul class="lists"></ul>
 
         <button id="new-list-btn" class="btn btn-primary">new list</button>
 
-        <div class="new-list-form">
-          <input class="form-control form-control-sm" type="text" id="form-list-name" placeholder="list name">
-          <button id="new-item-form-btn" class="btn btn-sm btn-primary">Add</button>
-          <button id="new-item-cancel" class="btn btn-sm btn-secondary">cancel</button>
-        </div>
+        <form class="new-list-form">
+          <input class="form-control form-control-sm" type="text" id="new-list-name" placeholder="List Name">
+          <button type="submit" id="new-list-add" class="btn btn-sm btn-primary">Add</button>
+          <button type="reset" id="new-list-cancel" class="btn btn-sm btn-secondary">cancel</button>
+        </form>
 
       </div>
 
       <div class="todo-container">
-        <ul>
-
-          <span class="priority priority-high">High Priority</span>
-          <li>
-            <div class="item-select">
-              <div class="squaredThree">
-                <input type="checkbox" value="None" id="item-check1" name="check">
-                <label for="item-check1" data-item-id="1"></label>
-              </div>
-              <span class="item-title" data-item-id="1">walk the dog</span>
-            </div>
-            <i class="fas fa-trash item-delete" data-item-id="1"></i>
-            <i class="fas fa-edit item-edit" data-item-id="1"></i>
-            <span class="due-date">in 2 days</span>
-          </li>
-          <li>
-            <div class="item-select">
-              <div class="squaredThree">
-                <input type="checkbox" value="None" id="item-check2" name="check" class="item-check">
-                <label for="item-check2" data-item-id="2"></label>
-              </div>
-              <span class="item-title" data-item-id="2">walk the dog</span>
-            </div>
-            <i class="fas fa-trash item-delete" data-item-id="2"></i>
-            <i class="fas fa-edit item-edit" data-item-id="2"></i>
-            <span class="due-date">in 2 days</span>
-          </li>
-          <span class="priority priority-med">Medium Priority</span>
-
-          <li>
-            <div class="item-select">
-              <div class="squaredThree">
-                <input type="checkbox" value="None" id="item-check3" name="check" class="item-check">
-                <label for="item-check3" data-item-id="3"></label>
-              </div>
-              <span class="item-title" data-item-id="3">walk the dog</span>
-            </div>
-            <i class="fas fa-trash item-delete" data-item-id="3"></i>
-            <i class="fas fa-edit item-edit" data-item-id="3"></i>
-            <span class="due-date">in 2 days</span>
-          </li>
-          <li>
-            <div class="item-select">
-              <div class="squaredThree">
-                <input type="checkbox" value="None" id="item-check4" name="check" class="item-check">
-                <label for="item-check4" data-item-id="4"></label>
-              </div>
-              <span class="item-title" data-item-id="4">walk the dog</span>
-            </div>
-            <i class="fas fa-trash item-delete" data-item-id="4"></i>
-            <i class="fas fa-edit item-edit" data-item-id="4"></i>
-            <span class="due-date">in 2 days</span>
-          </li>
-          <li>
-            <div class="item-select">
-              <div class="squaredThree">
-                <input type="checkbox" value="None" id="item-check5" name="check" class="item-check">
-                <label for="item-check5" data-item-id="5"></label>
-              </div>
-              <span class="item-title" data-item-id="5">walk the dog</span>
-            </div>
-            <i class="fas fa-trash item-delete" data-item-id="5"></i>
-            <i class="fas fa-edit item-edit" data-item-id="5"></i>
-            <span class="due-date">in 2 days</span>
-          </li>
-          <span class="priority priority-low">Low Priority</span>
-          <li>
-            <div class="item-select">
-              <div class="squaredThree">
-                <input type="checkbox" value="None" id="item-check6" name="check" class="item-check">
-                <label for="item-check6" data-item-id="6"></label>
-              </div>
-              <span class="item-title" data-item-id="6">walk the dog</span>
-            </div>
-            <i class="fas fa-trash item-delete" data-item-id="6"></i>
-            <i class="fas fa-edit item-edit" data-item-id="6"></i>
-            <span class="due-date">in 2 days</span>
-          </li>
-          <li>
-            <div class="item-select">
-              <div class="squaredThree">
-                <input type="checkbox" value="None" id="item-check7" name="check" class="item-check">
-                <label for="item-check7" data-item-id="7"></label>
-              </div>
-              <span class="item-title" data-item-id="7">walk the dog</span>
-            </div>
-            <i class="fas fa-trash item-delete" data-item-id="7"></i>
-            <i class="fas fa-edit item-edit" data-item-id="7"></i>
-            <span class="due-date">in 2 days</span>
-          </li>
-
+        <span class="priority priority-high">High Priority</span>
+        <ul class="items-high">
+          <li>Loading...</li>
         </ul>
+        <span class="priority priority-med">Medium Priority</span>
+        <ul class="items-med"></ul>
+        <span class="priority priority-low">Low Priority</span>
+        <ul class="items-low"></ul>
       </div>
 
       <div class="controls">
 
-        <div class="new-item-form">
+        <form class="new-item-form">
           <div class="form-group">
             <label for="form-item-title">Item</label>
-            <input class="form-control form-control-sm" type="text" id="new-item-title" placeholder="item">
+            <input class="form-control form-control-sm" type="text" id="new-item-title" placeholder="Item" required>
           </div>
           <div class="form-row">
             <div class="form-group col">
@@ -235,9 +65,9 @@
               </select>
             </div>
           </div>
-          <button id="new-item-add" class="btn btn-sm btn-primary">Add</button>
-          <button id="new-item-cancel" class="btn btn-sm btn-secondary">cancel</button>
-        </div>
+          <button type="submit" id="new-item-add" class="btn btn-sm btn-primary">Add</button>
+          <button type="reset" id="new-item-cancel" class="btn btn-sm btn-secondary">cancel</button>
+        </form>
 
         <button id="new-item-btn" class="btn btn-primary"><i class="fas fa-plus"></i></button>
       </div>

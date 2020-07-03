@@ -10,18 +10,14 @@
   ul {
     list-style: none;
     user-select: none;
+    margin-bottom: 0px;
 
     li {
-      //text style strike-through when checked
       font-family: "Nanum Pen Script", cursive;
       font-size: 1.5em;
 
-      .item-select {
-        display: inline;
-
-        .item-title.done {
-          text-decoration: line-through;
-        }
+      .item-title.done {
+        text-decoration: line-through;
       }
 
       .due-date {
@@ -36,18 +32,18 @@
         margin-right: 20px;
       }
     }
-    .priority {
-      display: block;
-      text-align: center;
-    }
-    .priority-high {
-      color: red;
-    }
-    .priority-med {
-      color: goldenrod;
-    }
-    .priority-low {
-      color: green;
-    }
+  }
+  .priority {
+    display: block;
+    text-align: center;
+  }
+  .priority-high {
+    color: red;
+  }
+  .priority-med {
+    color: goldenrod;
+  }
+  .priority-low {
+    color: green;
   }
 }

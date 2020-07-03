@@ -2,6 +2,7 @@
 $primary: #bada55;
 
 // React DatePicker
-.react-datepicker__day--selected {
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
   background: $primary !important;
 }
