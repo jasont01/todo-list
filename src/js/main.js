@@ -7,9 +7,9 @@ newListBtn.addEventListener('click', showNewListForm);
 const itemsContainer = document.querySelector('.todo-container');
 itemsContainer.addEventListener('click', handleItemsClick);
 
-const itemsHigh = document.querySelector('.items-high');
-const itemsMed = document.querySelector('.items-med');
-const itemsLow = document.querySelector('.items-low');
+const highPriority = document.querySelector('.items-high');
+const medPriority = document.querySelector('.items-med');
+const lowPriority = document.querySelector('.items-low');
 
 const listsContainer = document.querySelector('.lists');
 listsContainer.addEventListener('click', handleListsClick);
@@ -18,6 +18,7 @@ listsContainer.addEventListener('click', handleListsClick);
 const lists = JSON.parse(localStorage.getItem('lists')) || createDefaultList();
 
 let currentList = lists.map(list => { return list.active }).indexOf(true);
+//if (currentList == -1) currentList = 0; // temp fix
 let items = lists[currentList].items;
 
 // HANDLE ITEMS CLICK
@@ -40,6 +41,7 @@ function handleListsClick(e) {
     const index = e.target.dataset.listId;
     
     if (e.target.matches('input')) {
+      if (index == currentList) return;
       openList(index);
     } else {
       if (e.target.classList.contains('list-edit')) editList(index);
@@ -48,11 +50,15 @@ function handleListsClick(e) {
   }
 }
 
+// WRITE TO LOCALSTORAGE
+function write() {
+  localStorage.setItem('lists', JSON.stringify(lists));
+}
+
 // TOGGLE ITEM DONE
 function toggleItem(index) {
   items[index].done = !items[index].done;
-  //localStorage.setItem('items', JSON.stringify(items));
-  // call writeStorage function
+  write();
   render();
 }
 
@@ -63,7 +69,7 @@ function openList(index) {
   currentList = index;
   //getItemsFromList();
   items = lists[currentList].items;
-  localStorage.setItem('lists', JSON.stringify(lists));
+  write();
   render();
 }
 
@@ -101,10 +107,8 @@ function createNewItem(e) {
 
   items.push(item);
 
-  console.table(items);
-
+  write();
   render();
-  localStorage.setItem('items', JSON.stringify(items));
   this.reset();
 
   hideNewItemForm();
@@ -161,8 +165,8 @@ function createNewList(e) {
   lists.push(list);
   console.table(list);
 
+  write();
   render();
-  localStorage.setItem('lists', JSON.stringify(lists));
   this.reset();
 
   hideNewListForm();
@@ -190,9 +194,16 @@ function render() {
   //sort items by priority then date, render each set
   //set display:none to any priority-* that is empty
   
-  renderItems(items, itemsHigh);
-  //renderItems(items, itemsMed);
-  //renderItems(items, itemsLow);
+  const itemsHigh = items.filter(item => { if (item.priority == 'priority-high') return item });
+  console.log(itemsHigh);
+  const itemsMed = items.filter(item => { if (item.priority == 'priority-med') return item });
+  console.log(itemsMed.length);
+  const itemsLow = items.filter(item => { if (item.priority == 'priority-low') return item });
+  console.log(itemsLow.length);
+
+  renderItems(itemsHigh, highPriority);
+  renderItems(itemsMed, medPriority);
+  renderItems(itemsLow, lowPriority);
 }
 
 function renderLists(lists = [], listsContainer) {
