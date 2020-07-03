@@ -13,6 +13,7 @@
   }
 }
 
-#new-list-btn {
-  //background: none;
+#new-list-btn.inactive,
+.new-list-form.inactive {
+  display: none;
 }

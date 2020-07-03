@@ -1,8 +1,20 @@
 import { formatDistance, parse, differenceInDays, startOfDay } from 'date-fns';
 
+//  TODO:
+//        show /hide forms
+//        edit buttons
+//        delete list: confirmation / warning that all items inside list will be deleted
+//        Responsive
+//        past dates. isYesterday()
+//        sort by date
+//        priority: none ??
+//        sort into modules
+//        refactor // this??
+
 // SELECTORS
 const newItemBtn = document.getElementById('new-item-btn');
 const newListBtn = document.getElementById('new-list-btn');
+const newListForm = document.querySelector('.new-list-form');
 const listsContainer = document.querySelector('.lists');
 const itemsContainer = document.querySelector('.todo-container');
 const highPriority = document.querySelector('.items-high');
@@ -36,7 +48,7 @@ function handleItemsClick(e) {
 
 // HANDLE LISTS CLICK
 function handleListsClick(e) {
-  if (e.target.matches('input') || (e.target.matches('i'))) {
+  if (e.target.matches('input[type="radio"]') || (e.target.matches('i'))) {
     const index = e.target.dataset.listId;
 
     if (e.target.matches('input')) {
@@ -51,7 +63,7 @@ function handleListsClick(e) {
 
 // UPDATE
 function update() {
-  localStorage.setItem('lists', JSON.stringify(lists));
+  localStorage.setItem('todo-lists', JSON.stringify(lists));
   render();
 }
 
@@ -76,14 +88,11 @@ function showNewItemForm() {
   const cancelNewItemBtn = document.getElementById('new-item-cancel');
   newItemForm.addEventListener('submit', createNewItem);
   cancelNewItemBtn.addEventListener('click', hideNewItemForm);
-
-  console.warn('TODO: show new item form')
 }
 
 // HIDE NEW ITEM FORM
 function hideNewItemForm() {
 
-  console.warn('TODO: hide new item form');
 }
 
 // NEW ITEM
@@ -124,12 +133,12 @@ function deleteItem(index) {
 
 // SHOW NEW LIST FORM
 function showNewListForm() {
-  const newListForm = document.querySelector('.new-list-form');
   const cancelNewListBtn = document.getElementById('new-list-cancel');
   newListForm.addEventListener('submit', createNewList);
-  cancelNewListBtn.addEventListener('click', hideNewListForm);
-
-  console.warn('TODO: show new list form')
+  cancelNewListBtn.addEventListener('click', render);
+  newListForm.classList.toggle('inactive');
+  newListBtn.classList.toggle('inactive');
+  document.getElementById('new-list-name').focus();
 }
 
 // DEFAULT LIST
@@ -149,38 +158,43 @@ function createDefaultList() {
 // NEW LIST
 function createNewList(e) {
   e.preventDefault();
-
   const name = (this.querySelector('#new-list-name')).value
-
   const list = {
     name,
     items: [],
     nextID: 0,
     active: false
   }
-
   lists.push(list);
-  console.table(list);
-
   update();
   this.reset();
-
-  hideNewListForm();
-}
-
-// HIDE NEW LIST FORM
-function hideNewListForm() {
-  console.warn('TODO: hide new list form')
 }
 
 // EDIT LIST
 function editList(index) {
+  const listEditForm = document.querySelector(`.list-edit-form[data-list-id="${index}"]`);
+  const listName = document.querySelector(`.list-name[data-list-id="${index}"]`)
+  const cancel = document.querySelector(`.list-edit[data-list-id="${index}"]`)
+
+  listEditForm.classList.toggle('edit');
+  listName.classList.toggle('edit');
+  cancel.classList.toggle('edit');
   
+  listEditForm.addEventListener('submit', editListSave); 
+}
+
+function editListSave(e) {
+  e.preventDefault();
+  console.log(e);
+  const name = (this.querySelector('.list-name-edit')).value;
+  const index = this.dataset.listId;
+  lists[index].name = name;
+
+  update();
 }
 
 // DELETE LIST
 function deleteList(index) {
-  // TODO add confirmation / warning that all items inside list will be deleted
   lists.splice(index, 1);
   update();
 }
@@ -189,8 +203,13 @@ function deleteList(index) {
 function render() {
   renderLists(lists, listsContainer);
 
-  // TODO: sort by date
-  // priority: none ??
+  newListForm.classList.add('inactive');
+  // hide button when page is full
+  if (lists.length > 16) {
+    newListBtn.classList.add('inactive');
+  } else {
+    newListBtn.classList.remove('inactive');
+  }
 
   // Sort items by priority level
   const itemsHigh = items.filter(item => { if (item.priority == 'priority-high') return item });
@@ -208,6 +227,10 @@ function renderLists(lists = [], listsContainer) {
     <li class="list list-${i}">
     <input type="radio" name="list-radio" id="list${i}" data-list-id="${i}" ${(list.active) ? 'checked' : ''} />
     <label for="list${i}" class="list-name" data-list-id="${i}">${list.name}</label>
+    <form class="list-edit-form" data-list-id="${i}">
+    <input type="text" class="form-control form-control-sm list-name-edit" data-list-id="${i}" value="${list.name}" />
+    <button type="submit" class="btn btn-sm btn-primary">Save</button>
+    </form>
     <i class="fas fa-trash list-controls list-delete" data-list-id="${i}"></i>
     <i class="fas fa-edit list-controls list-edit" data-list-id="${i}"></i>
     </li>
@@ -245,10 +268,8 @@ function dueDate(itemDate) {
   if (daysFromToday == 1) return "tomorrow";
   //if (daysFromToday == 0) return "<b>today!</b>";
   if (daysFromToday == 0) return "today";
-  //todo past dates. isYesterday()
+  
 }
-
-// RESIZE WINDOW ??
 
 ////////
 render();
