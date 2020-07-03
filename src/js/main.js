@@ -1,31 +1,30 @@
-// EVENT LISTENERS
+import { formatDistance, parse, differenceInDays, startOfDay } from 'date-fns';
+
+// SELECTORS
 const newItemBtn = document.getElementById('new-item-btn');
 const newListBtn = document.getElementById('new-list-btn');
-newItemBtn.addEventListener('click', showNewItemForm);
-newListBtn.addEventListener('click', showNewListForm);
-
+const listsContainer = document.querySelector('.lists');
 const itemsContainer = document.querySelector('.todo-container');
-itemsContainer.addEventListener('click', handleItemsClick);
-
 const highPriority = document.querySelector('.items-high');
 const medPriority = document.querySelector('.items-med');
 const lowPriority = document.querySelector('.items-low');
 
-const listsContainer = document.querySelector('.lists');
+// EVENT LISTENERS
+newItemBtn.addEventListener('click', showNewItemForm);
+newListBtn.addEventListener('click', showNewListForm);
+itemsContainer.addEventListener('click', handleItemsClick);
 listsContainer.addEventListener('click', handleListsClick);
 
-//const items = JSON.parse(localStorage.getItem('items')) || [];
-const lists = JSON.parse(localStorage.getItem('lists')) || createDefaultList();
-
-let currentList = lists.map(list => { return list.active }).indexOf(true);
-//if (currentList == -1) currentList = 0; // temp fix
+// GLOBALS
+const lists = JSON.parse(localStorage.getItem('todo-lists')) || createDefaultList();
+let currentList = lists.indexOf(lists.find(list => list.active));
 let items = lists[currentList].items;
 
 // HANDLE ITEMS CLICK
 function handleItemsClick(e) {
   if (e.target.matches('input') || (e.target.matches('i'))) {
-    const index = e.target.dataset.itemId;
-    
+    const id = e.target.dataset.itemId;
+    const index = items.indexOf(items.find(item => item.id == id));
     if (e.target.matches('input')) {
       toggleItem(index);
     } else {
@@ -39,7 +38,7 @@ function handleItemsClick(e) {
 function handleListsClick(e) {
   if (e.target.matches('input') || (e.target.matches('i'))) {
     const index = e.target.dataset.listId;
-    
+
     if (e.target.matches('input')) {
       if (index == currentList) return;
       openList(index);
@@ -50,16 +49,16 @@ function handleListsClick(e) {
   }
 }
 
-// WRITE TO LOCALSTORAGE
-function write() {
+// UPDATE
+function update() {
   localStorage.setItem('lists', JSON.stringify(lists));
+  render();
 }
 
 // TOGGLE ITEM DONE
 function toggleItem(index) {
   items[index].done = !items[index].done;
-  write();
-  render();
+  update();
 }
 
 // OPEN LIST
@@ -67,38 +66,37 @@ function openList(index) {
   lists[index].active = true;
   lists[currentList].active = false;
   currentList = index;
-  //getItemsFromList();
   items = lists[currentList].items;
-  write();
-  render();
+  update();
 }
 
-// HandleNewItem function/module ??
 // SHOW NEW ITEM FORM
 function showNewItemForm() {
   const newItemForm = document.querySelector('.new-item-form');
   const cancelNewItemBtn = document.getElementById('new-item-cancel');
   newItemForm.addEventListener('submit', createNewItem);
   cancelNewItemBtn.addEventListener('click', hideNewItemForm);
-  
+
   console.warn('TODO: show new item form')
 }
 
 // HIDE NEW ITEM FORM
 function hideNewItemForm() {
-  console.warn('TODO: hide new item form')
-  console.warn('TODO: reset date on dateselector')
+
+  console.warn('TODO: hide new item form');
 }
 
 // NEW ITEM
 function createNewItem(e) {
   e.preventDefault();
-  
+
+  const id = lists[currentList].nextID
   const title = (this.querySelector('#new-item-title')).value
   const date = (this.querySelector('#new-item-date')).value
   const priority = (this.querySelector('#new-item-priority')).value
 
   const item = {
+    id,
     title,
     date,
     priority,
@@ -106,9 +104,8 @@ function createNewItem(e) {
   }
 
   items.push(item);
-
-  write();
-  render();
+  lists[currentList].nextID++;
+  update();
   this.reset();
 
   hideNewItemForm();
@@ -116,14 +113,13 @@ function createNewItem(e) {
 
 // EDIT ITEM
 function editItem(index) {
-  console.log('edit-item-btn');
-  console.log(index);
+
 }
 
 // DELETE ITEM
 function deleteItem(index) {
-  console.log('delete-item-btn');
-  console.log(index);
+  items.splice(index, 1);
+  update();
 }
 
 // SHOW NEW LIST FORM
@@ -132,7 +128,7 @@ function showNewListForm() {
   const cancelNewListBtn = document.getElementById('new-list-cancel');
   newListForm.addEventListener('submit', createNewList);
   cancelNewListBtn.addEventListener('click', hideNewListForm);
-  
+
   console.warn('TODO: show new list form')
 }
 
@@ -143,30 +139,30 @@ function createDefaultList() {
   const defaultList = {
     name: "Default List",
     items: [],
+    nextID: 0,
     active: true
   }
   defaultArray.push(defaultList)
   return defaultArray;
 }
+
 // NEW LIST
 function createNewList(e) {
   e.preventDefault();
-  
+
   const name = (this.querySelector('#new-list-name')).value
 
   const list = {
     name,
     items: [],
-    //items: [],
-    //items: [],
+    nextID: 0,
     active: false
   }
 
   lists.push(list);
   console.table(list);
 
-  write();
-  render();
+  update();
   this.reset();
 
   hideNewListForm();
@@ -179,27 +175,27 @@ function hideNewListForm() {
 
 // EDIT LIST
 function editList(index) {
-  console.log(`edit-list-btn ${index} clicked`);
+  
 }
 
 // DELETE LIST
 function deleteList(index) {
-  console.log(`delete-list-btn ${index} clicked`);
+  // TODO add confirmation / warning that all items inside list will be deleted
+  lists.splice(index, 1);
+  update();
 }
 
 // RENDER
 function render() {
   renderLists(lists, listsContainer);
-  
-  //sort items by priority then date, render each set
-  //set display:none to any priority-* that is empty
-  
+
+  // TODO: sort by date
+  // priority: none ??
+
+  // Sort items by priority level
   const itemsHigh = items.filter(item => { if (item.priority == 'priority-high') return item });
-  console.log(itemsHigh);
   const itemsMed = items.filter(item => { if (item.priority == 'priority-med') return item });
-  console.log(itemsMed.length);
   const itemsLow = items.filter(item => { if (item.priority == 'priority-low') return item });
-  console.log(itemsLow.length);
 
   renderItems(itemsHigh, highPriority);
   renderItems(itemsMed, medPriority);
@@ -210,7 +206,7 @@ function renderLists(lists = [], listsContainer) {
   listsContainer.innerHTML = lists.map((list, i) => {
     return `
     <li class="list list-${i}">
-    <input type="radio" name="list-radio" id="list${i}" data-list-id="${i}" ${ (list.active) ? 'checked' : '' } />
+    <input type="radio" name="list-radio" id="list${i}" data-list-id="${i}" ${(list.active) ? 'checked' : ''} />
     <label for="list${i}" class="list-name" data-list-id="${i}">${list.name}</label>
     <i class="fas fa-trash list-controls list-delete" data-list-id="${i}"></i>
     <i class="fas fa-edit list-controls list-edit" data-list-id="${i}"></i>
@@ -220,19 +216,36 @@ function renderLists(lists = [], listsContainer) {
 }
 
 function renderItems(items = [], container) {
-  container.innerHTML = items.map((item, i) => {
-    return `
+  // show / hide priority header
+  container.previousElementSibling.style.display = (items.length > 0) ? "block" : "none";
+  container.innerHTML = items.map((item) => {
+    const id = item.id;
+    const date = dueDate(item.date);
+
+    const html = `
     <li>
     <div class="squaredThree">
-    <input type="checkbox" id="item-check${i}" data-item-id="${i}" ${ (item.done) ? 'checked' : '' } />
-    <label for="item-check${i}" class="item-title ${ (item.done) ? 'done' : '' }" data-item-id="${i}">${item.title}</label>
+    <input type="checkbox" id="item-check${id}" data-item-id="${id}" ${(item.done) ? 'checked' : ''} />
+    <label for="item-check${id}" class="item-title ${(item.done) ? 'done' : ''}" data-item-id="${id}">${item.title}</label>
     </div>
-    <i class="fas fa-trash item-delete" data-item-id="${i}"></i>
-    <i class="fas fa-edit item-edit" data-item-id="${i}"></i>
-    <span class="due-date">${item.date}</span>
+    <i class="fas fa-trash item-delete" data-item-id="${id}"></i>
+    <i class="fas fa-edit item-edit" data-item-id="${id}"></i>
+    <span class="due-date">${date}</span>
     </li>
     `;
+    return html;
   }).join('');
+}
+
+function dueDate(itemDate) {
+  const date = parse(itemDate, 'MM-dd-yyyy', new Date());
+  const daysFromToday = differenceInDays(date, startOfDay(new Date()));
+
+  if (daysFromToday > 1) return formatDistance(date, startOfDay(new Date()));
+  if (daysFromToday == 1) return "tomorrow";
+  //if (daysFromToday == 0) return "<b>today!</b>";
+  if (daysFromToday == 0) return "today";
+  //todo past dates. isYesterday()
 }
 
 // RESIZE WINDOW ??

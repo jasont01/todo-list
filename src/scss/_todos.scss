@@ -23,6 +23,9 @@
       .due-date {
         float: right;
         margin-right: 20px;
+        b {
+          color: red;
+        }
       }
 
       i {
@@ -34,7 +37,7 @@
     }
   }
   .priority {
-    display: block;
+    display: none;
     text-align: center;
   }
   .priority-high {
