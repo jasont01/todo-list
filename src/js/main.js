@@ -257,7 +257,15 @@ function render() {
   // Render items
   priorityLevels.forEach(level => {
     renderItems(sortItems(`priority-${level}`), itemsContainer.querySelector(`.items-${level}`))
-  })
+  });
+
+  // Hide priority header if all items are priority-none
+  const priorityNone = items.every( item => {
+    return item.priority == 'priority-none';
+  });
+  if (priorityNone) {
+    itemsContainer.querySelector('.priority-none').style.display = "none";
+  }
 }
 
 function checkLimits() {

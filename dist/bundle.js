@@ -68394,7 +68394,6 @@ function handleItemsClick(e) {
     if (e.target.matches('input')) {
       toggleItem(index);
     } else {
-      //clearEdits();
       if (e.target.classList.contains('item-edit')) editItem(id);
       if (e.target.classList.contains('item-delete')) deleteItem(index);
     }
@@ -68446,13 +68445,12 @@ function openList(index = 0) {
   lists[index].active = true;
   items = lists[index].items;
   update();
-}
-
-function clearEdits() {
-  Array.from(document.getElementsByClassName('edit')).forEach(node => {
-    node.classList.remove('edit');
-  });
-} // SHOW NEW ITEM FORM
+} //function clearEdits() {
+//  Array.from(document.getElementsByClassName('edit')).forEach(node => {
+//    node.classList.remove('edit');
+//  });
+//}
+// SHOW NEW ITEM FORM
 
 
 function showNewItemForm() {
@@ -68605,6 +68603,13 @@ function render() {
   priorityLevels.forEach(level => {
     renderItems(sortItems(`priority-${level}`), itemsContainer.querySelector(`.items-${level}`));
   });
+  const priorityNone = items.every(item => {
+    return item.priority == 'priority-none';
+  });
+
+  if (priorityNone) {
+    itemsContainer.querySelector('.priority-none').style.display = "none";
+  }
 }
 
 function checkLimits() {
