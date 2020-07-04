@@ -68394,6 +68394,7 @@ function handleItemsClick(e) {
     if (e.target.matches('input')) {
       toggleItem(index);
     } else {
+      //clearEdits();
       if (e.target.classList.contains('item-edit')) editItem(id);
       if (e.target.classList.contains('item-delete')) deleteItem(index);
     }
@@ -68445,6 +68446,12 @@ function openList(index = 0) {
   lists[index].active = true;
   items = lists[index].items;
   update();
+}
+
+function clearEdits() {
+  Array.from(document.getElementsByClassName('edit')).forEach(node => {
+    node.classList.remove('edit');
+  });
 } // SHOW NEW ITEM FORM
 
 
@@ -68493,6 +68500,7 @@ function editItem(id) {
   itemDate.classList.toggle('edit');
   cancel.classList.toggle('edit');
   itemEditForm.addEventListener('submit', editItemSave);
+  itemsContainer.querySelector(`.item-name-edit[data-item-id="${id}"]`).select();
 }
 
 function editItemSave(e) {
@@ -68561,6 +68569,7 @@ function editList(index) {
   listName.classList.toggle('edit');
   cancel.classList.toggle('edit');
   listEditForm.addEventListener('submit', editListSave);
+  listsContainer.querySelector(`.list-name-edit[data-list-id="${index}"]`).select();
 }
 
 function editListSave(e) {

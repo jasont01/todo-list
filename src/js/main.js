@@ -26,7 +26,7 @@ listsContainer.addEventListener('click', handleListsClick);
 
 // GLOBALS
 const lists = JSON.parse(localStorage.getItem('todo-lists')) || createDefaultList();
-const priorityLevels = ['none','high','med','low'];
+const priorityLevels = ['none', 'high', 'med', 'low'];
 let items = lists[getCurrentList()].items;
 
 // HANDLE ITEMS CLICK
@@ -90,6 +90,12 @@ function openList(index = 0) {
   update();
 }
 
+//function clearEdits() {
+//  Array.from(document.getElementsByClassName('edit')).forEach(node => {
+//    node.classList.remove('edit');
+//  });
+//}
+
 // SHOW NEW ITEM FORM
 function showNewItemForm() {
   const cancelNewItemBtn = document.getElementById('new-item-cancel');
@@ -128,7 +134,7 @@ function editItem(id) {
   renderDatePicker(datePickerDiv);
   const datePickerInput = datePickerDiv.querySelector('.date-picker');
   datePickerInput.value = format(new Date(items[index].date), 'MM-dd-yyyy');
-  
+
   const itemEditForm = itemsContainer.querySelector(`.item-edit-form[data-item-id="${id}"]`);
   const itemName = itemsContainer.querySelector(`.item-title[data-item-id="${id}"]`)
   const itemDate = itemsContainer.querySelector(`.due-date[data-item-id="${id}"]`)
@@ -138,8 +144,9 @@ function editItem(id) {
   itemName.classList.toggle('edit');
   itemDate.classList.toggle('edit');
   cancel.classList.toggle('edit');
-  
+
   itemEditForm.addEventListener('submit', editItemSave);
+  itemsContainer.querySelector(`.item-name-edit[data-item-id="${id}"]`).select();
 }
 
 function editItemSave(e) {
@@ -204,14 +211,15 @@ function createNewList(e) {
 // EDIT LIST
 function editList(index) {
   const listEditForm = listsContainer.querySelector(`.list-edit-form[data-list-id="${index}"]`);
-  const listName = listsContainer.querySelector(`.list-name[data-list-id="${index}"]`)
-  const cancel = listsContainer.querySelector(`.list-edit[data-list-id="${index}"]`)
+  const listName = listsContainer.querySelector(`.list-name[data-list-id="${index}"]`);
+  const cancel = listsContainer.querySelector(`.list-edit[data-list-id="${index}"]`);
 
   listEditForm.classList.toggle('edit');
   listName.classList.toggle('edit');
   cancel.classList.toggle('edit');
-  
-  listEditForm.addEventListener('submit', editListSave); 
+
+  listEditForm.addEventListener('submit', editListSave);
+  listsContainer.querySelector(`.list-name-edit[data-list-id="${index}"]`).select();
 }
 
 function editListSave(e) {
@@ -264,7 +272,7 @@ function sortItems(priority) {
   // Filter items by priority level
   const filtered = items.filter(item => { if (item.priority == priority) return item });
   // Sort by date
-  return filtered.sort((a,b) => new Date(a.date) - new Date(b.date));
+  return filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
 }
 
 function renderLists(lists = [], listsContainer) {
@@ -277,7 +285,7 @@ function renderLists(lists = [], listsContainer) {
         <input type="text" class="form-control form-control-sm list-name-edit" data-list-id="${i}" value="${list.name}" />
         <button type="submit" class="btn btn-sm btn-primary">Save</button>
       </form>
-      <i class="fas fa-trash list-controls list-delete ${ (lists.length == 1) ? 'only-list' : '' }" data-list-id="${i}"></i>
+      <i class="fas fa-trash list-controls list-delete ${ (lists.length == 1) ? 'only-list' : ''}" data-list-id="${i}"></i>
       <i class="fas fa-edit list-controls list-edit" data-list-id="${i}"></i>
     </li>
     `;
@@ -300,10 +308,10 @@ function renderItems(items = [], container) {
       <form class="item-edit-form" data-item-id="${id}">
         <input type="text" class="form-control form-control-sm item-name-edit" data-item-id="${id}" value="${item.title}" />
         <select class="form-control form-control-sm item-priority-edit" data-item-id="${id}">
-          <option value="priority-none" ${ (item.priority == 'priority-none') ? 'selected' : '' }>None</option>
-          <option value="priority-high" ${ (item.priority == 'priority-high') ? 'selected' : '' }>High</option>
-          <option value="priority-med" ${ (item.priority == 'priority-med') ? 'selected' : '' }>Medium</option>
-          <option value="priority-low" ${ (item.priority == 'priority-low') ? 'selected' : '' }>Low</option>
+          <option value="priority-none" ${ (item.priority == 'priority-none') ? 'selected' : ''}>None</option>
+          <option value="priority-high" ${ (item.priority == 'priority-high') ? 'selected' : ''}>High</option>
+          <option value="priority-med" ${ (item.priority == 'priority-med') ? 'selected' : ''}>Medium</option>
+          <option value="priority-low" ${ (item.priority == 'priority-low') ? 'selected' : ''}>Low</option>
         </select>
         <div class="item-date-edit" data-item-id="${id}"></div>
         <button type="submit" class="btn btn-sm btn-primary">Save</button>
@@ -326,7 +334,7 @@ function dueDate(itemDate) {
   if (daysFromToday == 0) return "today";
   //if (daysFromToday == 0) return "<b>today!</b>";
   if (daysFromToday == 1) return "tomorrow";
-  return formatDistance(date, startOfDay(today),{ addSuffix: true });
+  return formatDistance(date, startOfDay(today), { addSuffix: true });
 }
 
 ////////
