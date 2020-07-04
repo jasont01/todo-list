@@ -2,9 +2,6 @@ import { format, formatDistance, differenceInDays, startOfDay } from 'date-fns';
 import { renderDatePicker } from './datepicker';
 
 //  TODO:       
-//        getIdFromIndex / getIndexFromID / getID functions
-//        close edit form if another edit button is clicked. render?
-//        new item form overlaps items / set max items 10, hide btn
 //        priority: none
 //        refactor / modules? / this??
 //        Responsive
@@ -39,7 +36,7 @@ let items = lists[currentList].items;
 function handleItemsClick(e) {
   if (e.target.matches('input[type="checkbox"') || (e.target.matches('i'))) {
     const id = e.target.dataset.itemId;
-    const index = items.indexOf(items.find(item => item.id == id));
+    const index = getIndexFromID(id);
     if (e.target.matches('input')) {
       toggleItem(index);
     } else {
@@ -62,6 +59,10 @@ function handleListsClick(e) {
       if (e.target.classList.contains('list-delete')) deleteList(index);
     }
   }
+}
+
+function getIndexFromID(id) {
+  return items.indexOf(items.find(item => item.id == id));
 }
 
 // UPDATE
@@ -91,8 +92,8 @@ function showNewItemForm() {
   newItemForm.addEventListener('submit', createNewItem);
   cancelNewItemBtn.addEventListener('click', render);
 
-  newItemForm.classList.toggle('inactive');
-  //newItemBtn.classList.toggle('inactive');
+  newItemForm.classList.remove('inactive');
+  newItemBtn.classList.add('inactive');
   document.getElementById('new-item-title').focus();
 }
 
@@ -118,7 +119,7 @@ function createNewItem(e) {
 
 // EDIT ITEM
 function editItem(id) {
-  const index = items.indexOf(items.find(item => item.id == id));
+  const index = getIndexFromID(id);
   const datePickerDiv = document.querySelector(`.item-date-edit[data-item-id="${id}"]`);
   renderDatePicker(datePickerDiv);
   const datePickerInput = datePickerDiv.querySelector('.date-picker');
@@ -144,7 +145,7 @@ function editItemSave(e) {
   const priority = (this.querySelector('.item-priority-edit')).value;
 
   const id = this.dataset.itemId;
-  const index = items.indexOf(items.find(item => item.id == id));
+  const index = getIndexFromID(id);
   items[index].title = title;
   items[index].date = date;
   items[index].priority = priority;
@@ -171,7 +172,6 @@ function showNewListForm() {
 // DEFAULT LIST
 function createDefaultList() {
   const defaultArray = []
-
   const defaultList = {
     name: "Default List",
     items: [],
@@ -215,13 +215,12 @@ function editListSave(e) {
   const name = (this.querySelector('.list-name-edit')).value;
   const index = this.dataset.listId;
   lists[index].name = name;
-
   update();
 }
 
 // DELETE LIST
 function deleteList(index) {
-  if (confirm("Are you sure? This will also delete any items inside this list.")) {
+  if (confirm("Are you sure you want to delete this list and any items inside it?")) {
     lists.splice(index, 1);
     update();
   }
@@ -231,12 +230,10 @@ function deleteList(index) {
 function render() {
   newItemForm.classList.add('inactive');
   newListForm.classList.add('inactive');
-  // hide button when page is full
-  if (lists.length > 16) {
-    newListBtn.classList.add('inactive');
-  } else {
-    newListBtn.classList.remove('inactive');
-  }
+  newListBtn.classList.remove('inactive');
+  newItemBtn.classList.remove('inactive');
+  checkLimits();
+  
   // Sort items by priority level
   const itemsHigh = items.filter(item => { if (item.priority == 'priority-high') return item });
   const itemsMed = items.filter(item => { if (item.priority == 'priority-med') return item });
@@ -247,10 +244,17 @@ function render() {
   itemsLow.sort((a,b) => new Date(a.date) - new Date(b.date));
   
   renderLists(lists, listsContainer);
-
   renderItems(itemsHigh, highPriority);
   renderItems(itemsMed, medPriority);
   renderItems(itemsLow, lowPriority);
+}
+
+function checkLimits() {
+  const MAX_LISTS = 16;
+  const MAX_ITEMS = 10;
+  // Disable new-* buttons when page is full
+  newItemBtn.disabled = (items.length >= MAX_ITEMS)
+  newListBtn.disabled = (lists.length >= MAX_LISTS)
 }
 
 function renderLists(lists = [], listsContainer) {
