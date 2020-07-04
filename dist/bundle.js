@@ -68362,9 +68362,9 @@ __webpack_require__.r(__webpack_exports__);
 
  //  TODO:       
 //        Responsive
-//        past dates. isYesterday()
-//        sort by date
 //        priority: none ??
+//        sort by date
+//        store as new Date ?
 //        sort into modules
 //        refactor // this??
 //        change fonts / colors?
@@ -68590,6 +68590,9 @@ function render() {
   const itemsLow = items.filter(item => {
     if (item.priority == 'priority-low') return item;
   });
+  itemsHigh.sort((a, b) => new Date(a.date) - new Date(b.date));
+  itemsMed.sort((a, b) => new Date(a.date) - new Date(b.date));
+  itemsLow.sort((a, b) => new Date(a.date) - new Date(b.date));
   renderItems(itemsHigh, highPriority);
   renderItems(itemsMed, medPriority);
   renderItems(itemsLow, lowPriority);

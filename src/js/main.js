@@ -3,8 +3,8 @@ import { renderDatePicker } from './datepicker';
 
 //  TODO:       
 //        Responsive
-//        sort by date
 //        priority: none ??
+//        store as new Date ?
 //        sort into modules
 //        refactor // this??
 //        change fonts / colors?
@@ -223,8 +223,7 @@ function deleteList(index) {
 
 // RENDER
 function render() {
-  renderLists(lists, listsContainer);
-
+  newItemForm.classList.add('inactive');
   newListForm.classList.add('inactive');
   // hide button when page is full
   if (lists.length > 16) {
@@ -232,12 +231,16 @@ function render() {
   } else {
     newListBtn.classList.remove('inactive');
   }
-
-  newItemForm.classList.add('inactive');
   // Sort items by priority level
   const itemsHigh = items.filter(item => { if (item.priority == 'priority-high') return item });
   const itemsMed = items.filter(item => { if (item.priority == 'priority-med') return item });
   const itemsLow = items.filter(item => { if (item.priority == 'priority-low') return item });
+  // Sort by date
+  itemsHigh.sort((a,b) => new Date(a.date) - new Date(b.date));
+  itemsMed.sort((a,b) => new Date(a.date) - new Date(b.date));
+  itemsLow.sort((a,b) => new Date(a.date) - new Date(b.date));
+  
+  renderLists(lists, listsContainer);
 
   renderItems(itemsHigh, highPriority);
   renderItems(itemsMed, medPriority);
