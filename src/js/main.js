@@ -1,14 +1,17 @@
-import { formatDistance, parse, differenceInDays, startOfDay } from 'date-fns';
+import { format, formatDistance, differenceInDays, startOfDay } from 'date-fns';
 import { renderDatePicker } from './datepicker';
 
 //  TODO:       
-//        Responsive
-//        priority: none ??
-//        store as new Date ?
-//        sort into modules
-//        refactor // this??
-//        change fonts / colors?
+//        getIdFromIndex / getIndexFromID / getID functions
 //        close edit form if another edit button is clicked. render?
+//        new item form overlaps items / set max items 10, hide btn
+//        priority: none
+//        refactor / modules? / this??
+//        Responsive
+//   Future:
+//        pagination ?
+//        change fonts / colors?
+//        set initial date in datePicker to item.date (need to learn react)
 
 // SELECTORS
 const newItemBtn = document.getElementById('new-item-btn');
@@ -98,7 +101,7 @@ function createNewItem(e) {
   e.preventDefault();
   const id = lists[currentList].nextID
   const title = (this.querySelector('#new-item-title')).value
-  const date = (this.querySelector('.date-picker')).value
+  const date = new Date((this.querySelector('.date-picker')).value)
   const priority = (this.querySelector('#new-item-priority')).value
   const item = {
     id,
@@ -115,8 +118,11 @@ function createNewItem(e) {
 
 // EDIT ITEM
 function editItem(id) {
-
-  renderDatePicker(document.querySelector(`.item-date-edit[data-item-id="${id}"]`));
+  const index = items.indexOf(items.find(item => item.id == id));
+  const datePickerDiv = document.querySelector(`.item-date-edit[data-item-id="${id}"]`);
+  renderDatePicker(datePickerDiv);
+  const datePickerInput = datePickerDiv.querySelector('.date-picker');
+  datePickerInput.value = format(new Date(items[index].date), 'MM-dd-yyyy');
   
   const itemEditForm = document.querySelector(`.item-edit-form[data-item-id="${id}"]`);
   const itemName = document.querySelector(`.item-title[data-item-id="${id}"]`)
@@ -297,14 +303,15 @@ function renderItems(items = [], container) {
 }
 
 function dueDate(itemDate) {
-  const date = parse(itemDate, 'MM-dd-yyyy', new Date());
-  const daysFromToday = differenceInDays(date, startOfDay(new Date()));
+  const date = new Date(itemDate);
+  const today = new Date();
+  const daysFromToday = differenceInDays(date, startOfDay(today));
 
   if (daysFromToday == -1) return "yesterday";
   if (daysFromToday == 0) return "today";
   //if (daysFromToday == 0) return "<b>today!</b>";
   if (daysFromToday == 1) return "tomorrow";
-  return formatDistance(date, startOfDay(new Date()),{ addSuffix: true });
+  return formatDistance(date, startOfDay(today),{ addSuffix: true });
 }
 
 ////////

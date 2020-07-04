@@ -34,10 +34,7 @@ class DueDatePicker extends React.Component {
 
 export function renderDatePicker(node) {
 
-  ReactDOM.render(
-    <DueDatePicker />,
-    node
-  );
+  ReactDOM.render(<DueDatePicker />,node);
 }
 
 //document.getElementById('date-picker')
