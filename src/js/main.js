@@ -2,13 +2,13 @@ import { format, formatDistance, differenceInDays, startOfDay } from 'date-fns';
 import { renderDatePicker } from './datepicker';
 
 //  TODO:       
-//        priority: none
 //        refactor / modules? / this??
 //        Responsive
-//   Future:
-//        pagination ?
-//        change fonts / colors?
-//        set initial date in datePicker to item.date (need to learn react)
+//   Future Plans:
+//        add custom priority levels
+//        add pagination
+//        add custom fonts / colors
+//        set initial date in datePicker popup to item.date (need to learn react)
 
 // SELECTORS
 const newItemBtn = document.getElementById('new-item-btn');
@@ -17,9 +17,6 @@ const newListForm = document.querySelector('.new-list-form');
 const newItemForm = document.querySelector('.new-item-form');
 const listsContainer = document.querySelector('.lists');
 const itemsContainer = document.querySelector('.todo-container');
-const highPriority = document.querySelector('.items-high');
-const medPriority = document.querySelector('.items-med');
-const lowPriority = document.querySelector('.items-low');
 
 // EVENT LISTENERS
 newItemBtn.addEventListener('click', showNewItemForm);
@@ -29,8 +26,8 @@ listsContainer.addEventListener('click', handleListsClick);
 
 // GLOBALS
 const lists = JSON.parse(localStorage.getItem('todo-lists')) || createDefaultList();
-let currentList = lists.indexOf(lists.find(list => list.active));
-let items = lists[currentList].items;
+const priorityLevels = ['none','high','med','low'];
+let items = lists[getCurrentList()].items;
 
 // HANDLE ITEMS CLICK
 function handleItemsClick(e) {
@@ -52,7 +49,7 @@ function handleListsClick(e) {
     const index = e.target.dataset.listId;
 
     if (e.target.matches('input')) {
-      if (index == currentList) return;
+      if (index == getCurrentList()) return;
       openList(index);
     } else {
       if (e.target.classList.contains('list-edit')) editList(index);
@@ -61,6 +58,14 @@ function handleListsClick(e) {
   }
 }
 
+// CURRENT LIST
+function getCurrentList() {
+  const currentList = lists.indexOf(lists.find(list => list.active));
+  // Default to first list if an active one not found
+  return (currentList == -1) ? 0 : currentList;
+}
+
+// ITEM INDEX
 function getIndexFromID(id) {
   return items.indexOf(items.find(item => item.id == id));
 }
@@ -78,11 +83,10 @@ function toggleItem(index) {
 }
 
 // OPEN LIST
-function openList(index) {
+function openList(index = 0) {
+  lists[getCurrentList()].active = false;
   lists[index].active = true;
-  lists[currentList].active = false;
-  currentList = index;
-  items = lists[currentList].items;
+  items = lists[index].items;
   update();
 }
 
@@ -100,7 +104,7 @@ function showNewItemForm() {
 // NEW ITEM
 function createNewItem(e) {
   e.preventDefault();
-  const id = lists[currentList].nextID
+  const id = lists[getCurrentList()].nextID
   const title = (this.querySelector('#new-item-title')).value
   const date = new Date((this.querySelector('.date-picker')).value)
   const priority = (this.querySelector('#new-item-priority')).value
@@ -112,7 +116,7 @@ function createNewItem(e) {
     done: false
   }
   items.push(item);
-  lists[currentList].nextID++;
+  lists[getCurrentList()].nextID++;
   update();
   this.reset();
 }
@@ -120,15 +124,15 @@ function createNewItem(e) {
 // EDIT ITEM
 function editItem(id) {
   const index = getIndexFromID(id);
-  const datePickerDiv = document.querySelector(`.item-date-edit[data-item-id="${id}"]`);
+  const datePickerDiv = itemsContainer.querySelector(`.item-date-edit[data-item-id="${id}"]`);
   renderDatePicker(datePickerDiv);
   const datePickerInput = datePickerDiv.querySelector('.date-picker');
   datePickerInput.value = format(new Date(items[index].date), 'MM-dd-yyyy');
   
-  const itemEditForm = document.querySelector(`.item-edit-form[data-item-id="${id}"]`);
-  const itemName = document.querySelector(`.item-title[data-item-id="${id}"]`)
-  const itemDate = document.querySelector(`.due-date[data-item-id="${id}"]`)
-  const cancel = document.querySelector(`.item-edit[data-item-id="${id}"]`)
+  const itemEditForm = itemsContainer.querySelector(`.item-edit-form[data-item-id="${id}"]`);
+  const itemName = itemsContainer.querySelector(`.item-title[data-item-id="${id}"]`)
+  const itemDate = itemsContainer.querySelector(`.due-date[data-item-id="${id}"]`)
+  const cancel = itemsContainer.querySelector(`.item-edit[data-item-id="${id}"]`)
 
   itemEditForm.classList.toggle('edit');
   itemName.classList.toggle('edit');
@@ -199,9 +203,9 @@ function createNewList(e) {
 
 // EDIT LIST
 function editList(index) {
-  const listEditForm = document.querySelector(`.list-edit-form[data-list-id="${index}"]`);
-  const listName = document.querySelector(`.list-name[data-list-id="${index}"]`)
-  const cancel = document.querySelector(`.list-edit[data-list-id="${index}"]`)
+  const listEditForm = listsContainer.querySelector(`.list-edit-form[data-list-id="${index}"]`);
+  const listName = listsContainer.querySelector(`.list-name[data-list-id="${index}"]`)
+  const cancel = listsContainer.querySelector(`.list-edit[data-list-id="${index}"]`)
 
   listEditForm.classList.toggle('edit');
   listName.classList.toggle('edit');
@@ -220,41 +224,47 @@ function editListSave(e) {
 
 // DELETE LIST
 function deleteList(index) {
-  if (confirm("Are you sure you want to delete this list and any items inside it?")) {
+  if (confirm(`Are you sure you want to delete ${lists[index].name}?\nAny items inside it will also be deleted!`)) {
+    const currentList = getCurrentList();
     lists.splice(index, 1);
-    update();
+    // Open first list if currentlist is deleted otherwise just update
+    (index == currentList) ? openList() : update();
   }
 }
 
 // RENDER
 function render() {
+  // Reset button/form status
   newItemForm.classList.add('inactive');
   newListForm.classList.add('inactive');
   newListBtn.classList.remove('inactive');
   newItemBtn.classList.remove('inactive');
+
+  // Check if page is full
   checkLimits();
-  
-  // Sort items by priority level
-  const itemsHigh = items.filter(item => { if (item.priority == 'priority-high') return item });
-  const itemsMed = items.filter(item => { if (item.priority == 'priority-med') return item });
-  const itemsLow = items.filter(item => { if (item.priority == 'priority-low') return item });
-  // Sort by date
-  itemsHigh.sort((a,b) => new Date(a.date) - new Date(b.date));
-  itemsMed.sort((a,b) => new Date(a.date) - new Date(b.date));
-  itemsLow.sort((a,b) => new Date(a.date) - new Date(b.date));
-  
+
+  // Render lists
   renderLists(lists, listsContainer);
-  renderItems(itemsHigh, highPriority);
-  renderItems(itemsMed, medPriority);
-  renderItems(itemsLow, lowPriority);
+
+  // Render items
+  priorityLevels.forEach(level => {
+    renderItems(sortItems(`priority-${level}`), itemsContainer.querySelector(`.items-${level}`))
+  })
 }
 
 function checkLimits() {
   const MAX_LISTS = 16;
   const MAX_ITEMS = 10;
-  // Disable new-* buttons when page is full
+  // Disable buttons when page is full
   newItemBtn.disabled = (items.length >= MAX_ITEMS)
   newListBtn.disabled = (lists.length >= MAX_LISTS)
+}
+
+function sortItems(priority) {
+  // Filter items by priority level
+  const filtered = items.filter(item => { if (item.priority == priority) return item });
+  // Sort by date
+  return filtered.sort((a,b) => new Date(a.date) - new Date(b.date));
 }
 
 function renderLists(lists = [], listsContainer) {
@@ -267,7 +277,7 @@ function renderLists(lists = [], listsContainer) {
         <input type="text" class="form-control form-control-sm list-name-edit" data-list-id="${i}" value="${list.name}" />
         <button type="submit" class="btn btn-sm btn-primary">Save</button>
       </form>
-      <i class="fas fa-trash list-controls list-delete" data-list-id="${i}"></i>
+      <i class="fas fa-trash list-controls list-delete ${ (lists.length == 1) ? 'only-list' : '' }" data-list-id="${i}"></i>
       <i class="fas fa-edit list-controls list-edit" data-list-id="${i}"></i>
     </li>
     `;
@@ -290,6 +300,7 @@ function renderItems(items = [], container) {
       <form class="item-edit-form" data-item-id="${id}">
         <input type="text" class="form-control form-control-sm item-name-edit" data-item-id="${id}" value="${item.title}" />
         <select class="form-control form-control-sm item-priority-edit" data-item-id="${id}">
+          <option value="priority-none" ${ (item.priority == 'priority-none') ? 'selected' : '' }>None</option>
           <option value="priority-high" ${ (item.priority == 'priority-high') ? 'selected' : '' }>High</option>
           <option value="priority-med" ${ (item.priority == 'priority-med') ? 'selected' : '' }>Medium</option>
           <option value="priority-low" ${ (item.priority == 'priority-low') ? 'selected' : '' }>Low</option>

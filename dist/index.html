@@ -40,6 +40,8 @@
         <ul class="items-med"></ul>
         <span class="priority priority-low">Low Priority</span>
         <ul class="items-low"></ul>
+        <span class="priority priority-none">No Priority</span>
+        <ul class="items-none"></ul>
       </div>
 
       <div class="controls">
@@ -51,14 +53,16 @@
           </div>
           <div class="form-row">
             <div class="form-group col">
-              <label for="form-due-date">Due Date</label>
+              <!-- <label for="form-due-date">Due Date</label> -->
               <div id="date-picker"></div>
             </div>
             <div class="form-goup col">
-              <label for="form-priority">Priority</label>
+              <!-- <label for="form-priority">Priority</label> -->
               <select class="form-control form-control-sm" id="new-item-priority">
+                <option value="priority-none" selected disabled hidden>--Priority--</option>
+                <option value="priority-none">None</option>
                 <option value="priority-high">High</option>
-                <option value="priority-med" selected>Medium</option>
+                <option value="priority-med">Medium</option>
                 <option value="priority-low">Low</option>
               </select>
             </div>
