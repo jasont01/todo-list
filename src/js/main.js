@@ -1,12 +1,8 @@
 import { formatDistance, parse, differenceInDays, startOfDay } from 'date-fns';
 import { renderDatePicker } from './datepicker';
 
-//  TODO:
-//        show /hide forms
-//        edit buttons
-//        delete list: confirmation / warning that all items inside list will be deleted
+//  TODO:       
 //        Responsive
-//        past dates. isYesterday()
 //        sort by date
 //        priority: none ??
 //        sort into modules
@@ -18,6 +14,7 @@ import { renderDatePicker } from './datepicker';
 const newItemBtn = document.getElementById('new-item-btn');
 const newListBtn = document.getElementById('new-list-btn');
 const newListForm = document.querySelector('.new-list-form');
+const newItemForm = document.querySelector('.new-item-form');
 const listsContainer = document.querySelector('.lists');
 const itemsContainer = document.querySelector('.todo-container');
 const highPriority = document.querySelector('.items-high');
@@ -87,26 +84,22 @@ function openList(index) {
 
 // SHOW NEW ITEM FORM
 function showNewItemForm() {
-  const newItemForm = document.querySelector('.new-item-form');
   const cancelNewItemBtn = document.getElementById('new-item-cancel');
   newItemForm.addEventListener('submit', createNewItem);
-  cancelNewItemBtn.addEventListener('click', hideNewItemForm);
-}
+  cancelNewItemBtn.addEventListener('click', render);
 
-// HIDE NEW ITEM FORM
-function hideNewItemForm() {
-
+  newItemForm.classList.toggle('inactive');
+  //newItemBtn.classList.toggle('inactive');
+  document.getElementById('new-item-title').focus();
 }
 
 // NEW ITEM
 function createNewItem(e) {
   e.preventDefault();
-
   const id = lists[currentList].nextID
   const title = (this.querySelector('#new-item-title')).value
   const date = (this.querySelector('.date-picker')).value
   const priority = (this.querySelector('#new-item-priority')).value
-
   const item = {
     id,
     title,
@@ -114,13 +107,10 @@ function createNewItem(e) {
     priority,
     done: false
   }
-
   items.push(item);
   lists[currentList].nextID++;
   update();
   this.reset();
-
-  hideNewItemForm();
 }
 
 // EDIT ITEM
@@ -225,8 +215,10 @@ function editListSave(e) {
 
 // DELETE LIST
 function deleteList(index) {
-  lists.splice(index, 1);
-  update();
+  if (confirm("Are you sure? This will also delete any items inside this list.")) {
+    lists.splice(index, 1);
+    update();
+  }
 }
 
 // RENDER
@@ -241,6 +233,7 @@ function render() {
     newListBtn.classList.remove('inactive');
   }
 
+  newItemForm.classList.add('inactive');
   // Sort items by priority level
   const itemsHigh = items.filter(item => { if (item.priority == 'priority-high') return item });
   const itemsMed = items.filter(item => { if (item.priority == 'priority-med') return item });
@@ -304,11 +297,11 @@ function dueDate(itemDate) {
   const date = parse(itemDate, 'MM-dd-yyyy', new Date());
   const daysFromToday = differenceInDays(date, startOfDay(new Date()));
 
-  if (daysFromToday > 1) return formatDistance(date, startOfDay(new Date()));
-  if (daysFromToday == 1) return "tomorrow";
-  //if (daysFromToday == 0) return "<b>today!</b>";
+  if (daysFromToday == -1) return "yesterday";
   if (daysFromToday == 0) return "today";
-  
+  //if (daysFromToday == 0) return "<b>today!</b>";
+  if (daysFromToday == 1) return "tomorrow";
+  return formatDistance(date, startOfDay(new Date()),{ addSuffix: true });
 }
 
 ////////
