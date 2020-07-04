@@ -26,14 +26,18 @@ class DueDatePicker extends React.Component {
         onChange={this.handleChange}
         minDate={new Date()}
         dateFormat="MM-dd-yyyy"
-        className="form-control form-control-sm"
-        id="new-item-date"
+        className="form-control form-control-sm date-picker"
       />
     );
   }
 }
 
-ReactDOM.render(
-  <DueDatePicker />,
-  document.getElementById('date-picker')
-);
+export function renderDatePicker(node) {
+
+  ReactDOM.render(
+    <DueDatePicker />,
+    node
+  );
+}
+
+//document.getElementById('date-picker')

@@ -2,8 +2,8 @@
 .todo-container {
   position: absolute;
   top: 120px;
-  right: 10px;
-  width: 470px;
+  //right: 10px;
+  width: 480px;
   height: 480px;
   //background: rgba(218, 165, 32, 0.445);
 
@@ -16,16 +16,41 @@
       font-family: "Nanum Pen Script", cursive;
       font-size: 1.5em;
 
+      .item-title.edit {
+        display: none;
+      }
+
       .item-title.done {
         text-decoration: line-through;
+      }
+
+      .item-edit-form {
+        display: none;
+        position: absolute;
+        left: 30px;
+
+        &.edit{
+          display: inline-flex;
+        }
+      }
+
+      .item-priority-edit {
+        width: 40%;
       }
 
       .due-date {
         float: right;
         margin-right: 20px;
+        &.edit {
+          display: none;
+        }
         b {
           color: red;
         }
+      }
+
+      .item-date-edit {
+        line-height: 1em;
       }
 
       i {
@@ -33,9 +58,16 @@
         line-height: 2em;
         float: right;
         margin-right: 20px;
+
+        &.item-edit.edit::before {
+          content: "\f410";
+        }
       }
+
     }
   }
+
+  // Priority Headers
   .priority {
     display: none;
     text-align: center;

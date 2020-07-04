@@ -17,6 +17,7 @@
     user-select: none;
     list-style: none;
     padding-left: 0px;
+    margin-bottom: 10px;
 
     .list {
       font-weight: 300;
@@ -59,7 +60,6 @@
       
       .list-edit-form {
         display: none;
-        //position: absolute;
 
         &.edit {
           display: inline-flex;

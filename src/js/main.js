@@ -1,4 +1,5 @@
 import { formatDistance, parse, differenceInDays, startOfDay } from 'date-fns';
+import { renderDatePicker } from './datepicker';
 
 //  TODO:
 //        show /hide forms
@@ -10,6 +11,8 @@ import { formatDistance, parse, differenceInDays, startOfDay } from 'date-fns';
 //        priority: none ??
 //        sort into modules
 //        refactor // this??
+//        change fonts / colors?
+//        close edit form if another edit button is clicked. render?
 
 // SELECTORS
 const newItemBtn = document.getElementById('new-item-btn');
@@ -34,13 +37,13 @@ let items = lists[currentList].items;
 
 // HANDLE ITEMS CLICK
 function handleItemsClick(e) {
-  if (e.target.matches('input') || (e.target.matches('i'))) {
+  if (e.target.matches('input[type="checkbox"') || (e.target.matches('i'))) {
     const id = e.target.dataset.itemId;
     const index = items.indexOf(items.find(item => item.id == id));
     if (e.target.matches('input')) {
       toggleItem(index);
     } else {
-      if (e.target.classList.contains('item-edit')) editItem(index);
+      if (e.target.classList.contains('item-edit')) editItem(id);
       if (e.target.classList.contains('item-delete')) deleteItem(index);
     }
   }
@@ -101,7 +104,7 @@ function createNewItem(e) {
 
   const id = lists[currentList].nextID
   const title = (this.querySelector('#new-item-title')).value
-  const date = (this.querySelector('#new-item-date')).value
+  const date = (this.querySelector('.date-picker')).value
   const priority = (this.querySelector('#new-item-priority')).value
 
   const item = {
@@ -121,8 +124,36 @@ function createNewItem(e) {
 }
 
 // EDIT ITEM
-function editItem(index) {
+function editItem(id) {
 
+  renderDatePicker(document.querySelector(`.item-date-edit[data-item-id="${id}"]`));
+  
+  const itemEditForm = document.querySelector(`.item-edit-form[data-item-id="${id}"]`);
+  const itemName = document.querySelector(`.item-title[data-item-id="${id}"]`)
+  const itemDate = document.querySelector(`.due-date[data-item-id="${id}"]`)
+  const cancel = document.querySelector(`.item-edit[data-item-id="${id}"]`)
+
+  itemEditForm.classList.toggle('edit');
+  itemName.classList.toggle('edit');
+  itemDate.classList.toggle('edit');
+  cancel.classList.toggle('edit');
+  
+  itemEditForm.addEventListener('submit', editItemSave);
+}
+
+function editItemSave(e) {
+  e.preventDefault();
+  const title = (this.querySelector('.item-name-edit')).value;
+  const date = (this.querySelector('.date-picker')).value;
+  const priority = (this.querySelector('.item-priority-edit')).value;
+
+  const id = this.dataset.itemId;
+  const index = items.indexOf(items.find(item => item.id == id));
+  items[index].title = title;
+  items[index].date = date;
+  items[index].priority = priority;
+
+  update();
 }
 
 // DELETE ITEM
@@ -185,7 +216,6 @@ function editList(index) {
 
 function editListSave(e) {
   e.preventDefault();
-  console.log(e);
   const name = (this.querySelector('.list-name-edit')).value;
   const index = this.dataset.listId;
   lists[index].name = name;
@@ -225,14 +255,14 @@ function renderLists(lists = [], listsContainer) {
   listsContainer.innerHTML = lists.map((list, i) => {
     return `
     <li class="list list-${i}">
-    <input type="radio" name="list-radio" id="list${i}" data-list-id="${i}" ${(list.active) ? 'checked' : ''} />
-    <label for="list${i}" class="list-name" data-list-id="${i}">${list.name}</label>
-    <form class="list-edit-form" data-list-id="${i}">
-    <input type="text" class="form-control form-control-sm list-name-edit" data-list-id="${i}" value="${list.name}" />
-    <button type="submit" class="btn btn-sm btn-primary">Save</button>
-    </form>
-    <i class="fas fa-trash list-controls list-delete" data-list-id="${i}"></i>
-    <i class="fas fa-edit list-controls list-edit" data-list-id="${i}"></i>
+      <input type="radio" name="list-radio" id="list${i}" data-list-id="${i}" ${(list.active) ? 'checked' : ''} />
+      <label for="list${i}" class="list-name" data-list-id="${i}">${list.name}</label>
+      <form class="list-edit-form" data-list-id="${i}">
+        <input type="text" class="form-control form-control-sm list-name-edit" data-list-id="${i}" value="${list.name}" />
+        <button type="submit" class="btn btn-sm btn-primary">Save</button>
+      </form>
+      <i class="fas fa-trash list-controls list-delete" data-list-id="${i}"></i>
+      <i class="fas fa-edit list-controls list-edit" data-list-id="${i}"></i>
     </li>
     `;
   }).join('');
@@ -247,13 +277,23 @@ function renderItems(items = [], container) {
 
     const html = `
     <li>
-    <div class="squaredThree">
-    <input type="checkbox" id="item-check${id}" data-item-id="${id}" ${(item.done) ? 'checked' : ''} />
-    <label for="item-check${id}" class="item-title ${(item.done) ? 'done' : ''}" data-item-id="${id}">${item.title}</label>
-    </div>
-    <i class="fas fa-trash item-delete" data-item-id="${id}"></i>
-    <i class="fas fa-edit item-edit" data-item-id="${id}"></i>
-    <span class="due-date">${date}</span>
+      <div class="squaredThree">
+        <input type="checkbox" id="item-check${id}" data-item-id="${id}" ${(item.done) ? 'checked' : ''} />
+        <label for="item-check${id}" class="item-title ${(item.done) ? 'done' : ''}" data-item-id="${id}">${item.title}</label>
+      </div>
+      <form class="item-edit-form" data-item-id="${id}">
+        <input type="text" class="form-control form-control-sm item-name-edit" data-item-id="${id}" value="${item.title}" />
+        <select class="form-control form-control-sm item-priority-edit" data-item-id="${id}">
+          <option value="priority-high" ${ (item.priority == 'priority-high') ? 'selected' : '' }>High</option>
+          <option value="priority-med" ${ (item.priority == 'priority-med') ? 'selected' : '' }>Medium</option>
+          <option value="priority-low" ${ (item.priority == 'priority-low') ? 'selected' : '' }>Low</option>
+        </select>
+        <div class="item-date-edit" data-item-id="${id}"></div>
+        <button type="submit" class="btn btn-sm btn-primary">Save</button>
+      </form>
+      <i class="fas fa-trash item-delete" data-item-id="${id}"></i>
+      <i class="fas fa-edit item-edit" data-item-id="${id}"></i>
+      <span class="due-date" data-item-id="${id}">${date}</span>
     </li>
     `;
     return html;
@@ -273,3 +313,4 @@ function dueDate(itemDate) {
 
 ////////
 render();
+renderDatePicker(document.getElementById('date-picker'));
