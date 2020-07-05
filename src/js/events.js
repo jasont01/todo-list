@@ -1,7 +1,7 @@
 import { domSelectors } from './dom';
 import { itemsController } from './items';
 import { listsController } from './lists';
-import { displayController } from './render';
+import { displayController } from './display';
 
 const eventHandler = (() => {
 
@@ -40,7 +40,7 @@ const eventHandler = (() => {
       const index = e.target.dataset.listId;
 
       if (e.target.matches('input')) {
-        if (index == listsController.getCurrentList()) return;
+        if (index == listsController.getCurrentListIndex()) return;
         listsController.openList(index);
       } else {
         if (e.target.classList.contains('list-edit')) displayController.showEditList(index);

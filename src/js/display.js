@@ -1,8 +1,9 @@
 import { format, formatDistance, differenceInDays, startOfDay } from 'date-fns';
 import { renderDatePicker } from './datepicker';
-import { domSelectors } from './dom';
+import { storageController } from './storage';
 import { listsController } from './lists';
 import { itemsController } from './items';
+import { domSelectors } from './dom';
 
 
 const displayController = (() => {
@@ -12,8 +13,9 @@ const displayController = (() => {
   
   // RENDER
   function render() {
-    const lists = listsController.getLists();
-    const items = itemsController.getItems();
+    const lists = storageController.getLists();
+    const currentList = listsController.getCurrentList();
+    const items = currentList.items;
 
     // Reset button/form status
     domSelectors.newItemForm.classList.add('inactive');
@@ -87,7 +89,7 @@ const displayController = (() => {
         <option value="priority-med" ${ (item.priority == 'priority-med') ? 'selected' : ''}>Medium</option>
         <option value="priority-low" ${ (item.priority == 'priority-low') ? 'selected' : ''}>Low</option>
       </select>
-      <div class="item-date-edit" data-item-id="${id}"></div>
+      <div class="item-date-edit" data-item-id="${id}" data-item-date="${format(new Date(item.date), 'MM-dd-yyyy')}"></div>
       <button type="submit" class="btn btn-sm btn-primary">Save</button>
     </form>
     <i class="fas fa-trash item-delete" data-item-id="${id}"></i>
@@ -142,11 +144,10 @@ const displayController = (() => {
 
   // SHOW EDIT ITEM
   function showEditItem(id) {
-    const index = getIndexFromID(id);
     const datePickerDiv = domSelectors.itemsContainer.querySelector(`.item-date-edit[data-item-id="${id}"]`);
     renderDatePicker(datePickerDiv);
     const datePickerInput = datePickerDiv.querySelector('.date-picker');
-    datePickerInput.value = format(new Date(items[index].date), 'MM-dd-yyyy');
+    datePickerInput.value = datePickerDiv.dataset.itemDate;
 
     const itemEditForm = domSelectors.itemsContainer.querySelector(`.item-edit-form[data-item-id="${id}"]`);
     const itemName = domSelectors.itemsContainer.querySelector(`.item-title[data-item-id="${id}"]`);

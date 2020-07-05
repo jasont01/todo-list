@@ -68348,339 +68348,10 @@ function renderDatePicker(node) {
 
 /***/ }),
 
-/***/ "./src/js/dom.js":
-/*!***********************!*\
-  !*** ./src/js/dom.js ***!
-  \***********************/
-/*! exports provided: domSelectors */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "domSelectors", function() { return domSelectors; });
-// SELECTORS
-const domSelectors = (() => {
-  const newItemBtn = document.getElementById('new-item-btn');
-  const newListBtn = document.getElementById('new-list-btn');
-  const newListForm = document.querySelector('.new-list-form');
-  const newItemForm = document.querySelector('.new-item-form');
-  const listsContainer = document.querySelector('.lists');
-  const itemsContainer = document.querySelector('.todo-container');
-  const cancelNewItemBtn = document.getElementById('new-item-cancel');
-  const cancelNewListBtn = document.getElementById('new-list-cancel');
-  return {
-    newItemBtn,
-    newListBtn,
-    newListForm,
-    newItemForm,
-    listsContainer,
-    itemsContainer,
-    cancelNewItemBtn,
-    cancelNewListBtn
-  };
-})();
-
-
-
-/***/ }),
-
-/***/ "./src/js/events.js":
-/*!**************************!*\
-  !*** ./src/js/events.js ***!
-  \**************************/
-/*! exports provided: eventHandler */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eventHandler", function() { return eventHandler; });
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/js/dom.js");
-/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./items */ "./src/js/items.js");
-/* harmony import */ var _lists__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lists */ "./src/js/lists.js");
-/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./render */ "./src/js/render.js");
-
-
-
-
-
-const eventHandler = (() => {
-  const initialize = () => {
-    // EVENT LISTENERS
-    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].itemsContainer.addEventListener('click', itemClick);
-    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].listsContainer.addEventListener('click', listClick);
-    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].newItemBtn.addEventListener('click', _render__WEBPACK_IMPORTED_MODULE_3__["displayController"].showNewItemForm);
-    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].newListBtn.addEventListener('click', _render__WEBPACK_IMPORTED_MODULE_3__["displayController"].showNewListForm);
-    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].newItemForm.addEventListener('submit', _items__WEBPACK_IMPORTED_MODULE_1__["itemsController"].newItem);
-    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].newListForm.addEventListener('submit', _lists__WEBPACK_IMPORTED_MODULE_2__["listsController"].newList);
-    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].cancelNewItemBtn.addEventListener('click', _render__WEBPACK_IMPORTED_MODULE_3__["displayController"].render);
-    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].cancelNewListBtn.addEventListener('click', _render__WEBPACK_IMPORTED_MODULE_3__["displayController"].render);
-    _render__WEBPACK_IMPORTED_MODULE_3__["displayController"].render();
-  }; // HANDLE ITEMS CLICK
-
-
-  function itemClick(e) {
-    if (e.target.matches('input[type="checkbox"') || e.target.matches('i')) {
-      const id = e.target.dataset.itemId;
-
-      if (e.target.matches('input')) {
-        _items__WEBPACK_IMPORTED_MODULE_1__["itemsController"].toggleItem(id);
-      } else {
-        if (e.target.classList.contains('item-edit')) _render__WEBPACK_IMPORTED_MODULE_3__["displayController"].showEditItem(id);
-        if (e.target.classList.contains('item-delete')) _items__WEBPACK_IMPORTED_MODULE_1__["itemsController"].deleteItem(id);
-      }
-    }
-  } // HANDLE LISTS CLICK
-
-
-  function listClick(e) {
-    if (e.target.matches('input[type="radio"]') || e.target.matches('i')) {
-      const index = e.target.dataset.listId;
-
-      if (e.target.matches('input')) {
-        if (index == _lists__WEBPACK_IMPORTED_MODULE_2__["listsController"].getCurrentList()) return;
-        _lists__WEBPACK_IMPORTED_MODULE_2__["listsController"].openList(index);
-      } else {
-        if (e.target.classList.contains('list-edit')) _render__WEBPACK_IMPORTED_MODULE_3__["displayController"].showEditList(index);
-        if (e.target.classList.contains('list-delete')) _lists__WEBPACK_IMPORTED_MODULE_2__["listsController"].deleteList(index);
-      }
-    }
-  } //function clearEdits() {
-  //  Array.from(document.getElementsByClassName('edit')).forEach(node => {
-  //    node.classList.remove('edit');
-  //  });
-  //}
-
-
-  return {
-    initialize
-  };
-})();
-
-
-
-/***/ }),
-
-/***/ "./src/js/items.js":
-/*!*************************!*\
-  !*** ./src/js/items.js ***!
-  \*************************/
-/*! exports provided: itemsController */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "itemsController", function() { return itemsController; });
-/* harmony import */ var _lists__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lists */ "./src/js/lists.js");
-
-
-const itemsController = (() => {
-  const items = getItems();
-
-  function getItems() {
-    const currentList = _lists__WEBPACK_IMPORTED_MODULE_0__["listsController"].getCurrentList();
-    const lists = _lists__WEBPACK_IMPORTED_MODULE_0__["listsController"].getLists();
-    return lists[currentList].items;
-  } // ITEM INDEX
-
-
-  function getIndexFromID(id) {
-    //const items = getItems();
-    const item = items.find(item => item.id == id);
-    return items.indexOf(item);
-  }
-
-  function updateItems() {
-    _lists__WEBPACK_IMPORTED_MODULE_0__["listsController"].updateCurrentList(items);
-  } // TOGGLE ITEM DONE
-
-
-  function toggleItem(id) {
-    const index = getIndexFromID(id); //const items = getItems();
-
-    items[index].done = !items[index].done;
-    updateItems();
-  } // NEW ITEM
-
-
-  function newItem(e) {
-    e.preventDefault(); //const id = lists[listsController.getCurrentList()].nextID
-
-    const id = _lists__WEBPACK_IMPORTED_MODULE_0__["listsController"].getNextID();
-    const title = this.querySelector('#new-item-title').value;
-    const date = new Date(this.querySelector('.date-picker').value);
-    const priority = this.querySelector('#new-item-priority').value;
-    const item = {
-      id,
-      title,
-      date,
-      priority,
-      done: false
-    }; //const items = getItems();
-
-    items.push(item);
-    _lists__WEBPACK_IMPORTED_MODULE_0__["listsController"].incrementID();
-    updateItems();
-    this.reset();
-  } // EDIT ITEM
-
-
-  function editItem(e) {
-    e.preventDefault();
-    const title = this.querySelector('.item-name-edit').value;
-    const date = this.querySelector('.date-picker').value;
-    const priority = this.querySelector('.item-priority-edit').value;
-    const id = this.dataset.itemId;
-    const index = getIndexFromID(id);
-    items[index].title = title;
-    items[index].date = date;
-    items[index].priority = priority;
-    updateItems();
-  } // DELETE ITEM
-
-
-  function deleteItem(id) {
-    //const items = getItems();
-    const index = getIndexFromID(id);
-    items.splice(index, 1);
-    updateItems();
-  }
-
-  return {
-    getItems,
-    toggleItem,
-    newItem,
-    editItem,
-    deleteItem
-  };
-})();
-
-
-
-/***/ }),
-
-/***/ "./src/js/lists.js":
-/*!*************************!*\
-  !*** ./src/js/lists.js ***!
-  \*************************/
-/*! exports provided: listsController */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listsController", function() { return listsController; });
-/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./render */ "./src/js/render.js");
-
-
-const listsController = (() => {
-  const lists = getLists();
-
-  function getLists() {
-    return JSON.parse(localStorage.getItem('todo-lists')) || createDefaultList();
-  } // UPDATE
-
-
-  function update() {
-    localStorage.setItem('todo-lists', JSON.stringify(lists));
-    _render__WEBPACK_IMPORTED_MODULE_0__["displayController"].render();
-  }
-
-  function updateCurrentList(items) {
-    const currentList = getCurrentList();
-    lists[currentList].items = items;
-    update();
-  } // CURRENT LIST
-
-
-  function getCurrentList() {
-    const currentList = lists.indexOf(lists.find(list => list.active)); // Default to first list if an active one not found
-
-    return currentList == -1 ? 0 : currentList;
-  }
-
-  function getNextID() {
-    const id = lists[getCurrentList()].nextID;
-    return id + 1;
-  }
-
-  function incrementID() {
-    lists[getCurrentList()].nextID++;
-  } // OPEN LIST
-
-
-  function openList(index = 0) {
-    lists[getCurrentList()].active = false;
-    lists[index].active = true;
-    update();
-  } // DEFAULT LIST
-
-
-  function createDefaultList() {
-    const defaultArray = [];
-    const defaultList = {
-      name: "Default List",
-      items: [],
-      nextID: 0,
-      active: true
-    };
-    defaultArray.push(defaultList);
-    return defaultArray;
-  } // NEW LIST
-
-
-  function newList(e) {
-    e.preventDefault();
-    const name = this.querySelector('#new-list-name').value;
-    const list = {
-      name,
-      items: [],
-      nextID: 0,
-      active: false
-    };
-    lists.push(list);
-    update();
-    this.reset();
-  } // EDIT LIST
-
-
-  function editList(e) {
-    e.preventDefault();
-    const name = this.querySelector('.list-name-edit').value;
-    const index = this.dataset.listId;
-    lists[index].name = name;
-    update();
-  } // DELETE LIST
-
-
-  function deleteList(index) {
-    if (confirm(`Are you sure you want to delete ${lists[index].name}?\nAny items inside it will also be deleted!`)) {
-      const currentList = getCurrentList();
-      lists.splice(index, 1); // Open first list if currentlist is deleted otherwise just update
-
-      index == currentList ? openList() : update();
-    }
-  }
-
-  return {
-    getLists,
-    updateCurrentList,
-    getCurrentList,
-    incrementID,
-    getNextID,
-    openList,
-    newList,
-    editList,
-    deleteList
-  };
-})();
-
-
-
-/***/ }),
-
-/***/ "./src/js/render.js":
-/*!**************************!*\
-  !*** ./src/js/render.js ***!
-  \**************************/
+/***/ "./src/js/display.js":
+/*!***************************!*\
+  !*** ./src/js/display.js ***!
+  \***************************/
 /*! exports provided: displayController */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -68689,9 +68360,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "displayController", function() { return displayController; });
 /* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/index.js");
 /* harmony import */ var _datepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./datepicker */ "./src/js/datepicker.js");
-/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dom */ "./src/js/dom.js");
+/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./storage */ "./src/js/storage.js");
 /* harmony import */ var _lists__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lists */ "./src/js/lists.js");
 /* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./items */ "./src/js/items.js");
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dom */ "./src/js/dom.js");
+
 
 
 
@@ -68703,21 +68376,22 @@ const displayController = (() => {
   const priorityLevels = ['none', 'high', 'med', 'low']; // RENDER
 
   function render() {
-    const lists = _lists__WEBPACK_IMPORTED_MODULE_3__["listsController"].getLists();
-    const items = _items__WEBPACK_IMPORTED_MODULE_4__["itemsController"].getItems(); // Reset button/form status
+    const lists = _storage__WEBPACK_IMPORTED_MODULE_2__["storageController"].getLists();
+    const currentList = _lists__WEBPACK_IMPORTED_MODULE_3__["listsController"].getCurrentList();
+    const items = currentList.items; // Reset button/form status
 
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].newItemForm.classList.add('inactive');
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].newListForm.classList.add('inactive');
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].newListBtn.classList.remove('inactive');
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].newItemBtn.classList.remove('inactive'); // Disable buttons when page is full
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].newItemForm.classList.add('inactive');
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].newListForm.classList.add('inactive');
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].newListBtn.classList.remove('inactive');
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].newItemBtn.classList.remove('inactive'); // Disable buttons when page is full
 
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].newItemBtn.disabled = items.length >= 10;
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].newListBtn.disabled = lists.length >= 16; // Render lists
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].newItemBtn.disabled = items.length >= 10;
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].newListBtn.disabled = lists.length >= 16; // Render lists
 
-    renderLists(lists, _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].listsContainer); // Render items
+    renderLists(lists, _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].listsContainer); // Render items
 
     priorityLevels.forEach(level => {
-      renderItems(sortItems(items, `priority-${level}`), _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].itemsContainer.querySelector(`.items-${level}`));
+      renderItems(sortItems(items, `priority-${level}`), _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].itemsContainer.querySelector(`.items-${level}`));
     }); // Hide priority header if all items are priority-none
 
     const priorityNone = items.every(item => {
@@ -68725,7 +68399,7 @@ const displayController = (() => {
     });
 
     if (priorityNone) {
-      _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].itemsContainer.querySelector('.priority-none').style.display = "none";
+      _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].itemsContainer.querySelector('.priority-none').style.display = "none";
     }
 
     ;
@@ -68777,7 +68451,7 @@ const displayController = (() => {
         <option value="priority-med" ${item.priority == 'priority-med' ? 'selected' : ''}>Medium</option>
         <option value="priority-low" ${item.priority == 'priority-low' ? 'selected' : ''}>Low</option>
       </select>
-      <div class="item-date-edit" data-item-id="${id}"></div>
+      <div class="item-date-edit" data-item-id="${id}" data-item-date="${Object(date_fns__WEBPACK_IMPORTED_MODULE_0__["format"])(new Date(item.date), 'MM-dd-yyyy')}"></div>
       <button type="submit" class="btn btn-sm btn-primary">Save</button>
     </form>
     <i class="fas fa-trash item-delete" data-item-id="${id}"></i>
@@ -68805,47 +68479,48 @@ const displayController = (() => {
 
   function showNewItemForm() {
     Object(_datepicker__WEBPACK_IMPORTED_MODULE_1__["renderDatePicker"])(document.getElementById('date-picker'));
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].newItemForm.classList.remove('inactive');
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].newItemBtn.classList.add('inactive');
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].newItemForm.classList.remove('inactive');
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].newItemBtn.classList.add('inactive');
     document.getElementById('new-item-title').focus();
   } // SHOW NEW LIST FORM
 
 
   function showNewListForm() {
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].newListForm.classList.toggle('inactive');
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].newListBtn.classList.toggle('inactive');
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].newListForm.classList.toggle('inactive');
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].newListBtn.classList.toggle('inactive');
     document.getElementById('new-list-name').focus();
   } // SHOW EDIT LIST
 
 
   function showEditList(index) {
-    const listEditForm = _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].listsContainer.querySelector(`.list-edit-form[data-list-id="${index}"]`);
-    const listName = _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].listsContainer.querySelector(`.list-name[data-list-id="${index}"]`);
-    const cancel = _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].listsContainer.querySelector(`.list-edit[data-list-id="${index}"]`);
+    const listEditForm = _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].listsContainer.querySelector(`.list-edit-form[data-list-id="${index}"]`);
+    const listName = _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].listsContainer.querySelector(`.list-name[data-list-id="${index}"]`);
+    const cancel = _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].listsContainer.querySelector(`.list-edit[data-list-id="${index}"]`);
     listEditForm.classList.toggle('edit');
     listName.classList.toggle('edit');
     cancel.classList.toggle('edit');
     listEditForm.addEventListener('submit', _lists__WEBPACK_IMPORTED_MODULE_3__["listsController"].editList);
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].listsContainer.querySelector(`.list-name-edit[data-list-id="${index}"]`).select();
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].listsContainer.querySelector(`.list-name-edit[data-list-id="${index}"]`).select();
   } // SHOW EDIT ITEM
 
 
   function showEditItem(id) {
-    const index = getIndexFromID(id);
-    const datePickerDiv = _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].itemsContainer.querySelector(`.item-date-edit[data-item-id="${id}"]`);
+    //const index = itemsController.getIndexFromID(id);
+    const datePickerDiv = _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].itemsContainer.querySelector(`.item-date-edit[data-item-id="${id}"]`);
     Object(_datepicker__WEBPACK_IMPORTED_MODULE_1__["renderDatePicker"])(datePickerDiv);
-    const datePickerInput = datePickerDiv.querySelector('.date-picker');
-    datePickerInput.value = Object(date_fns__WEBPACK_IMPORTED_MODULE_0__["format"])(new Date(items[index].date), 'MM-dd-yyyy');
-    const itemEditForm = _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].itemsContainer.querySelector(`.item-edit-form[data-item-id="${id}"]`);
-    const itemName = _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].itemsContainer.querySelector(`.item-title[data-item-id="${id}"]`);
-    const itemDate = _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].itemsContainer.querySelector(`.due-date[data-item-id="${id}"]`);
-    const cancel = _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].itemsContainer.querySelector(`.item-edit[data-item-id="${id}"]`);
+    const datePickerInput = datePickerDiv.querySelector('.date-picker'); //datePickerInput.value = format(new Date(items[index].date), 'MM-dd-yyyy');
+
+    datePickerInput.value = datePickerDiv.dataset.itemDate;
+    const itemEditForm = _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].itemsContainer.querySelector(`.item-edit-form[data-item-id="${id}"]`);
+    const itemName = _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].itemsContainer.querySelector(`.item-title[data-item-id="${id}"]`);
+    const itemDate = _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].itemsContainer.querySelector(`.due-date[data-item-id="${id}"]`);
+    const cancel = _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].itemsContainer.querySelector(`.item-edit[data-item-id="${id}"]`);
     itemEditForm.classList.toggle('edit');
     itemName.classList.toggle('edit');
     itemDate.classList.toggle('edit');
     cancel.classList.toggle('edit');
     itemEditForm.addEventListener('submit', _items__WEBPACK_IMPORTED_MODULE_4__["itemsController"].editItem);
-    _dom__WEBPACK_IMPORTED_MODULE_2__["domSelectors"].itemsContainer.querySelector(`.item-name-edit[data-item-id="${id}"]`).select();
+    _dom__WEBPACK_IMPORTED_MODULE_5__["domSelectors"].itemsContainer.querySelector(`.item-name-edit[data-item-id="${id}"]`).select();
   }
 
   return {
@@ -68854,6 +68529,364 @@ const displayController = (() => {
     showNewListForm,
     showEditList,
     showEditItem
+  };
+})();
+
+
+
+/***/ }),
+
+/***/ "./src/js/dom.js":
+/*!***********************!*\
+  !*** ./src/js/dom.js ***!
+  \***********************/
+/*! exports provided: domSelectors */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "domSelectors", function() { return domSelectors; });
+// SELECTORS
+const domSelectors = (() => {
+  const newItemBtn = document.getElementById('new-item-btn');
+  const newListBtn = document.getElementById('new-list-btn');
+  const newListForm = document.querySelector('.new-list-form');
+  const newItemForm = document.querySelector('.new-item-form');
+  const listsContainer = document.querySelector('.lists');
+  const itemsContainer = document.querySelector('.todo-container');
+  const cancelNewItemBtn = document.getElementById('new-item-cancel');
+  const cancelNewListBtn = document.getElementById('new-list-cancel');
+  return {
+    newItemBtn,
+    newListBtn,
+    newListForm,
+    newItemForm,
+    listsContainer,
+    itemsContainer,
+    cancelNewItemBtn,
+    cancelNewListBtn
+  };
+})();
+
+
+
+/***/ }),
+
+/***/ "./src/js/events.js":
+/*!**************************!*\
+  !*** ./src/js/events.js ***!
+  \**************************/
+/*! exports provided: eventHandler */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eventHandler", function() { return eventHandler; });
+/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ "./src/js/dom.js");
+/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./items */ "./src/js/items.js");
+/* harmony import */ var _lists__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lists */ "./src/js/lists.js");
+/* harmony import */ var _display__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./display */ "./src/js/display.js");
+
+
+
+
+
+const eventHandler = (() => {
+  const initialize = () => {
+    // EVENT LISTENERS
+    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].itemsContainer.addEventListener('click', itemClick);
+    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].listsContainer.addEventListener('click', listClick);
+    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].newItemBtn.addEventListener('click', _display__WEBPACK_IMPORTED_MODULE_3__["displayController"].showNewItemForm);
+    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].newListBtn.addEventListener('click', _display__WEBPACK_IMPORTED_MODULE_3__["displayController"].showNewListForm);
+    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].newItemForm.addEventListener('submit', _items__WEBPACK_IMPORTED_MODULE_1__["itemsController"].newItem);
+    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].newListForm.addEventListener('submit', _lists__WEBPACK_IMPORTED_MODULE_2__["listsController"].newList);
+    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].cancelNewItemBtn.addEventListener('click', _display__WEBPACK_IMPORTED_MODULE_3__["displayController"].render);
+    _dom__WEBPACK_IMPORTED_MODULE_0__["domSelectors"].cancelNewListBtn.addEventListener('click', _display__WEBPACK_IMPORTED_MODULE_3__["displayController"].render);
+    _display__WEBPACK_IMPORTED_MODULE_3__["displayController"].render();
+  }; // HANDLE ITEMS CLICK
+
+
+  function itemClick(e) {
+    if (e.target.matches('input[type="checkbox"') || e.target.matches('i')) {
+      const id = e.target.dataset.itemId;
+
+      if (e.target.matches('input')) {
+        _items__WEBPACK_IMPORTED_MODULE_1__["itemsController"].toggleItem(id);
+      } else {
+        if (e.target.classList.contains('item-edit')) _display__WEBPACK_IMPORTED_MODULE_3__["displayController"].showEditItem(id);
+        if (e.target.classList.contains('item-delete')) _items__WEBPACK_IMPORTED_MODULE_1__["itemsController"].deleteItem(id);
+      }
+    }
+  } // HANDLE LISTS CLICK
+
+
+  function listClick(e) {
+    if (e.target.matches('input[type="radio"]') || e.target.matches('i')) {
+      const index = e.target.dataset.listId;
+
+      if (e.target.matches('input')) {
+        if (index == _lists__WEBPACK_IMPORTED_MODULE_2__["listsController"].getCurrentListIndex()) return;
+        _lists__WEBPACK_IMPORTED_MODULE_2__["listsController"].openList(index);
+      } else {
+        if (e.target.classList.contains('list-edit')) _display__WEBPACK_IMPORTED_MODULE_3__["displayController"].showEditList(index);
+        if (e.target.classList.contains('list-delete')) _lists__WEBPACK_IMPORTED_MODULE_2__["listsController"].deleteList(index);
+      }
+    }
+  } //function clearEdits() {
+  //  Array.from(document.getElementsByClassName('edit')).forEach(node => {
+  //    node.classList.remove('edit');
+  //  });
+  //}
+
+
+  return {
+    initialize
+  };
+})();
+
+
+
+/***/ }),
+
+/***/ "./src/js/items.js":
+/*!*************************!*\
+  !*** ./src/js/items.js ***!
+  \*************************/
+/*! exports provided: itemsController */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "itemsController", function() { return itemsController; });
+/* harmony import */ var _lists__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lists */ "./src/js/lists.js");
+
+
+const itemsController = (() => {
+  function getItems() {
+    const currentList = _lists__WEBPACK_IMPORTED_MODULE_0__["listsController"].getCurrentList();
+    return currentList.items;
+  } // ITEM INDEX
+
+
+  function getIndexFromID(id) {
+    const items = getItems();
+    const item = items.find(item => item.id == id);
+    return items.indexOf(item);
+  }
+
+  function updateItems(items) {
+    _lists__WEBPACK_IMPORTED_MODULE_0__["listsController"].updateCurrentList(items);
+  } // TOGGLE ITEM DONE
+
+
+  function toggleItem(id) {
+    const index = getIndexFromID(id);
+    const items = getItems();
+    items[index].done = !items[index].done;
+    updateItems(items);
+  } // NEW ITEM
+
+
+  function newItem(e) {
+    e.preventDefault();
+    const id = _lists__WEBPACK_IMPORTED_MODULE_0__["listsController"].getNextID();
+    const title = this.querySelector('#new-item-title').value;
+    const date = new Date(this.querySelector('.date-picker').value);
+    const priority = this.querySelector('#new-item-priority').value;
+    const item = {
+      id,
+      title,
+      date,
+      priority,
+      done: false
+    };
+    const items = getItems();
+    items.push(item);
+    _lists__WEBPACK_IMPORTED_MODULE_0__["listsController"].incrementID();
+    updateItems(items);
+    this.reset();
+  } // EDIT ITEM
+
+
+  function editItem(e) {
+    e.preventDefault();
+    const title = this.querySelector('.item-name-edit').value;
+    const date = this.querySelector('.date-picker').value;
+    const priority = this.querySelector('.item-priority-edit').value;
+    const id = this.dataset.itemId;
+    const index = getIndexFromID(id);
+    const items = getItems();
+    items[index].title = title;
+    items[index].date = date;
+    items[index].priority = priority;
+    updateItems(items);
+  } // DELETE ITEM
+
+
+  function deleteItem(id) {
+    const items = getItems();
+    const index = getIndexFromID(id);
+    items.splice(index, 1);
+    updateItems(items);
+  }
+
+  return {
+    toggleItem,
+    newItem,
+    editItem,
+    deleteItem
+  };
+})();
+
+
+
+/***/ }),
+
+/***/ "./src/js/lists.js":
+/*!*************************!*\
+  !*** ./src/js/lists.js ***!
+  \*************************/
+/*! exports provided: listsController */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listsController", function() { return listsController; });
+/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./storage */ "./src/js/storage.js");
+
+
+const listsController = (() => {
+  const lists = _storage__WEBPACK_IMPORTED_MODULE_0__["storageController"].getLists(); // CURRENT LIST
+
+  function getCurrentListIndex() {
+    const currentListIndex = lists.indexOf(lists.find(list => list.active)); // Default to first list if an active one not found
+
+    return currentListIndex == -1 ? 0 : currentListIndex;
+  }
+
+  function updateCurrentList(items) {
+    const currentList = getCurrentList();
+    currentList.items = items;
+    _storage__WEBPACK_IMPORTED_MODULE_0__["storageController"].updateLists(lists);
+  }
+
+  function getCurrentList() {
+    return lists[getCurrentListIndex()];
+  }
+
+  function getNextID() {
+    const currentList = getCurrentList();
+    return currentList.nextID + 1;
+  }
+
+  function incrementID() {
+    const currentList = getCurrentList();
+    currentList.nextID++;
+  } // OPEN LIST
+
+
+  function openList(index = 0) {
+    getCurrentList().active = false;
+    lists[index].active = true;
+    _storage__WEBPACK_IMPORTED_MODULE_0__["storageController"].updateLists(lists);
+  } // NEW LIST
+
+
+  function newList(e) {
+    e.preventDefault();
+    const name = this.querySelector('#new-list-name').value || 'untitled list';
+    const newList = {
+      name,
+      items: [],
+      nextID: 0,
+      active: false
+    }; //const lists = storageController.getLists();
+
+    lists.push(newList);
+    _storage__WEBPACK_IMPORTED_MODULE_0__["storageController"].updateLists(lists);
+    this.reset();
+  } // EDIT LIST
+
+
+  function editList(e) {
+    e.preventDefault();
+    const name = this.querySelector('.list-name-edit').value;
+    const index = this.dataset.listId; //const lists = storageController.getLists();
+
+    lists[index].name = name;
+    _storage__WEBPACK_IMPORTED_MODULE_0__["storageController"].updateLists(lists);
+  } // DELETE LIST
+
+
+  function deleteList(index) {
+    if (confirm(`Are you sure you want to delete ${lists[index].name}?\nAny items inside it will also be deleted!`)) {
+      const isCurrentList = index == getCurrentListIndex();
+      lists.splice(index, 1); // Open first list if currentlist is deleted otherwise just update
+
+      isCurrentList ? openList() : _storage__WEBPACK_IMPORTED_MODULE_0__["storageController"].updateLists(lists);
+    }
+  }
+
+  return {
+    updateCurrentList,
+    getCurrentListIndex,
+    getCurrentList,
+    incrementID,
+    getNextID,
+    openList,
+    newList,
+    editList,
+    deleteList
+  };
+})();
+
+
+
+/***/ }),
+
+/***/ "./src/js/storage.js":
+/*!***************************!*\
+  !*** ./src/js/storage.js ***!
+  \***************************/
+/*! exports provided: storageController */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "storageController", function() { return storageController; });
+/* harmony import */ var _display__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./display */ "./src/js/display.js");
+
+
+const storageController = (() => {
+  const STORAGE_KEY = "todo-lists"; //const lists = JSON.parse(localStorage.getItem(STORAGE_KEY)) || createDefaultList();
+
+  function getLists() {
+    const lists = JSON.parse(localStorage.getItem(STORAGE_KEY)) || createDefaultList();
+    return lists;
+  } // UPDATE
+
+
+  function updateLists(lists) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(lists));
+    _display__WEBPACK_IMPORTED_MODULE_0__["displayController"].render();
+  } // DEFAULT LIST
+
+
+  function createDefaultList() {
+    const defaultArray = [];
+    const defaultList = {
+      name: "Default List",
+      items: [],
+      nextID: 0,
+      active: true
+    };
+    defaultArray.push(defaultList);
+    return defaultArray;
+  }
+
+  return {
+    getLists,
+    updateLists
   };
 })();
 

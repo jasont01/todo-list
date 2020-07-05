@@ -2,37 +2,33 @@ import { listsController } from './lists';
 
 const itemsController = (() => {
 
-  const items = getItems();
-  
   function getItems() {
     const currentList = listsController.getCurrentList();
-    const lists = listsController.getLists();
-    return lists[currentList].items;
+    return currentList.items;
   }
 
   // ITEM INDEX
   function getIndexFromID(id) {
-    //const items = getItems();
+    const items = getItems();
     const item = items.find(item => item.id == id);
     return items.indexOf(item);
   }
 
-  function updateItems() {
+  function updateItems(items) {
     listsController.updateCurrentList(items);
   }
 
   // TOGGLE ITEM DONE
   function toggleItem(id) {
     const index = getIndexFromID(id);
-    //const items = getItems();
+    const items = getItems();
     items[index].done = !items[index].done;
-    updateItems();
+    updateItems(items);
   }
 
   // NEW ITEM
   function newItem(e) {
     e.preventDefault();
-    //const id = lists[listsController.getCurrentList()].nextID
     const id = listsController.getNextID();
     const title = (this.querySelector('#new-item-title')).value;
     const date = new Date((this.querySelector('.date-picker')).value);
@@ -44,10 +40,10 @@ const itemsController = (() => {
       priority,
       done: false
     }
-    //const items = getItems();
+    const items = getItems();
     items.push(item);
     listsController.incrementID();
-    updateItems();
+    updateItems(items);
     this.reset();
   }
 
@@ -60,23 +56,24 @@ const itemsController = (() => {
 
     const id = this.dataset.itemId;
     const index = getIndexFromID(id);
+    const items = getItems();
 
     items[index].title = title;
     items[index].date = date;
     items[index].priority = priority;
 
-    updateItems();
+    updateItems(items);
   }
 
   // DELETE ITEM
   function deleteItem(id) {
-    //const items = getItems();
+    const items = getItems();
     const index = getIndexFromID(id);
     items.splice(index, 1);
-    updateItems();
+    updateItems(items);
   }
 
-  return { getItems, toggleItem, newItem, editItem, deleteItem };
+  return { toggleItem, newItem, editItem, deleteItem };
 })();
 
 export { itemsController };
