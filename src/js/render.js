@@ -1,21 +1,18 @@
-
-import { formatDistance, differenceInDays, startOfDay } from 'date-fns';
+import { format, formatDistance, differenceInDays, startOfDay } from 'date-fns';
 import { renderDatePicker } from './datepicker';
-import { domSelectors } from './main';
+import { domSelectors } from './dom';
 import { listsController } from './lists';
 import { itemsController } from './items';
 
 
-const displayManager = (() => {
-
-  const lists = listsController.getLists();
+const displayController = (() => {
   
   // PRIORITY LEVELS
   const priorityLevels = ['none', 'high', 'med', 'low'];
   
   // RENDER
   function render() {
-    //const items = lists[listsController.getCurrentList()].items;
+    const lists = listsController.getLists();
     const items = itemsController.getItems();
 
     // Reset button/form status
@@ -129,7 +126,43 @@ const displayManager = (() => {
     document.getElementById('new-list-name').focus();
   }
 
-  return { render, showNewItemForm, showNewListForm };
+  // SHOW EDIT LIST
+  function showEditList(index) {
+    const listEditForm = domSelectors.listsContainer.querySelector(`.list-edit-form[data-list-id="${index}"]`);
+    const listName = domSelectors.listsContainer.querySelector(`.list-name[data-list-id="${index}"]`);
+    const cancel = domSelectors.listsContainer.querySelector(`.list-edit[data-list-id="${index}"]`);
+
+    listEditForm.classList.toggle('edit');
+    listName.classList.toggle('edit');
+    cancel.classList.toggle('edit');
+
+    listEditForm.addEventListener('submit', listsController.editList);
+    domSelectors.listsContainer.querySelector(`.list-name-edit[data-list-id="${index}"]`).select();
+  }
+
+  // SHOW EDIT ITEM
+  function showEditItem(id) {
+    const index = getIndexFromID(id);
+    const datePickerDiv = domSelectors.itemsContainer.querySelector(`.item-date-edit[data-item-id="${id}"]`);
+    renderDatePicker(datePickerDiv);
+    const datePickerInput = datePickerDiv.querySelector('.date-picker');
+    datePickerInput.value = format(new Date(items[index].date), 'MM-dd-yyyy');
+
+    const itemEditForm = domSelectors.itemsContainer.querySelector(`.item-edit-form[data-item-id="${id}"]`);
+    const itemName = domSelectors.itemsContainer.querySelector(`.item-title[data-item-id="${id}"]`);
+    const itemDate = domSelectors.itemsContainer.querySelector(`.due-date[data-item-id="${id}"]`);
+    const cancel = domSelectors.itemsContainer.querySelector(`.item-edit[data-item-id="${id}"]`);
+
+    itemEditForm.classList.toggle('edit');
+    itemName.classList.toggle('edit');
+    itemDate.classList.toggle('edit');
+    cancel.classList.toggle('edit');
+
+    itemEditForm.addEventListener('submit', itemsController.editItem);
+    domSelectors.itemsContainer.querySelector(`.item-name-edit[data-item-id="${id}"]`).select();
+  }
+
+  return { render, showNewItemForm, showNewListForm, showEditList, showEditItem };
 })();
 
-export { displayManager };
+export { displayController };

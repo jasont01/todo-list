@@ -1,15 +1,17 @@
+//  TODO:
+//        add custom priority levels
+//        add pagination
+//        add custom fonts / colors
+//        set initial date in datePicker popup to item.date (need to learn react)
+
 // Bootstrap JS
 import 'bootstrap';
 
 // CSS
 import '../scss/app.scss';
 
-// Partials
-import './main';
+import { eventHandler } from './events';
 
-// React Date Picker
-import './datepicker';
-
-// date-fns
-import { format, formatDistance, formatRelative, subDays } from 'date-fns';
-import parseISO from 'date-fns/parseISO';
+window.onload = () => {
+  eventHandler.initialize();
+}

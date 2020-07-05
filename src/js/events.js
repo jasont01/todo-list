@@ -1,7 +1,25 @@
+import { domSelectors } from './dom';
 import { itemsController } from './items';
 import { listsController } from './lists';
+import { displayController } from './render';
 
 const eventHandler = (() => {
+
+  const initialize = () => {
+    // EVENT LISTENERS
+    domSelectors.itemsContainer.addEventListener('click', itemClick);
+    domSelectors.listsContainer.addEventListener('click', listClick);
+
+    domSelectors.newItemBtn.addEventListener('click', displayController.showNewItemForm);
+    domSelectors.newListBtn.addEventListener('click', displayController.showNewListForm);
+
+    domSelectors.newItemForm.addEventListener('submit', itemsController.newItem);
+    domSelectors.newListForm.addEventListener('submit', listsController.newList);
+    domSelectors.cancelNewItemBtn.addEventListener('click', displayController.render);
+    domSelectors.cancelNewListBtn.addEventListener('click', displayController.render);
+
+    displayController.render();
+  };
 
   // HANDLE ITEMS CLICK
   function itemClick(e) {
@@ -10,7 +28,7 @@ const eventHandler = (() => {
       if (e.target.matches('input')) {
         itemsController.toggleItem(id);
       } else {
-        if (e.target.classList.contains('item-edit')) itemsController.editItem(id);
+        if (e.target.classList.contains('item-edit')) displayController.showEditItem(id);
         if (e.target.classList.contains('item-delete')) itemsController.deleteItem(id);
       }
     }
@@ -25,7 +43,7 @@ const eventHandler = (() => {
         if (index == listsController.getCurrentList()) return;
         listsController.openList(index);
       } else {
-        if (e.target.classList.contains('list-edit')) listsController.editList(index);
+        if (e.target.classList.contains('list-edit')) displayController.showEditList(index);
         if (e.target.classList.contains('list-delete')) listsController.deleteList(index);
       }
     }
@@ -37,7 +55,7 @@ const eventHandler = (() => {
   //  });
   //}
 
-  return { itemClick, listClick };
+  return { initialize };
 })();
 
 export { eventHandler };

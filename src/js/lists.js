@@ -1,4 +1,4 @@
-import { app, domSelectors } from './main';
+import { displayController } from './render';
 
 const listsController = (() => {
 
@@ -8,6 +8,18 @@ const listsController = (() => {
     return JSON.parse(localStorage.getItem('todo-lists')) || createDefaultList();
   }
 
+  // UPDATE
+  function update() {
+    localStorage.setItem('todo-lists', JSON.stringify(lists));
+    displayController.render();
+  }
+
+  function updateCurrentList(items) {
+    const currentList = getCurrentList();
+    lists[currentList].items = items;
+    update();
+  }
+
   // CURRENT LIST
   function getCurrentList() {
     const currentList = lists.indexOf(lists.find(list => list.active));
@@ -15,12 +27,20 @@ const listsController = (() => {
     return (currentList == -1) ? 0 : currentList;
   }
 
+  function getNextID() {
+    const id = lists[getCurrentList()].nextID;
+    return (id + 1);
+  }
+
+  function incrementID() {
+    lists[getCurrentList()].nextID++;
+  }
+
   // OPEN LIST
   function openList(index = 0) {
     lists[getCurrentList()].active = false;
     lists[index].active = true;
-    //items = lists[index].items;
-    app.update();
+    update();
   }
 
   // DEFAULT LIST
@@ -47,30 +67,17 @@ const listsController = (() => {
       active: false
     }
     lists.push(list);
-    app.update();
+    update();
     this.reset();
   }
 
   // EDIT LIST
-  function editList(index) {
-    const listEditForm = domSelectors.listsContainer.querySelector(`.list-edit-form[data-list-id="${index}"]`);
-    const listName = domSelectors.listsContainer.querySelector(`.list-name[data-list-id="${index}"]`);
-    const cancel = domSelectors.listsContainer.querySelector(`.list-edit[data-list-id="${index}"]`);
-
-    listEditForm.classList.toggle('edit');
-    listName.classList.toggle('edit');
-    cancel.classList.toggle('edit');
-
-    listEditForm.addEventListener('submit', editListSave);
-    domSelectors.listsContainer.querySelector(`.list-name-edit[data-list-id="${index}"]`).select();
-  }
-
-  function editListSave(e) {
+  function editList(e) {
     e.preventDefault();
     const name = (this.querySelector('.list-name-edit')).value;
     const index = this.dataset.listId;
     lists[index].name = name;
-    app.update();
+    update();
   }
 
   // DELETE LIST
@@ -79,11 +86,11 @@ const listsController = (() => {
       const currentList = getCurrentList();
       lists.splice(index, 1);
       // Open first list if currentlist is deleted otherwise just update
-      (index == currentList) ? openList() : app.update();
+      (index == currentList) ? openList() : update();
     }
   }
 
-  return { getLists, getCurrentList, openList, newList, editList, deleteList };
+  return { getLists, updateCurrentList, getCurrentList, incrementID, getNextID, openList, newList, editList, deleteList };
 
 })();
 

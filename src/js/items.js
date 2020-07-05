@@ -1,37 +1,42 @@
-import { format } from 'date-fns';
-import { app, domSelectors } from './main';
 import { listsController } from './lists';
-import { renderDatePicker } from './datepicker';
 
 const itemsController = (() => {
 
-  const lists = listsController.getLists();
-
+  const items = getItems();
+  
   function getItems() {
-    return lists[listsController.getCurrentList()].items;
+    const currentList = listsController.getCurrentList();
+    const lists = listsController.getLists();
+    return lists[currentList].items;
   }
 
   // ITEM INDEX
   function getIndexFromID(id) {
-    const items = getItems();
-    return items.indexOf(items.find(item => item.id == id));
+    //const items = getItems();
+    const item = items.find(item => item.id == id);
+    return items.indexOf(item);
+  }
+
+  function updateItems() {
+    listsController.updateCurrentList(items);
   }
 
   // TOGGLE ITEM DONE
   function toggleItem(id) {
     const index = getIndexFromID(id);
-    const items = getItems();
+    //const items = getItems();
     items[index].done = !items[index].done;
-    app.update();
+    updateItems();
   }
 
   // NEW ITEM
   function newItem(e) {
     e.preventDefault();
-    const id = lists[listsController.getCurrentList()].nextID
-    const title = (this.querySelector('#new-item-title')).value
-    const date = new Date((this.querySelector('.date-picker')).value)
-    const priority = (this.querySelector('#new-item-priority')).value
+    //const id = lists[listsController.getCurrentList()].nextID
+    const id = listsController.getNextID();
+    const title = (this.querySelector('#new-item-title')).value;
+    const date = new Date((this.querySelector('.date-picker')).value);
+    const priority = (this.querySelector('#new-item-priority')).value;
     const item = {
       id,
       title,
@@ -39,37 +44,15 @@ const itemsController = (() => {
       priority,
       done: false
     }
-    const items = getItems();
+    //const items = getItems();
     items.push(item);
-    lists[listsController.getCurrentList()].nextID++;
-    app.update();
+    listsController.incrementID();
+    updateItems();
     this.reset();
   }
 
   // EDIT ITEM
-  function editItem(id) {
-    const items = getItems();
-    const index = getIndexFromID(id);
-    const datePickerDiv = domSelectors.itemsContainer.querySelector(`.item-date-edit[data-item-id="${id}"]`);
-    renderDatePicker(datePickerDiv);
-    const datePickerInput = datePickerDiv.querySelector('.date-picker');
-    datePickerInput.value = format(new Date(items[index].date), 'MM-dd-yyyy');
-
-    const itemEditForm = domSelectors.itemsContainer.querySelector(`.item-edit-form[data-item-id="${id}"]`);
-    const itemName = domSelectors.itemsContainer.querySelector(`.item-title[data-item-id="${id}"]`)
-    const itemDate = domSelectors.itemsContainer.querySelector(`.due-date[data-item-id="${id}"]`)
-    const cancel = domSelectors.itemsContainer.querySelector(`.item-edit[data-item-id="${id}"]`)
-
-    itemEditForm.classList.toggle('edit');
-    itemName.classList.toggle('edit');
-    itemDate.classList.toggle('edit');
-    cancel.classList.toggle('edit');
-
-    itemEditForm.addEventListener('submit', editItemSave);
-    domSelectors.itemsContainer.querySelector(`.item-name-edit[data-item-id="${id}"]`).select();
-  }
-
-  function editItemSave(e) {
+  function editItem(e) {
     e.preventDefault();
     const title = (this.querySelector('.item-name-edit')).value;
     const date = (this.querySelector('.date-picker')).value;
@@ -77,20 +60,20 @@ const itemsController = (() => {
 
     const id = this.dataset.itemId;
     const index = getIndexFromID(id);
-    const items = getItems();
+
     items[index].title = title;
     items[index].date = date;
     items[index].priority = priority;
 
-    app.update();
+    updateItems();
   }
 
   // DELETE ITEM
   function deleteItem(id) {
-    const items = getItems();
+    //const items = getItems();
     const index = getIndexFromID(id);
     items.splice(index, 1);
-    app.update();
+    updateItems();
   }
 
   return { getItems, toggleItem, newItem, editItem, deleteItem };
