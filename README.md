@@ -22,6 +22,10 @@ In this project, you are asked to create a todo-list app using JavaScript.<p>
 
 <p>A link to the full description of the assignment can be found above.</p>
 
+## Preview
+
+<img src="preview.png" width="50%">
+
 ## Live version
 
 <p><a href="https://jasont01.github.io/todo-list"><img src="https://avatars0.githubusercontent.com/u/9919?s=20&v=4">GitHub Pages</a></p>
