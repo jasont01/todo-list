@@ -25,7 +25,7 @@ class DueDatePicker extends React.Component {
         selected={this.state.startDate}
         onChange={this.handleChange}
         minDate={new Date()}
-        dateFormat="MM-dd-yyyy"
+        dateFormat="yyyy-MM-dd"
         className="form-control form-control-sm date-picker"
       />
     );

@@ -31,7 +31,7 @@ const itemsController = (() => {
     e.preventDefault();
     const id = listsController.getNextID();
     const title = (this.querySelector('#new-item-title')).value;
-    const date = new Date((this.querySelector('.date-picker')).value);
+    const date = new Date(this.querySelector('.date-picker').value + 'T00:00');
     const priority = (this.querySelector('#new-item-priority')).value;
     const item = {
       id,
