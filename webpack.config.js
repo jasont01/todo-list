@@ -1,5 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   template: __dirname + '/src/index.html',
   filename: 'index.html',
@@ -50,10 +51,13 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|svg|jpg|gif|webp)$/,
         use: [ 'file-loader' ],
       }
     ]
   },
-  plugins: [HTMLWebpackPluginConfig]
+  plugins: [
+    //new BundleAnalyzerPlugin(),
+    HTMLWebpackPluginConfig
+  ]
 };
