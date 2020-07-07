@@ -51,7 +51,7 @@ const itemsController = (() => {
   function editItem(e) {
     e.preventDefault();
     const title = (this.querySelector('.item-name-edit')).value;
-    const date = (this.querySelector('.date-picker')).value;
+    const date = new Date(this.querySelector('.date-picker').value + 'T00:00');
     const priority = (this.querySelector('.item-priority-edit')).value;
 
     const id = this.dataset.itemId;

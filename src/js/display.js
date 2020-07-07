@@ -89,7 +89,7 @@ const displayController = (() => {
         <option value="priority-med" ${ (item.priority == 'priority-med') ? 'selected' : ''}>Medium</option>
         <option value="priority-low" ${ (item.priority == 'priority-low') ? 'selected' : ''}>Low</option>
       </select>
-      <div class="item-date-edit" data-item-id="${id}" data-item-date="${format(new Date(item.date), 'MM-dd-yyyy')}"></div>
+      <div class="item-date-edit" data-item-id="${id}" data-item-date="${format(new Date(item.date), 'yyyy-MM-dd')}"></div>
       <button type="submit" class="btn btn-sm btn-primary">Save</button>
     </form>
     <i class="fas fa-trash item-delete" data-item-id="${id}"></i>
