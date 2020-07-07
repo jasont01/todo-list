@@ -1,10 +1,21 @@
-import { displayController } from './display';
+/* eslint-disable import/no-cycle */
+import displayController from './display';
 
 const storageController = (() => {
+  const STORAGE_KEY = 'todo-lists';
 
-  const STORAGE_KEY = "todo-lists";
-
-  //const lists = JSON.parse(localStorage.getItem(STORAGE_KEY)) || createDefaultList();
+  // DEFAULT LIST
+  function createDefaultList() {
+    const defaultArray = [];
+    const defaultList = {
+      name: 'Default List',
+      items: [],
+      nextID: 0,
+      active: true,
+    };
+    defaultArray.push(defaultList);
+    return defaultArray;
+  }
 
   function getLists() {
     const lists = JSON.parse(localStorage.getItem(STORAGE_KEY)) || createDefaultList();
@@ -17,20 +28,7 @@ const storageController = (() => {
     displayController.render();
   }
 
-  // DEFAULT LIST
-  function createDefaultList() {
-    const defaultArray = []
-    const defaultList = {
-      name: "Default List",
-      items: [],
-      nextID: 0,
-      active: true
-    }
-    defaultArray.push(defaultList)
-    return defaultArray;
-  }
-
   return { getLists, updateLists };
 })();
 
-export { storageController };
+export { storageController as default };

@@ -10,8 +10,17 @@ const domSelectors = (() => {
   const cancelNewItemBtn = document.getElementById('new-item-cancel');
   const cancelNewListBtn = document.getElementById('new-list-cancel');
 
-  return { notebook, newItemBtn, newListBtn, newListForm, newItemForm, listsContainer, 
-          itemsContainer, cancelNewItemBtn, cancelNewListBtn };
+  return {
+    notebook,
+    newItemBtn,
+    newListBtn,
+    newListForm,
+    newItemForm,
+    listsContainer,
+    itemsContainer,
+    cancelNewItemBtn,
+    cancelNewListBtn,
+  };
 })();
 
-export { domSelectors };
+export { domSelectors as default };

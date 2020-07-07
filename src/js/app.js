@@ -10,8 +10,8 @@ import 'bootstrap';
 // CSS
 import '../scss/app.scss';
 
-import { eventHandler } from './events';
+import eventHandler from './events';
 
 window.onload = () => {
   eventHandler.initialize();
-}
+};
