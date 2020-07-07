@@ -8,7 +8,7 @@ const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
 
 module.exports = {
   entry: './src/js/app.js',
-  mode: 'development',
+  mode: 'production',
   devtool: 'source-map',
   output: {
     filename: 'bundle.js',
