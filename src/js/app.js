@@ -1,8 +1,8 @@
 //  TODO:
-//        add custom priority levels
-//        add pagination
-//        add custom fonts / colors
-//        set initial date in datePicker popup to item.date (need to learn react)
+//        mobile version
+//        custom priority levels
+//        pagination
+//        custom fonts / colors
 
 // Bootstrap JS
 import 'bootstrap';

@@ -1,5 +1,6 @@
 // SELECTORS
 const domSelectors = (() => {
+  const notebook = document.querySelector('.notebook');
   const newItemBtn = document.getElementById('new-item-btn');
   const newListBtn = document.getElementById('new-list-btn');
   const newListForm = document.querySelector('.new-list-form');
@@ -9,7 +10,7 @@ const domSelectors = (() => {
   const cancelNewItemBtn = document.getElementById('new-item-cancel');
   const cancelNewListBtn = document.getElementById('new-list-cancel');
 
-  return { newItemBtn, newListBtn, newListForm, newItemForm, listsContainer, 
+  return { notebook, newItemBtn, newListBtn, newListForm, newItemForm, listsContainer, 
           itemsContainer, cancelNewItemBtn, cancelNewListBtn };
 })();
 

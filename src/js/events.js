@@ -2,6 +2,7 @@ import { domSelectors } from './dom';
 import { itemsController } from './items';
 import { listsController } from './lists';
 import { displayController } from './display';
+import { responsive } from './responsive';
 
 const eventHandler = (() => {
 
@@ -17,6 +18,8 @@ const eventHandler = (() => {
     domSelectors.newListForm.addEventListener('submit', listsController.newList);
     domSelectors.cancelNewItemBtn.addEventListener('click', displayController.render);
     domSelectors.cancelNewListBtn.addEventListener('click', displayController.render);
+
+    window.addEventListener('resize', responsive.doResize);
 
     displayController.render();
   };
