@@ -164,7 +164,7 @@ const displayController = (() => {
     const datePickerDiv = domSelectors.itemsContainer.querySelector(
       `.item-date-edit[data-item-id="${id}"]`,
     );
-    renderDatePicker(datePickerDiv);
+    renderDatePicker(datePickerDiv, new Date(`${datePickerDiv.dataset.itemDate}T00:00`));
     const datePickerInput = datePickerDiv.querySelector('.date-picker');
     datePickerInput.value = datePickerDiv.dataset.itemDate;
 
