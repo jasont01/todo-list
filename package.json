@@ -21,6 +21,7 @@
   "dependencies": {
     "autoprefixer": "^9.8.4",
     "bootstrap": "^4.5.0",
+    "caniuse-lite": "^1.0.30001200",
     "css-loader": "^3.6.0",
     "date-fns": "^2.14.0",
     "file-loader": "^6.0.0",
