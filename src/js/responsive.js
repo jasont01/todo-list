@@ -1,7 +1,7 @@
 import domSelectors from './dom';
 
 const responsive = (() => {
-  const wrapper = document.querySelector('.page-wrapper');
+  //const wrapper = document.querySelector('.page-wrapper');
   const el = domSelectors.notebook;
   const elHeight = el.offsetHeight;
   const elWidth = el.offsetWidth;
@@ -12,10 +12,14 @@ const responsive = (() => {
       window.innerHeight / elHeight,
     );
 
-    wrapper.style.transform = `scale(${scale})`;
+    el.style.transform = `scale(${scale})`;
 
-    // const offset = elWidth - (elWidth * scale);
-    // el.style.transform = `translate(-${offset}px);`;
+    // center in window
+    const hOffset = (window.innerWidth - elWidth) / 2;
+    el.style.left = `${hOffset}px`;
+    
+    const vOffset = (window.innerHeight - elHeight) / 2;
+    el.style.top = `${vOffset}px`;
   }
 
   doResize();
