@@ -1,51 +1,38 @@
 {
   "name": "todo-list",
-  "version": "1.0.0",
-  "description": "ToDo List",
-  "main": "index.js",
-  "scripts": {
-    "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "npm run build && git subtree push --prefix dist origin gh-pages"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jasont01/todo-list.git"
-  },
-  "author": "jason@jasont.us",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jasont01/todo-list/issues"
-  },
-  "homepage": "https://github.com/jasont01/todo-list#readme",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "autoprefixer": "^9.8.4",
-    "bootstrap": "^4.5.0",
-    "caniuse-lite": "^1.0.30001200",
-    "css-loader": "^3.6.0",
-    "date-fns": "^2.14.0",
-    "file-loader": "^6.0.0",
-    "jquery": "^3.5.1",
-    "node-sass": "^4.14.1",
-    "popper.js": "^1.16.1",
-    "postcss-loader": "^3.0.0",
-    "react": "^16.13.1",
-    "react-datepicker": "^3.0.0",
-    "react-dom": "^16.13.1",
-    "sass-loader": "^8.0.2",
-    "style-loader": "^1.2.1",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12"
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1"
   },
-  "devDependencies": {
-    "@babel/cli": "^7.10.4",
-    "@babel/core": "^7.10.4",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/preset-react": "^7.10.4",
-    "babel-loader": "^8.1.0",
-    "babel-preset-react": "^6.24.1",
-    "html-webpack-plugin": "^4.3.0",
-    "webpack-bundle-analyzer": "^3.8.0",
-    "webpack-dev-server": "^3.11.0"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
