@@ -1,0 +1,18 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pangolin&display=swap");
+
+// Bootstrap
+@import "custom";
+@import "~bootstrap/scss/bootstrap";
+
+// Partials
+@import "./app";
+@import "./header";
+@import "./lists";
+@import "./todos";
+@import "./footer";
+@import "./controls";
+@import "./checkbox";

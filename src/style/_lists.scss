@@ -1,0 +1,87 @@
+// LISTS
+.list-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 420px;
+  height: 675px;
+  font-size: 1.2em;
+
+  .lists-header {
+    font-family: 'Chelsea Market', cursive;
+    font-size: 2em;
+  }
+
+  .lists {
+    user-select: none;
+    list-style: none;
+    padding-left: 0px;
+    margin-bottom: 10px;
+
+    .list {
+      font-weight: 300;
+      display: flex;
+      position: relative;
+
+      .list-wrapper {
+        .folder {
+          color: black !important;
+        }
+
+        .list-name {
+          margin-left: 5px;
+          font-size: 1.1em;
+          font-family: 'Pangolin', cursive;
+          font-variant: small-caps;
+          &.edit {
+            display: none;
+          }
+        }
+      }
+
+      .list-controls {
+        position: absolute;
+        right: 0;
+        font-size: 0.7em;
+        line-height: 2em;
+
+        svg {
+          margin-right: 2em;
+        }
+      }
+
+      .list-edit-form {
+        display: none;
+
+        &.edit {
+          display: inline-flex;
+        }
+
+        .list-name-edit {
+          height: 32px;
+        }
+      }
+
+      .only-list {
+        display: none;
+      }
+
+      .list-edit.edit::before {
+        content: '\f410';
+      }
+    }
+
+    //////////// USE Nth-Child HERE ///////////////
+    .list-11 {
+      margin-right: 120px;
+    }
+
+    .list-12 {
+      margin-right: 80px;
+    }
+
+    .list-13 {
+      margin-right: 40px;
+    }
+  }
+}

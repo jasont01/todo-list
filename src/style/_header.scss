@@ -1,0 +1,24 @@
+// HEADER
+.header {
+  position: absolute;
+  right: 50px;
+  width: 400px;
+  height: 129px;
+
+  .title {
+    font-family: "Fredericka the Great", cursive;
+    font-size: 80px;
+    //color: $primary;
+  }
+
+  .item-header,
+  .duedate-header {
+    position: absolute;
+    top: 94px;
+    right: 300px;
+  }
+
+  .duedate-header {
+    right: 52px;
+  }
+}

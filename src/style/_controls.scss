@@ -1,0 +1,33 @@
+// CONTROLS
+.controls {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+
+  #new-item-btn {
+    float: right;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 2px 3px 10px rgba(82, 82, 82, 0.5);
+    &:disabled > i {
+      cursor: auto;
+    }
+    & > i {
+      color: inherit;
+    }
+  }
+}
+
+// Toggle button/form
+#new-list-btn.inactive,
+.new-list-form.inactive,
+.new-item-form.inactive,
+#new-item-btn.inactive {
+  display: none;
+}
+
+#new-list-name {
+  width: 220px;
+  margin-bottom: 10px;
+}
