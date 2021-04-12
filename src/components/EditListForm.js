@@ -12,6 +12,7 @@ const EditListForm = ({ name, updateList }) => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyPress={(e) => e.key === 'Enter' && updateList(input)}
+        autoFocus
       />
       <Button size='sm' onClick={() => updateList(input)}>
         Save

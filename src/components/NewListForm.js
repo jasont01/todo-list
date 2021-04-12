@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-const NewListForm = ({ createNewList, cancelNewList }) => {
+const NewListForm = ({ createNewList, cancelNewList, setShowNewListForm }) => {
   const [input, setInput] = useState('');
 
   const handleSubmit = () => {
     const listName = input.length > 0 ? input : 'untitled list';
     createNewList(listName);
+    setShowNewListForm(false);
   };
 
   return (

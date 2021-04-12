@@ -39,7 +39,7 @@ body {
   .list-wrapper:hover,
   .list-edit:hover,
   .list-delete:hover,
-  .item-title:hover,
+  .item-title > label:hover,
   .item-controls > svg:hover {
     color: $primary;
     cursor: pointer;

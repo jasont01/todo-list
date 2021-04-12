@@ -3,14 +3,19 @@ import { Button, Form } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import PrioritySelect from './PrioritySelect';
 
-const NewItemForm = ({ createNewItem, cancelNewItem }) => {
+const NewItemForm = ({ createNewItem, cancelNewItem, setShowNewItemForm }) => {
   const [name, setName] = useState('');
   const [date, setDate] = useState(new Date());
   const [priority, setPriority] = useState('none');
   const [isInvalid, setIsInvalid] = useState(false);
 
   const handleSubmit = () => {
-    name.length > 0 ? createNewItem(name, date, priority) : setIsInvalid(true);
+    name.length > 0 ? submitNewItem() : setIsInvalid(true);
+  };
+
+  const submitNewItem = () => {
+    createNewItem(name, date, priority);
+    setShowNewItemForm(false);
   };
 
   return (
