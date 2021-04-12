@@ -1,0 +1,26 @@
+// CONTROLS
+.controls {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+
+  #new-item-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 2px 3px 10px rgba(82, 82, 82, 0.5);
+    &:disabled > i {
+      cursor: auto;
+    }
+  }
+}
+
+#new-list-name {
+  width: 220px;
+  margin-bottom: 10px;
+}
+
+#new-list-cancel,
+#new-item-cancel {
+  margin-left: 0.5em;
+}
