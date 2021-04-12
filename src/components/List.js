@@ -7,56 +7,62 @@ import {
   FaTrash,
   FaWindowClose,
 } from 'react-icons/fa';
+import EditListForm from './EditListForm';
 
-// /*
-// <li class="list list-${i}">
-
-// <input type="radio" name="list-radio" id={`list${i}`} data-list-id={i} {list.active && 'checked'} />
-// <label for={`list${i}`} class="list-name" data-list-id={i}>{list.name}</label>
-
-// <form class="list-edit-form" data-list-id={i}>
-//   <input type="text" class="form-control form-control-sm list-name-edit" data-list-id={i} value={list.name} />
-//   <button type="submit" class="btn btn-sm btn-primary">Save</button>
-// </form>
-
-// <i class="fas fa-trash list-controls list-delete {lists.length == 1 ? 'only-list' : ''}" data-list-id={i}></i>
-// <i class="fas fa-edit list-controls list-edit" data-list-id={i}></i>
-
-// </li>
-// */
-
-const List = ({ list: { id, name, active }, changeActive }) => {
+const List = ({
+  list,
+  list: { id, name, active },
+  changeActive,
+  onlyList,
+  saveList,
+  deleteList,
+}) => {
   const [hover, setHover] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
-  const handleClick = () => {
-    if (!active) {
-      changeActive(id);
-    }
+  const updateList = (name) => {
+    saveList({ ...list, name: name });
+    setEditMode(false);
   };
 
   return (
     <li className='list'>
-      <div
-        className='list-wrapper'
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        <span className='folder'>
-          {active ? (
-            <FaFolderOpen />
-          ) : hover ? (
-            <FaRegFolderOpen />
-          ) : (
-            <FaRegFolder />
-          )}
-        </span>
-        <span className='list-name' onClick={handleClick}>
-          {name}
-        </span>
-      </div>
+      {editMode ? (
+        <EditListForm id={id} name={name} updateList={updateList} />
+      ) : (
+        <div
+          className='list-wrapper'
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onClick={() => !active && changeActive(id)}
+        >
+          <span className='folder'>
+            {active ? (
+              <FaFolderOpen />
+            ) : hover ? (
+              <FaRegFolderOpen />
+            ) : (
+              <FaRegFolder />
+            )}
+          </span>
+          <span className='list-name'>{name}</span>
+        </div>
+      )}
       <div className='list-controls'>
-        <FaEdit className='list-edit' />
-        <FaTrash className='list-delete' />
+        {editMode ? (
+          <FaWindowClose
+            className='list-edit'
+            onClick={() => setEditMode(false)}
+          />
+        ) : (
+          <FaEdit className='list-edit' onClick={() => setEditMode(true)} />
+        )}
+        {!onlyList && (
+          <FaTrash
+            className='list-delete'
+            onClick={() => deleteList(id, name)}
+          />
+        )}
       </div>
     </li>
   );

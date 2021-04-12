@@ -1,18 +1,25 @@
 // Fonts
-@import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Pangolin&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 // Bootstrap
-@import "custom";
-@import "~bootstrap/scss/bootstrap";
+@import 'custom';
+@import '~bootstrap/scss/bootstrap';
+
+// React-Datepicker
+@import 'react-datepicker/dist/react-datepicker.css';
+
+// React-Confirm-Alert
+@import 'react-confirm-alert/src/react-confirm-alert.css';
 
 // Partials
-@import "./app";
-@import "./header";
-@import "./lists";
-@import "./todos";
-@import "./footer";
-@import "./controls";
-@import "./checkbox";
+@import './app';
+@import './header';
+@import './lists';
+@import './items';
+@import './footer';
+@import './controls';
+@import './checkbox';

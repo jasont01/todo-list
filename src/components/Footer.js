@@ -1,18 +1,16 @@
+import { FaCode } from 'react-icons/fa';
+import { SiUnsplash } from 'react-icons/si';
+
 const Footer = () => {
   return (
     <div className='footer text-muted'>
-      <a href='https://github.com/jasont01/todo-list'>
-        <i className='fas fa-code'>
-          <span> created by Jason Thompson</span>
-        </i>
-        <i className='fab fa-github'></i>
-      </a>
+      <FaCode />
+      <span> created by </span>
+      <a href='http://jasont.us'>Jason Thompson </a>
       <br />
-      <a href='https://unsplash.com/photos/3ym6i13Y9LU'>
-        <i className='fab fa-unsplash'>
-          <span> background by Mike Tinnion on Unsplash</span>
-        </i>
-      </a>
+      <SiUnsplash />
+      <span> background by </span>
+      <a href='https://unsplash.com/photos/3ym6i13Y9LU'>Mike Tinnion </a>
     </div>
   );
 };

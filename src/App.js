@@ -12,30 +12,8 @@ const App = () => {
       {
         id: nanoid(),
         name: 'Default List',
-        items: [
-          {
-            id: 1,
-            title: 'test',
-            date: '1980-01-01T04:00:00.000Z',
-            priority: 'none',
-            isDone: false,
-          },
-        ],
+        items: [],
         active: true,
-      },
-      {
-        id: nanoid(),
-        name: 'My List',
-        items: [
-          {
-            id: 1,
-            title: 'monkey',
-            date: '1998-06-10T04:00:00.000Z',
-            priority: 'high',
-            isDone: true,
-          },
-        ],
-        active: false,
       },
     ]
   );
@@ -50,11 +28,6 @@ const App = () => {
         <Header />
 
         <Lists lists={lists} setLists={setLists} />
-
-        {/* <div className="controls">
-          ---NewItemForm---
-          <button id="new-item-btn" className="btn btn-primary" aria-label="new item"><i className="fas fa-plus"></i></button>
-        </div> */}
 
         <Footer />
       </div>

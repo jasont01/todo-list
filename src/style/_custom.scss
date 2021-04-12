@@ -6,3 +6,14 @@ $primary: #bada55;
 .react-datepicker__day--keyboard-selected {
   background: $primary !important;
 }
+.react-datepicker-wrapper {
+  line-height: 1em;
+  display: block;
+}
+
+// React-Confirm-Alert
+.react-confirm-alert-body {
+  h1 {
+    font-size: 2rem;
+  }
+}

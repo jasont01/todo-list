@@ -5,7 +5,6 @@
   bottom: 10px;
 
   #new-item-btn {
-    float: right;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -13,21 +12,15 @@
     &:disabled > i {
       cursor: auto;
     }
-    & > i {
-      color: inherit;
-    }
   }
-}
-
-// Toggle button/form
-#new-list-btn.inactive,
-.new-list-form.inactive,
-.new-item-form.inactive,
-#new-item-btn.inactive {
-  display: none;
 }
 
 #new-list-name {
   width: 220px;
   margin-bottom: 10px;
+}
+
+#new-list-cancel,
+#new-item-cancel {
+  margin-left: 0.5em;
 }

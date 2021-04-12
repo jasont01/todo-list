@@ -51,37 +51,20 @@
       }
 
       .list-edit-form {
-        display: none;
-
-        &.edit {
-          display: inline-flex;
-        }
-
-        .list-name-edit {
-          height: 32px;
-        }
-      }
-
-      .only-list {
-        display: none;
-      }
-
-      .list-edit.edit::before {
-        content: '\f410';
+        display: inline-flex;
       }
     }
 
-    //////////// USE Nth-Child HERE ///////////////
-    .list-11 {
-      margin-right: 120px;
+    .list:nth-child(12) {
+      margin-right: 7em;
     }
 
-    .list-12 {
-      margin-right: 80px;
+    .list:nth-child(13) {
+      margin-right: 5.5em;
     }
 
-    .list-13 {
-      margin-right: 40px;
+    .list:nth-child(14) {
+      margin-right: 4em;
     }
   }
 }
