@@ -2,14 +2,7 @@
 
 body {
   height: 100vh;
-  background: rgb(34, 193, 195);
-  background: linear-gradient(
-    0deg,
-    rgba(34, 193, 195, 0.6) 0%,
-    rgba(253, 187, 45, 0.6) 100%
-  );
-  //background: rgb(186,218,85);
-  //background: linear-gradient(0deg, rgba(186,218,85,.69) 0%, rgba(255,255,255,1) 150%);
+  background: antiquewhite;
 }
 
 .App {
@@ -17,7 +10,6 @@ body {
   width: 1388px;
   height: 949px;
   background: url('../img/notebook.jpg') no-repeat;
-  //background: url("../img/notebook.webp") no-repeat;
   background-size: 100% 100%;
   box-shadow: 3px 3px 10px black;
 }
