@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
+import Navbar from './components/Navbar';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Login from './components/Login';
@@ -58,12 +59,13 @@ const App = () => {
 
   return (
     <div className='App'>
+      <Navbar setTokenId={setTokenId} />
       <div className='content'>
         <Header />
         <Loader loading={loading} />
         <ListManager lists={lists} setLists={setLists} loading={loading} />
         <Footer />
-        <Login setTokenId={setTokenId} />
+        {/* <Login setTokenId={setTokenId} /> */}
       </div>
     </div>
   );
