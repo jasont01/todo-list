@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 const clientId =
@@ -8,6 +8,20 @@ const User = ({ setTokenId, setLoading }) => {
   const [profile, setProfile] = useState();
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isActive, setIsActive] = useState(false);
+
+  const node = useRef();
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClick);
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, []);
+
+  const handleClick = (e) => {
+    if (node.current.contains(e.target)) return;
+    setIsActive(false);
+  };
 
   const onLogin = (res) => {
     setTokenId(res.tokenId);
@@ -58,7 +72,7 @@ const User = ({ setTokenId, setLoading }) => {
   );
 
   return (
-    <div className='menu-container'>
+    <div className='menu-container' ref={node}>
       {isSignedIn ? showUserMenu() : showLoginBtn()}
     </div>
   );
