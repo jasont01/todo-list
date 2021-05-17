@@ -1,0 +1,70 @@
+.menu-container {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .menu-btn {
+    background: #ffffff;
+    border-radius: 90px !important;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 6px;
+    border: none;
+
+    div {
+      background-color: unset !important;
+    }
+
+    span {
+      font-weight: 700;
+      vertical-align: middle;
+      font-size: 14px;
+      margin: 0 10px;
+    }
+
+    img {
+      width: 32px;
+      border-radius: 50%;
+    }
+  }
+
+  .menu {
+    background: #ffffff;
+    border-radius: 8px;
+    position: absolute;
+    top: 3em;
+    right: 0;
+    width: 6.5em;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .google-logout {
+      border: none !important;
+      box-shadow: unset !important;
+      border-radius: 8px !important;
+      width: 100%;
+      &:hover {
+        background-color: #bada55 !important;
+      }
+
+      span {
+        margin: auto;
+      }
+    }
+  }
+}
