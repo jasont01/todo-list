@@ -4,9 +4,8 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 const clientId =
   '344171521405-klhc88ki67nogdfpqp7fsb6tkjf3j4i8.apps.googleusercontent.com';
 
-const User = ({ setTokenId, setLoading }) => {
+const User = ({ setTokenId, setLoadingData, isSignedIn, setIsSignedIn }) => {
   const [profile, setProfile] = useState();
-  const [isSignedIn, setIsSignedIn] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
   const node = useRef();
@@ -24,12 +23,14 @@ const User = ({ setTokenId, setLoading }) => {
   };
 
   const onLogin = (res) => {
+    setLoadingData(true);
     setTokenId(res.tokenId);
     setProfile(res.profileObj);
     setIsSignedIn(true);
   };
 
   const onLogout = () => {
+    setLoadingData(true);
     setIsSignedIn(false);
     setTokenId();
     setProfile();
@@ -38,6 +39,10 @@ const User = ({ setTokenId, setLoading }) => {
 
   const onClick = () => {
     setIsActive(!isActive);
+  };
+
+  const onAutoLoadFinished = (signedIn) => {
+    if (!signedIn) setIsSignedIn(false);
   };
 
   const showUserMenu = () => (
@@ -67,7 +72,7 @@ const User = ({ setTokenId, setLoading }) => {
       cookiePolicy={'single_host_origin'}
       isSignedIn={true}
       className='menu-btn'
-      onAutoLoadFinished={() => setLoading(false)}
+      onAutoLoadFinished={onAutoLoadFinished}
     />
   );
 

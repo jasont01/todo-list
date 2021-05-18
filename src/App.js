@@ -8,8 +8,8 @@ import Loader from './components/Loader';
 import ListManager from './components/ListManager';
 
 const STORAGE_KEY = 'todo-lists';
-//const SERVER_URL = 'http://localhost:5000';
-const SERVER_URL = 'https://calm-savannah-28337.herokuapp.com';
+const SERVER_URL = 'http://localhost:5000';
+//const SERVER_URL = 'https://calm-savannah-28337.herokuapp.com';
 
 const DEFAULT_LIST = [
   {
@@ -21,48 +21,55 @@ const DEFAULT_LIST = [
 ];
 
 const App = () => {
+  const [lists, setLists] = useState(DEFAULT_LIST);
+  const [loadingData, setLoadingData] = useState(true);
+  const [isSignedIn, setIsSignedIn] = useState();
   const [tokenId, setTokenId] = useState();
-  const [loading, setLoading] = useState(true);
-  const [lists, setLists] = useState(
-    JSON.parse(localStorage.getItem(STORAGE_KEY)) || DEFAULT_LIST
-  );
 
   useEffect(() => {
-    if (loading) return;
-    if (tokenId) {
+    if (isSignedIn === undefined) return;
+    if (isSignedIn) {
       axios
         .get(`${SERVER_URL}/lists`, {
           headers: { Authorization: `Bearer ${tokenId}` },
         })
         .then((res) => {
-          setLists(res.data ? res.data : DEFAULT_LIST);
+          if (res.data) setLists(res.data);
+          setLoadingData(false);
         })
         .catch((err) => console.error(err));
     } else {
-      setLists(JSON.parse(localStorage.getItem(STORAGE_KEY)) || DEFAULT_LIST);
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      if (data) setLists(data);
+      setLoadingData(false);
     }
-  }, [tokenId]);
+  }, [isSignedIn]);
 
-  useEffect(() => {
-    if (loading) return;
-    tokenId
+  const saveLists = (data) => {
+    isSignedIn
       ? axios
           .post(
             SERVER_URL,
-            { lists: lists },
+            { lists: data },
             { headers: { Authorization: `Bearer ${tokenId}` } }
           )
           .catch((err) => console.error(err))
-      : localStorage.setItem(STORAGE_KEY, JSON.stringify(lists));
-  }, [lists]);
+      : localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    setLists(data);
+  };
 
   return (
     <div className='App'>
-      <User setTokenId={setTokenId} setLoading={setLoading} />
+      <User
+        setTokenId={setTokenId}
+        setLoadingData={setLoadingData}
+        isSignedIn={isSignedIn}
+        setIsSignedIn={setIsSignedIn}
+      />
       <div className='content'>
         <Header />
-        <Loader loading={loading} />
-        <ListManager lists={lists} setLists={setLists} loading={loading} />
+        <Loader loading={loadingData} />
+        <ListManager lists={lists} setLists={saveLists} loading={loadingData} />
         <Footer />
       </div>
     </div>
