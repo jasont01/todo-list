@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import NewListForm from './NewListForm';
+import NewListForm from '../forms/NewListForm';
 
 const MAX_LISTS = 18;
 

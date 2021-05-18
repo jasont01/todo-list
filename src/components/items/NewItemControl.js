@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { FaPlus } from 'react-icons/fa';
-import NewItemForm from './NewItemForm';
+import NewItemForm from '../forms/NewItemForm';
 
 const MAX_ITEMS = 10;
 

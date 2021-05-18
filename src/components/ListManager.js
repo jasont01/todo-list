@@ -1,5 +1,5 @@
-import Lists from './Lists';
-import Items from './Items';
+import Lists from './lists/Lists';
+import Items from './items/Items';
 
 const ListManager = ({ lists, setLists, loading }) => {
   const getActiveList = () => {

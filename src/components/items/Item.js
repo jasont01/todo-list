@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FaEdit, FaTrash, FaWindowClose } from 'react-icons/fa';
-import EditItemForm from './EditItemForm';
+import EditItemForm from '../forms/EditItemForm';
 
 import {
   formatDistanceToNow,

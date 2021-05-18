@@ -7,7 +7,7 @@ import {
   FaTrash,
   FaWindowClose,
 } from 'react-icons/fa';
-import EditListForm from './EditListForm';
+import EditListForm from '../forms/EditListForm';
 
 const List = ({
   list,
