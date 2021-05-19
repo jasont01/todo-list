@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import { refreshTokenSetup } from '../util/refreshToken.js';
+import { refreshTokenSetup } from '../utils/refreshToken.js';
 
 const clientId =
   '344171521405-klhc88ki67nogdfpqp7fsb6tkjf3j4i8.apps.googleusercontent.com';
