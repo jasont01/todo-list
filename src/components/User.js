@@ -13,10 +13,10 @@ const User = ({ state: { isSignedIn, profile, showMenu }, dispatch }) => {
     return () => {
       document.removeEventListener('mousedown', handleClick);
     };
-  }, []);
+  }, [showMenu]);
 
   const handleClick = (e) => {
-    if (node.current.contains(e.target)) return;
+    if (!showMenu || node.current.contains(e.target)) return;
     dispatch({ type: 'hideMenu' });
   };
 
