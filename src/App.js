@@ -8,8 +8,8 @@ import Loader from './components/Loader';
 import ListManager from './components/ListManager';
 
 const STORAGE_KEY = 'todo-lists';
-const SERVER_URL = 'http://localhost:5000';
-//const SERVER_URL = 'https://calm-savannah-28337.herokuapp.com';
+//const API_URL = 'http://localhost:5000/todo-list-313916/us-central1/api';
+const API_URL = 'https://us-central1-todo-list-313916.cloudfunctions.net/api';
 
 const DEFAULT_LIST = [
   {
@@ -30,7 +30,7 @@ const App = () => {
     if (isSignedIn === undefined) return;
     if (isSignedIn) {
       axios
-        .get(`${SERVER_URL}/lists`, {
+        .get(`${API_URL}/lists`, {
           headers: { Authorization: `Bearer ${tokenId}` },
         })
         .then((res) => {
@@ -49,7 +49,7 @@ const App = () => {
     isSignedIn
       ? axios
           .post(
-            SERVER_URL,
+            API_URL,
             { lists: data },
             { headers: { Authorization: `Bearer ${tokenId}` } }
           )
