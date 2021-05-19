@@ -28,6 +28,8 @@ const reducer = (state, action) => {
         profile: undefined,
         showMenu: false,
       };
+    case 'refreshToken':
+      return { ...state, tokenId: action.payload };
     case 'autoLoadFinished':
       return action.payload ? { ...state } : { ...state, isSignedIn: false };
     case 'loadingDataFinished':

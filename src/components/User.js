@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { refreshTokenSetup } from '../util/refreshToken.js';
 
 const clientId =
   '344171521405-klhc88ki67nogdfpqp7fsb6tkjf3j4i8.apps.googleusercontent.com';
@@ -17,6 +18,11 @@ const User = ({ state: { isSignedIn, profile, showMenu }, dispatch }) => {
   const handleClick = (e) => {
     if (node.current.contains(e.target)) return;
     dispatch({ type: 'hideMenu' });
+  };
+
+  const onLogin = (res) => {
+    refreshTokenSetup(res, dispatch);
+    dispatch({ type: 'login', payload: res });
   };
 
   const UserMenu = () => (
@@ -44,7 +50,7 @@ const User = ({ state: { isSignedIn, profile, showMenu }, dispatch }) => {
     <GoogleLogin
       clientId={clientId}
       buttonText='Login'
-      onSuccess={(res) => dispatch({ type: 'login', payload: res })}
+      onSuccess={onLogin}
       onFailure={(res) => console.warn(res)}
       cookiePolicy={'single_host_origin'}
       isSignedIn={true}
