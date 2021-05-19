@@ -6,11 +6,10 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Loader from './components/Loader';
 import ListManager from './components/ListManager';
+import StateManager from './StateManager';
 
 const STORAGE_KEY = 'todo-lists';
-//const API_URL = 'http://localhost:5000/todo-list-313916/us-central1/api';
 const API_URL = 'https://us-central1-todo-list-313916.cloudfunctions.net/api';
-
 const DEFAULT_LIST = [
   {
     id: nanoid(),
@@ -21,37 +20,35 @@ const DEFAULT_LIST = [
 ];
 
 const App = () => {
+  const [state, dispatch] = StateManager();
   const [lists, setLists] = useState(DEFAULT_LIST);
-  const [loadingData, setLoadingData] = useState(true);
-  const [isSignedIn, setIsSignedIn] = useState();
-  const [tokenId, setTokenId] = useState();
 
   useEffect(() => {
-    if (isSignedIn === undefined) return;
-    if (isSignedIn) {
+    if (state.isSignedIn === undefined) return;
+    if (state.isSignedIn) {
       axios
         .get(`${API_URL}/lists`, {
-          headers: { Authorization: `Bearer ${tokenId}` },
+          headers: { Authorization: `Bearer ${state.tokenId}` },
         })
         .then((res) => {
           if (res.data) setLists(res.data);
-          setLoadingData(false);
+          dispatch({ type: 'loadingDataFinished' });
         })
         .catch((err) => console.error(err));
     } else {
       const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
       if (data) setLists(data);
-      setLoadingData(false);
+      dispatch({ type: 'loadingDataFinished' });
     }
-  }, [isSignedIn]);
+  }, [state.isSignedIn]);
 
   const saveLists = (data) => {
-    isSignedIn
+    state.isSignedIn
       ? axios
           .post(
             API_URL,
             { lists: data },
-            { headers: { Authorization: `Bearer ${tokenId}` } }
+            { headers: { Authorization: `Bearer ${state.tokenId}` } }
           )
           .catch((err) => console.error(err))
       : localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -60,16 +57,15 @@ const App = () => {
 
   return (
     <div className='App'>
-      <User
-        setTokenId={setTokenId}
-        setLoadingData={setLoadingData}
-        isSignedIn={isSignedIn}
-        setIsSignedIn={setIsSignedIn}
-      />
+      <User state={state} dispatch={dispatch} />
       <div className='content'>
         <Header />
-        <Loader loading={loadingData} />
-        <ListManager lists={lists} setLists={saveLists} loading={loadingData} />
+        <Loader loading={state.loading} />
+        <ListManager
+          lists={lists}
+          setLists={saveLists}
+          loading={state.loading}
+        />
         <Footer />
       </div>
     </div>

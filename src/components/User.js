@@ -1,13 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 const clientId =
   '344171521405-klhc88ki67nogdfpqp7fsb6tkjf3j4i8.apps.googleusercontent.com';
 
-const User = ({ setTokenId, setLoadingData, isSignedIn, setIsSignedIn }) => {
-  const [profile, setProfile] = useState();
-  const [isActive, setIsActive] = useState(false);
-
+const User = ({ state: { isSignedIn, profile, showMenu }, dispatch }) => {
   const node = useRef();
 
   useEffect(() => {
@@ -19,43 +16,23 @@ const User = ({ setTokenId, setLoadingData, isSignedIn, setIsSignedIn }) => {
 
   const handleClick = (e) => {
     if (node.current.contains(e.target)) return;
-    setIsActive(false);
+    dispatch({ type: 'hideMenu' });
   };
 
-  const onLogin = (res) => {
-    setLoadingData(true);
-    setTokenId(res.tokenId);
-    setProfile(res.profileObj);
-    setIsSignedIn(true);
-  };
-
-  const onLogout = () => {
-    setLoadingData(true);
-    setIsSignedIn(false);
-    setTokenId();
-    setProfile();
-    setIsActive(false);
-  };
-
-  const onClick = () => {
-    setIsActive(!isActive);
-  };
-
-  const onAutoLoadFinished = (signedIn) => {
-    if (!signedIn) setIsSignedIn(false);
-  };
-
-  const showUserMenu = () => (
+  const UserMenu = () => (
     <>
-      <button onClick={onClick} className='menu-btn'>
+      <button
+        onClick={() => dispatch({ type: 'toggleMenu', payload: !showMenu })}
+        className='menu-btn'
+      >
         <span>{profile.givenName}</span>
         <img className='profile-img' src={profile.imageUrl} alt='avatar' />
       </button>
-      <div className={`menu ${isActive ? 'active' : 'inactive'}`}>
+      <div className={`menu ${showMenu ? 'active' : 'inactive'}`}>
         <GoogleLogout
           clientId={clientId}
           buttonText='Logout'
-          onLogoutSuccess={onLogout}
+          onLogoutSuccess={() => dispatch({ type: 'logout' })}
           icon={false}
           className='google-logout'
         />
@@ -63,22 +40,24 @@ const User = ({ setTokenId, setLoadingData, isSignedIn, setIsSignedIn }) => {
     </>
   );
 
-  const showLoginBtn = () => (
+  const LoginBtn = () => (
     <GoogleLogin
       clientId={clientId}
       buttonText='Login'
-      onSuccess={onLogin}
+      onSuccess={(res) => dispatch({ type: 'login', payload: res })}
       onFailure={(res) => console.warn(res)}
       cookiePolicy={'single_host_origin'}
       isSignedIn={true}
       className='menu-btn'
-      onAutoLoadFinished={onAutoLoadFinished}
+      onAutoLoadFinished={(res) =>
+        dispatch({ type: 'autoLoadFinished', payload: res })
+      }
     />
   );
 
   return (
     <div className='menu-container' ref={node}>
-      {isSignedIn ? showUserMenu() : showLoginBtn()}
+      {isSignedIn ? UserMenu() : LoginBtn()}
     </div>
   );
 };
