@@ -1,36 +1,150 @@
 <!-- PROJECT LOGO -->
-<br>
-
+<br />
 <p align="center">
-  <a href="https://www.theodinproject.com">
-    <img src="https://www.theodinproject.com/assets/odin-logo-2d729f16279e9fc3b58ce847eacf07f883bdfc95eb23bb5064ed59d36ef551d6.svg" alt="Logo">
+  <a href="https://jasont.us">
+    <img src="logo.svg" alt="Logo" width="80" height="80">
   </a>
+
+  <h3 align="center">ToDo List Client App</h3>
+
+  <p align="center">
+    The ubiquitous javascript project
+    <br />
+    <a href="https://github.com/jasont01/todo-list-server"><strong>Server App Repo »</strong></a>
+    <br />
+    <br />
+    <a href="https://jasont01.github.io/todo-list/">View Demo</a>
+    ·
+    <a href="https://github.com/jasont01/todo-list/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/jasont01/todo-list/issues">Request Feature</a>
+  </p>
 </p>
 
-<h3 align="center">Project: ToDo List</h3>
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#highlights">Highlights</a></li>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+      </ul>
+    </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
 
-<p align="center">
-  <a href="https://www.theodinproject.com/courses/javascript/lessons/todo-list"><strong>View the assignment »</strong></a>
-</p>
+<!-- ABOUT THE PROJECT -->
 
-<br>
+## About The Project
 
-## About
+This project, inspired by the background picture found on [unplash](https://unsplash.com/photos/3ym6i13Y9LU), was started as an assignment while completing [The Odin Project](https://www.theodinproject.com/)'s javascript curriculum. Since then, it has been refactored & rewritten as my skillset has grown. This latest iteration was rewritten as client / server pair. The client was written as a React app, while the server was written as a node/express app. The repo for the server app can be found [->here<-](https://github.com/jasont01/todo-list-server)
 
-<p>This is a project from The Odin Project's JavaScript course.<br>
-In this project, you are asked to create a todo-list app using JavaScript.<p>
+![preview-screenshot]
 
-<p>A link to the full description of the assignment can be found above.</p>
+### Highlights
 
-## Preview
+- Create multiple lists
+- Assign priority levels to tasks
+- Save your data to the cloud (must be signed in, otherwise data is saved locally to the browser)
 
-<img src="preview.png" width="50%">
+### Built With
 
-## Live version
+- [React](https://reactjs.org/)
+- [Bootstrap](https://getbootstrap.com)
+- [Node](https://nodejs.org)
+- [Express](https://expressjs.com)
+- [Firebase](https://firebase.google.com)
 
-<p><a href="https://jasont01.github.io/todo-list"><img src="https://avatars0.githubusercontent.com/u/9919?s=20&v=4">GitHub Pages</a></p>
+<!-- GETTING STARTED -->
 
-## The Odin Project ![GitHub stars](https://img.shields.io/github/stars/TheOdinProject/curriculum?style=social)
-<p>The Odin Project is a open source, full stack curriculum focused on helping you learn web development.</p>
-<p>Learn more at their site: <a href="https://www.theodinproject.com/">theodinproject.com</a></p>
+## Getting Started
 
+- Clone this repo & cd into directory
+
+```sh
+  git clone https://github.com/jasont01/todo-list.git && cd todo-list
+```
+
+- Install dependencies
+
+```sh
+  npm install
+```
+
+- Start dev server
+
+```sh
+  npm start
+```
+
+### Prerequisites
+
+- [Node](https://nodejs.org/)
+
+<!-- ROADMAP -->
+
+## Roadmap
+
+Of course, this project is far from perfect. Some of the features I would like to implement include:
+
+- Mobile/Responsive version without sacrificing the background image
+- Custom priority levels
+- Pagination - would remove limits on number of lists/items
+- Custom fonts / colors
+
+<!-- CONTRIBUTING -->
+
+## Contributing
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<!-- CONTACT -->
+
+## Contact
+
+Jason Thompson - [@jasont01](https://twitter.com/jasont01) - contact@jasont.us
+
+Project Link: [https://github.com/jasont01/todo-list](https://github.com/jasont01/todo-list)
+
+<!-- ACKNOWLEDGEMENTS -->
+
+## Acknowledgements
+
+Hosting:
+
+- [GitHub Pages](https://pages.github.com)
+
+Background Picture:
+
+- [Mike Tinnion](https://unsplash.com/photos/3ym6i13Y9LU) on Unsplash
+
+npm packages:
+
+- [nanoid](https://www.npmjs.com/package/nanoid)
+- [react-confirm-alert](https://www.npmjs.com/package/react-confirm-alert)
+- [react-datepicker](https://www.npmjs.com/package/react-datepicker)
+- [react-google-login](https://www.npmjs.com/package/react-google-login)
+- [react-icons](https://www.npmjs.com/package/react-icons)
+- [react-select](https://www.npmjs.com/package/react-select)
+- [react-spinners](https://www.npmjs.com/package/react-spinners)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[preview-screenshot]: preview.png
