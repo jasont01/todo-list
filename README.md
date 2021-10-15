@@ -5,12 +5,10 @@
     <img src="logo.svg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">ToDo List Client App</h3>
+  <h3 align="center">ToDo List App</h3>
 
   <p align="center">
     The ubiquitous javascript project
-    <br />
-    <a href="https://github.com/jasont01/todo-list-server"><strong>Server App Repo »</strong></a>
     <br />
     <br />
     <a href="https://jasont01.github.io/todo-list/">View Demo</a>
@@ -49,7 +47,7 @@
 
 ## About The Project
 
-This project, inspired by the background picture found on [unplash](https://unsplash.com/photos/3ym6i13Y9LU), was started as an assignment while completing [The Odin Project](https://www.theodinproject.com/)'s javascript curriculum. Since then, it has been refactored & rewritten as my skillset has grown. This latest iteration was rewritten as a client / server pair. The client was written as a React app, while the server was written as a node/express app. The repo for the server app can be found [->here<-](https://github.com/jasont01/todo-list-server)
+This project, inspired by the background picture found on [unplash](https://unsplash.com/photos/3ym6i13Y9LU), was started as an assignment while completing [The Odin Project](https://www.theodinproject.com/)'s javascript curriculum. Since then, it has been refactored & rewritten as my skillset has grown. This latest iteration was rewritten as a client / server pair. The client was written as a React app, while the server was written as a node/express app.
 
 ![preview-screenshot]
 
