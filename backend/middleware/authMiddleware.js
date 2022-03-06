@@ -11,7 +11,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    req.useId = decoded.id
+    req.userId = decoded.id
     next()
   } catch (err) {
     res.status(401)
