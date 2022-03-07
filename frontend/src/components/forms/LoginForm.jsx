@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Link from '@mui/material/Link'
-import { login, reset } from '../features/auth/authSlice'
+import { login, reset } from '../../features/auth/authSlice'
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({

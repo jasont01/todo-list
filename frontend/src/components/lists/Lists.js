@@ -1,18 +1,21 @@
-import { nanoid } from 'nanoid';
-import { confirmAlert } from 'react-confirm-alert';
-import List from './List';
-import NewListControl from './NewListControl';
+import { useSelector, useDispatch } from 'react-redux'
+import { confirmAlert } from 'react-confirm-alert'
+import { deleteList } from '../../features/lists/listSlice'
+import List from './List'
+import NewListControl from './NewListControl'
 
-const Lists = ({ lists, setLists, saveList, setActiveList }) => {
-  const createNewList = (title) => {
-    const newList = {
-      id: nanoid(),
-      name: title,
-      items: [],
-      active: false,
-    };
-    setLists([...lists, newList]);
-  };
+const Lists = ({ saveList, setActiveList }) => {
+  const dispatch = useDispatch()
+
+  const { lists } = useSelector((state) => state.lists)
+
+  // const createNewList = (title) => {
+  //   const newList = {
+  //     title,
+  //   }
+  // ==> dispatch(createList(title))
+  //   setLists([...lists, newList])
+  // }
 
   const confirmDelete = (id, name) => {
     confirmAlert({
@@ -22,19 +25,15 @@ const Lists = ({ lists, setLists, saveList, setActiveList }) => {
         {
           label: 'Delete',
           className: 'btn btn-danger',
-          onClick: () => deleteList(id),
+          onClick: () => dispatch(deleteList(id)),
         },
         {
           label: 'Cancel',
           className: 'btn btn-primary',
         },
       ],
-    });
-  };
-
-  const deleteList = (id) => {
-    setLists(lists.filter((list) => list.id !== id));
-  };
+    })
+  }
 
   return (
     <div className='list-container'>
@@ -42,7 +41,7 @@ const Lists = ({ lists, setLists, saveList, setActiveList }) => {
       <ul className='lists'>
         {lists.map((list) => (
           <List
-            key={list.id}
+            key={list._id}
             list={list}
             changeActive={setActiveList}
             onlyList={lists.length < 2}
@@ -51,9 +50,9 @@ const Lists = ({ lists, setLists, saveList, setActiveList }) => {
           />
         ))}
       </ul>
-      <NewListControl createNewList={createNewList} numLists={lists.length} />
+      <NewListControl numLists={lists.length} />
     </div>
-  );
-};
+  )
+}
 
-export default Lists;
+export default Lists

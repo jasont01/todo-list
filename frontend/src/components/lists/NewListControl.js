@@ -1,17 +1,16 @@
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import NewListForm from '../forms/NewListForm';
+import { useState } from 'react'
+import Button from '@mui/material/Button'
+import NewListForm from '../forms/NewListForm'
 
-const MAX_LISTS = 18;
+const MAX_LISTS = 18
 
-const NewListControl = ({ createNewList, numLists }) => {
-  const [showNewListForm, setShowNewListForm] = useState(false);
+const NewListControl = ({ numLists }) => {
+  const [showNewListForm, setShowNewListForm] = useState(false)
 
   return (
     <>
       {showNewListForm ? (
         <NewListForm
-          createNewList={createNewList}
           cancelNewList={() => setShowNewListForm(false)}
           setShowNewListForm={setShowNewListForm}
         />
@@ -24,7 +23,7 @@ const NewListControl = ({ createNewList, numLists }) => {
         </Button>
       )}
     </>
-  );
-};
+  )
+}
 
-export default NewListControl;
+export default NewListControl

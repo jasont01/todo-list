@@ -6,7 +6,7 @@ import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import RegisterForm from '../components/RegisterForm'
+import RegisterForm from '../components/forms/RegisterForm'
 import Spinner from '../components/Spinner'
 
 const Register = () => {

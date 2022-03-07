@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import {
   FaRegFolder,
   FaRegFolderOpen,
@@ -6,8 +6,8 @@ import {
   FaEdit,
   FaTrash,
   FaWindowClose,
-} from 'react-icons/fa';
-import EditListForm from '../forms/EditListForm';
+} from 'react-icons/fa'
+import EditListForm from '../forms/EditListForm'
 
 const List = ({
   list,
@@ -17,13 +17,13 @@ const List = ({
   saveList,
   deleteList,
 }) => {
-  const [hover, setHover] = useState(false);
-  const [editMode, setEditMode] = useState(false);
+  const [hover, setHover] = useState(false)
+  const [editMode, setEditMode] = useState(false)
 
   const updateList = (name) => {
-    saveList({ ...list, name: name });
-    setEditMode(false);
-  };
+    saveList({ ...list, name: name })
+    setEditMode(false)
+  }
 
   return (
     <li className='list'>
@@ -65,7 +65,7 @@ const List = ({
         )}
       </div>
     </li>
-  );
-};
+  )
+}
 
-export default List;
+export default List
