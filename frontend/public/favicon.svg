@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg109"
+   width="512"
+   height="512"
+   viewBox="0 0 512.00001 512.00001">
+  <metadata
+     id="metadata115">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs113" />
+  <g
+     id="layer1"
+     style="display:inline"
+     transform="translate(0.08027168,0.19814702)">
+    <path
+       style="display:inline;fill:#fff8dc;fill-opacity:1;stroke-width:0.999999"
+       d="M -0.08027168,255.80186 V -0.19814702 H 255.91972 511.91973 V 255.80186 511.80185 H 255.91972 -0.08027168 Z"
+       id="path135" />
+  </g>
+  <g
+     id="layer2"
+     style="display:inline"
+     transform="translate(0.08027168,0.19814702)">
+    <path
+       style="display:inline;fill:#bada55;fill-opacity:1;stroke-width:0.999999"
+       d="M 19.919727,255.80185 V 19.801853 H 255.91972 491.91973 v 235.999997 236 H 255.91972 19.919727 Z M 343.9197,322.31213 V 208.82107 l 44.75,-0.0188 h 45.25087 v -26.7505 -26.25 H 351.9197 271.10808 v 26.25 26.75049 l 3.56155,-7.5e-4 4.25,7.5e-4 v 113.55701 113.4425 h 32.49999 32.49998 z M 205.91972,182.30185 v -26.49999 h -8 -8.99914 v 26.49999 26.5 h 8.99914 8 z"
+       id="path133" />
+  </g>
+  <g
+     id="layer3"
+     style="display:inline;mix-blend-mode:normal"
+     transform="translate(0.08027168,0.19814702)">
+    <path
+       style="display:inline;fill:#1b1b1b;fill-opacity:1;stroke-width:0.999999"
+       d="M 19.919727,255.80186 V 19.801853 H 255.91972 491.91973 V 255.80186 491.80185 H 255.91972 19.919727 Z M 343.9197,322.30185 V 208.80186 h 45 45 v -26.5 -26.5 h -81.5 -81.31162 l -0.18835,-33.5 V 88.801855 h -81.5 -81.49999 v 26.000005 26 h 48.99999 49 v 7.5 7.5 h -8.5 -8.5 v 26.5 26.5 h 8.57126 8.57126 l -0.36847,39.75 c -0.34882,37.62855 -0.48477,40.09917 -2.54733,46.29242 -4.26993,12.82129 -11.53161,20.24607 -23.08667,23.60523 -7.46878,2.17125 -23.54932,1.45209 -31.39359,-1.40394 -8.67173,-3.15735 -18.84525,-10.43966 -27.0674,-19.37517 l -7.37249,-8.01214 -17.193569,20.595 c -9.456466,11.32725 -17.443919,21.24737 -17.749894,22.04475 -0.708859,1.84725 8.934238,12.0885 17.6369,18.7309 8.831033,6.74038 26.475653,15.19594 38.000003,18.21013 29.61106,7.74478 63.4965,5.46806 87.49999,-5.879 20.57074,-9.72431 33.55195,-24.35888 41.29828,-46.55819 5.73809,-16.44412 6.46407,-23.52143 6.94969,-67.74999 l 0.44193,-40.25 h 3.90505 3.90505 v 113.49999 113.5 h 32.5 32.49997 z"
+       id="path131" />
+  </g>
+</svg>
