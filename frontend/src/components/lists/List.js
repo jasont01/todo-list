@@ -1,40 +1,55 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import {
-  FaRegFolder,
-  FaRegFolderOpen,
-  FaFolderOpen,
-  FaEdit,
-  FaTrash,
-  FaWindowClose,
-} from 'react-icons/fa'
-import EditListForm from '../forms/EditListForm'
-
-const List = ({
-  list,
-  list: { id, name, active },
-  changeActive,
-  onlyList,
-  saveList,
+  updateList,
   deleteList,
-}) => {
+  setActiveList,
+} from '../../features/lists/listSlice'
+import { FaRegFolder, FaRegFolderOpen, FaFolderOpen } from 'react-icons/fa'
+import { confirmAlert } from 'react-confirm-alert'
+import EditListForm from '../forms/EditListForm'
+import ListControls from './ListControls'
+
+const List = ({ list, list: { _id: id, title, active }, onlyList }) => {
   const [hover, setHover] = useState(false)
   const [editMode, setEditMode] = useState(false)
 
-  const updateList = (name) => {
-    saveList({ ...list, name: name })
+  const dispatch = useDispatch()
+
+  const handleUpdateList = (e, newTitle) => {
+    e.preventDefault()
+    dispatch(updateList({ ...list, title: newTitle }))
     setEditMode(false)
+  }
+
+  const confirmDelete = () => {
+    confirmAlert({
+      title: `Delete ${title}`,
+      message: 'Are you sure?',
+      buttons: [
+        {
+          label: 'Delete',
+          className: 'btn btn-danger',
+          onClick: () => dispatch(deleteList(id)),
+        },
+        {
+          label: 'Cancel',
+          className: 'btn btn-primary',
+        },
+      ],
+    })
   }
 
   return (
     <li className='list'>
       {editMode ? (
-        <EditListForm id={id} name={name} updateList={updateList} />
+        <EditListForm id={id} title={title} updateList={handleUpdateList} />
       ) : (
         <div
           className='list-wrapper'
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          onClick={() => !active && changeActive(id)}
+          onClick={() => !active && dispatch(setActiveList(id))}
         >
           <span className='folder'>
             {active ? (
@@ -45,25 +60,15 @@ const List = ({
               <FaRegFolder />
             )}
           </span>
-          <span className='list-name'>{name}</span>
+          <span className='list-name'>{title}</span>
         </div>
       )}
-      <div className='list-controls'>
-        {editMode ? (
-          <FaWindowClose
-            className='list-edit'
-            onClick={() => setEditMode(false)}
-          />
-        ) : (
-          <FaEdit className='list-edit' onClick={() => setEditMode(true)} />
-        )}
-        {!onlyList && (
-          <FaTrash
-            className='list-delete'
-            onClick={() => deleteList(id, name)}
-          />
-        )}
-      </div>
+      <ListControls
+        editMode={editMode}
+        setEditMode={setEditMode}
+        confirmDelete={confirmDelete}
+        onlyList={onlyList}
+      />
     </li>
   )
 }

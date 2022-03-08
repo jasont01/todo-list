@@ -3,42 +3,42 @@ import { useDispatch } from 'react-redux'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import { createList } from '../../features/lists/listSlice'
+import { TextField } from '@mui/material'
 
 const NewListForm = ({ cancelNewList, setShowNewListForm }) => {
   const [input, setInput] = useState('')
 
   const dispatch = useDispatch()
 
-  const handleSubmit = () => {
-    dispatch(createList(input))
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(createList({ title: input }))
     setShowNewListForm(false)
   }
 
   return (
-    // <Form.Group>
-    //   <Form.Control
-    //     id='new-list-name'
-    //     size='sm'
-    //     type='text'
-    //     value={input}
-    //     onChange={(e) => setInput(e.target.value)}
-    //     onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
-    //     placeholder='List Name'
-    //     autoFocus
-    //   />
-    //   <Button id='new-list-add' size='sm' onClick={handleSubmit}>
-    //     Add
-    //   </Button>
-    //   <Button
-    //     id='new-list-cancel'
-    //     variant='secondary'
-    //     size='sm'
-    //     onClick={cancelNewList}
-    //   >
-    //     cancel
-    //   </Button>
-    // </Form.Group>
-    <Box>New List Form...</Box>
+    <Box component='form' onSubmit={handleSubmit}>
+      <TextField
+        id='new-list-title'
+        name='new-list-title'
+        label='List Title'
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        autoFocus
+        size='small'
+      />
+      <Button id='new-list-add' type='submit' variant='contained' size='small'>
+        Add
+      </Button>
+      <Button
+        id='new-list-cancel'
+        onClick={cancelNewList}
+        color='error'
+        size='small'
+      >
+        cancel
+      </Button>
+    </Box>
   )
 }
 

@@ -3,6 +3,7 @@ import listService from './listService'
 
 const initialState = {
   lists: [],
+  activeList: null,
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -38,16 +39,30 @@ export const getLists = createAsyncThunk(
 
 export const updateList = createAsyncThunk(
   'lists/update',
-  async (id, data, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token
-      return await listService.updateList(id, data, token)
+      return await listService.updateList(data, token)
     } catch (error) {
       const message = parseError(error)
       thunkAPI.rejectWithValue(message)
     }
   }
 )
+
+// export const setActiveList = createAsyncThunk(
+//   'lists/setActive',
+//   async (id, thunkAPI) => {
+//     try {
+//       const token = thunkAPI.getState().auth.user.token
+//       const data = thunkAPI.getState().lists.map((list) => list.id === id ? { ...list, active: true } : { ...list, active: false })
+//       return await listService.updateList(id, data, token)
+//     } catch (error) {
+//       const message = parseError(error)
+//       thunkAPI.rejectWithValue(message)
+//     }
+//   }
+// )
 
 export const deleteList = createAsyncThunk(
   'lists/delete',
@@ -77,6 +92,16 @@ export const listSlice = createSlice({
     reset: (state) => initialState,
     showNewListForm: (state, action) => {
       state.showNewListForm = action.payload
+    },
+    getActiveList: (state) => {
+      state.activeList =
+        state.lists.find((list) => list.active) || state.lists[0]
+    },
+    setActiveList: (state, action) => {
+      const id = action.payload
+      state.lists = state.lists.map((list) =>
+        list._id === id ? { ...list, active: true } : { ...list, active: false }
+      )
     },
   },
   extraReducers: (builder) => {
@@ -128,7 +153,9 @@ export const listSlice = createSlice({
       .addCase(deleteList.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.lists = state.lists.filter((list) => list._id !== action.payload)
+        state.lists = state.lists.filter(
+          (list) => list._id !== action.payload._id
+        )
       })
       .addCase(deleteList.rejected, (state, action) => {
         state.isLoading = false
@@ -138,5 +165,6 @@ export const listSlice = createSlice({
   },
 })
 
-export const { reset } = listSlice.actions
+export const { reset, showNewListForm, getActiveList, setActiveList } =
+  listSlice.actions
 export default listSlice.reducer

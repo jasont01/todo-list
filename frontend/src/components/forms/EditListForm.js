@@ -1,24 +1,30 @@
 import { useState } from 'react'
-//import { Button, Form } from 'react-bootstrap';
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
 
-const EditListForm = ({ name, updateList }) => {
-  const [input, setInput] = useState(name)
+const EditListForm = ({ title, updateList }) => {
+  const [input, setInput] = useState(title)
 
   return (
-    // <Form.Group className='list-edit-form'>
-    //   <Form.Control
-    //     size='sm'
-    //     type='text'
-    //     value={input}
-    //     onChange={(e) => setInput(e.target.value)}
-    //     onKeyPress={(e) => e.key === 'Enter' && updateList(input)}
-    //     autoFocus
-    //   />
-    //   <Button size='sm' onClick={() => updateList(input)}>
-    //     Save
-    //   </Button>
-    // </Form.Group>
-    <div>Edit List Form...</div>
+    <Box
+      component='form'
+      onSubmit={(e) => updateList(e, input)}
+      className='list-edit-form'
+    >
+      <TextField
+        id='list-title'
+        name='list-title'
+        label='List Title'
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        autoFocus
+        size='small'
+      />
+      <Button id='list-add' type='submit' variant='contained' size='small'>
+        Save
+      </Button>
+    </Box>
   )
 }
 

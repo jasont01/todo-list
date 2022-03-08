@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import Spinner from '../components/Spinner'
 import { getLists, reset } from '../features/lists/listSlice'
 import Lists from '../components/lists/Lists'
+import Spinner from '../components/Spinner'
 //import Items from '../components/items/Items'
 
 const Main = () => {
@@ -11,13 +11,20 @@ const Main = () => {
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.auth)
-  const { lists, isLoading, isError, message } = useSelector(
-    (state) => state.lists
-  )
+  const { isLoading, isError, message } = useSelector((state) => state.lists)
+
+  // const getActiveList = () => {
+  //   let activeList = lists.find((list) => list.active)
+  //   if (!activeList) {
+  //     activeList = lists[0]
+  //     dispatch(updateList(activeList.id, { active: true }))
+  //   }
+  //   return activeList
+  // }
 
   useEffect(() => {
     if (isError) {
-      console.log(message)
+      console.error(message)
     }
 
     if (user) {
@@ -29,7 +36,7 @@ const Main = () => {
     return () => {
       dispatch(reset())
     }
-  }, [user, navigate, isError, message, dispatch])
+  }, [user, isError, message, navigate, dispatch])
 
   if (isLoading) {
     return <Spinner />
@@ -43,21 +50,7 @@ const Main = () => {
       </section>
 
       <Lists />
-      {/* <Items /> */}
-
-      {/* <section className='content'>
-        {lists.length > 0 ? (
-          <div className='lists'>
-            <ul>
-              {lists.map((list) => (
-                <li key={list._id}> {list.title} </li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <h3>You do not have any lists</h3>
-        )}
-      </section> */}
+      {/* <Items list={getActiveList()}/> */}
     </>
   )
 }

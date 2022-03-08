@@ -23,7 +23,8 @@ const getLists = async (token) => {
   return response.data
 }
 
-const updateList = async (id, data, token) => {
+const updateList = async (data, token) => {
+  const id = data._id
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

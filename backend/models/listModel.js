@@ -17,6 +17,10 @@ const listSchema = mongoose.Schema(
         ref: 'Item',
       },
     ],
+    active: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
