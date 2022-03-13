@@ -8,10 +8,10 @@ import { List } from '../models/listModel.js'
  */
 const getLists = asyncHandler(async (req, res) => {
   const lists = await List.find({ user: req.userId })
-    .populate({
-      path: 'items',
-      select: '-__v',
-    })
+    // .populate({
+    //   path: 'items',
+    //   select: '-__v',
+    // })
     .select('-__v')
 
   res.status(200).json(lists)

@@ -1,15 +1,15 @@
-import Select from 'react-select';
+import Select from 'react-select'
 
 const priorityOptions = [
-  { value: 'none', label: 'None' },
-  { value: 'high', label: 'High' },
-  { value: 'medium', label: 'Medium' },
-  { value: 'low', label: 'Low' },
-];
+  { value: 'None', label: 'None' },
+  { value: 'High', label: 'High' },
+  { value: 'Medium', label: 'Medium' },
+  { value: 'Low', label: 'Low' },
+]
 
-const primaryColor = '#BADA55';
-const focusColor = 'rgba(186, 217, 84, 0.5)';
-const blackColor = '#495057';
+const primaryColor = '#BADA55'
+const focusColor = 'rgba(186, 217, 84, 0.5)'
+const blackColor = '#495057'
 
 const PrioritySelect = ({ className, placeholder, defaultValue, onChange }) => {
   const priorityStyles = {
@@ -42,7 +42,7 @@ const PrioritySelect = ({ className, placeholder, defaultValue, onChange }) => {
         ? focusColor
         : 'transparent',
     }),
-  };
+  }
 
   return (
     <Select
@@ -55,7 +55,7 @@ const PrioritySelect = ({ className, placeholder, defaultValue, onChange }) => {
       options={priorityOptions}
       onChange={(selected) => onChange(selected.value)}
     />
-  );
-};
+  )
+}
 
-export default PrioritySelect;
+export default PrioritySelect

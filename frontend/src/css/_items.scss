@@ -1,44 +1,44 @@
 // ITEMS
-.items-container {
-  position: absolute;
-  top: 115px;
-  right: 0;
-  width: 505px;
-  height: 630px;
+// .items-container {
+//   position: absolute;
+//   top: 115px;
+//   right: 0;
+//   width: 505px;
+//   height: 630px;
 
   .new-item-form {
     font-size: 0.8em;
-    
+
     .form-row {
       margin-left: 0;
       margin-right: 0;
-      
+
       .new-item-date {
         width: 8em;
       }
-      
+
       .new-item-priority {
         width: 9em;
       }
     }
   }
 
-  .items {
-    list-style: none;
-    user-select: none;
-    margin-bottom: 0px;
+  // .items {
+  //   list-style: none;
+  //   user-select: none;
+  //   margin-bottom: 0px;
 
     .item {
       font-family: 'Nanum Pen Script', cursive;
       font-size: 1.5em;
       display: flex;
 
-      .item-title {
-        flex-grow: 1;
-        .done {
-          text-decoration: line-through;
-        }
-      }
+      // .item-title {
+      //   flex-grow: 1;
+      //   .done {
+      //     text-decoration: line-through;
+      //   }
+      // }
 
       .due-date {
         margin-right: 1em;
@@ -75,18 +75,18 @@
   }
 
   // Priority Headers
-  .priority {
-    display: block;
-    text-align: center;
-    text-transform: capitalize;
-  }
-  .priority-high {
-    color: crimson;
-  }
-  .priority-medium {
-    color: goldenrod;
-  }
-  .priority-low {
-    color: seagreen;
-  }
-}
+//   .priority {
+//     display: block;
+//     text-align: center;
+//     text-transform: capitalize;
+//   }
+//   .priority-high {
+//     color: crimson;
+//   }
+//   .priority-medium {
+//     color: goldenrod;
+//   }
+//   .priority-low {
+//     color: seagreen;
+//   }
+// }

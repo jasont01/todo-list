@@ -4,11 +4,12 @@ import {
   updateList,
   deleteList,
   setActiveList,
-} from '../../features/lists/listSlice'
-import { FaRegFolder, FaRegFolderOpen, FaFolderOpen } from 'react-icons/fa'
+} from '../../../features/lists/listSlice'
 import { confirmAlert } from 'react-confirm-alert'
-import EditListForm from '../forms/EditListForm'
+import EditListForm from '../../forms/EditListForm'
 import ListControls from './ListControls'
+import styles from './ListEntry.module.css'
+import Folder from '../Folder/Folder'
 
 const List = ({ list, list: { _id: id, title, active }, onlyList }) => {
   const [hover, setHover] = useState(false)
@@ -41,26 +42,18 @@ const List = ({ list, list: { _id: id, title, active }, onlyList }) => {
   }
 
   return (
-    <li className='list'>
+    <li className={styles.list}>
       {editMode ? (
         <EditListForm id={id} title={title} updateList={handleUpdateList} />
       ) : (
         <div
-          className='list-wrapper'
+          className={styles.wrapper}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           onClick={() => !active && dispatch(setActiveList(id))}
         >
-          <span className='folder'>
-            {active ? (
-              <FaFolderOpen />
-            ) : hover ? (
-              <FaRegFolderOpen />
-            ) : (
-              <FaRegFolder />
-            )}
-          </span>
-          <span className='list-name'>{title}</span>
+          <Folder active={active} hover={hover} />
+          <span className={styles.name}>{title}</span>
         </div>
       )}
       <ListControls

@@ -1,74 +1,77 @@
-import { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
-import DatePicker from 'react-datepicker';
-import PrioritySelect from './PrioritySelect';
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { createItem } from '../../features/items/itemSlice'
+import Button from '@mui/material/Button'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import DatePicker from 'react-datepicker'
+import PrioritySelect from '../PrioritySelect'
 
-const NewItemForm = ({ createNewItem, cancelNewItem, setShowNewItemForm }) => {
-  const [name, setName] = useState('');
-  const [date, setDate] = useState(new Date());
-  const [priority, setPriority] = useState('none');
-  const [isInvalid, setIsInvalid] = useState(false);
+const NewItemForm = ({ cancelNewItem, setShowNewItemForm }) => {
+  const [description, setDescription] = useState('')
+  const [date, setDate] = useState(new Date())
+  const [priority, setPriority] = useState('None')
 
-  const handleSubmit = () => {
-    name.length > 0 ? submitNewItem() : setIsInvalid(true);
-  };
+  const [isInvalid, setIsInvalid] = useState(false)
+
+  const { activeList } = useSelector((state) => state.lists)
+
+  const dispatch = useDispatch()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    description.length > 0 ? submitNewItem() : setIsInvalid(true)
+  }
 
   const submitNewItem = () => {
-    createNewItem(name, date, priority);
-    setShowNewItemForm(false);
-  };
+    dispatch(createItem({ description, date, priority, listId: activeList }))
+    setShowNewItemForm(false)
+  }
 
   return (
-    <div className='new-item-form'>
-      <Form.Group>
-        <Form.Control
-          className='new-item-name'
-          isInvalid={isInvalid}
-          size='sm'
-          type='text'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
-          placeholder='Item'
-          autoFocus
-          required
-        />
-        <Form.Control.Feedback type='invalid'>
+    <Box className='new-item-form' component='form' onSubmit={handleSubmit}>
+      <TextField
+        className='new-item-name'
+        name='description'
+        size='sm'
+        type='text'
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        placeholder='Item'
+        autoFocus
+        required
+      />
+      {/* <Form.Control.Feedback type='invalid'>
           Item name is required.
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Form.Row>
-        <Form.Group>
-          <DatePicker
-            showPopperArrow={false}
-            selected={date}
-            onChange={(date) => setDate(date)}
-            minDate={new Date()}
-            dateFormat='yyyy-MM-dd'
-            className='form-control form-control-sm new-item-date'
-          />
-        </Form.Group>
-        <Form.Group>
-          <PrioritySelect
-            className='new-item-priority'
-            placeholder='--Priority--'
-            onChange={setPriority}
-          />
-        </Form.Group>
-      </Form.Row>
-      <Button size='sm' onClick={handleSubmit}>
+        </Form.Control.Feedback> */}
+      <DatePicker
+        showPopperArrow={false}
+        selected={date}
+        onChange={(date) => setDate(date)}
+        minDate={new Date()}
+        dateFormat='yyyy-MM-dd'
+        className='form-control form-control-sm new-item-date'
+      />
+      <PrioritySelect
+        className='new-item-priority'
+        placeholder='--Priority--'
+        name='priority'
+        value={priority}
+        onChange={setPriority}
+      />
+      <Button variant='contained' size='small' type='submit'>
         Add
       </Button>
       <Button
         id='new-item-cancel'
-        size='sm'
+        size='small'
         variant='secondary'
         onClick={cancelNewItem}
       >
         cancel
       </Button>
-    </div>
-  );
-};
+    </Box>
+  )
+}
 
-export default NewItemForm;
+export default NewItemForm

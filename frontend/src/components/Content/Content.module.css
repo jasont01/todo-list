@@ -1,0 +1,16 @@
+.wrapper {
+  position: relative;
+  height: 100vh;
+  /* background-image: url('https://res.cloudinary.com/exandria/image/upload/v1646795893/todo-list/notebook.jpg');
+  background-size: contain;
+  background-position-x: center;
+  background-repeat: no-repeat; */
+}
+
+.container {
+  position: absolute;
+  top: 7.4em;
+  left: 10em;
+  height: 47em;
+  width: 64em;
+}

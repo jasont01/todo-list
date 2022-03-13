@@ -1,0 +1,38 @@
+.list {
+  font-weight: 300;
+  display: flex;
+  position: relative;
+}
+
+.name {
+  margin-left: 5px;
+  font-size: 1.1em;
+  font-family: 'Pangolin', cursive;
+  font-variant: small-caps;
+}
+.edit {
+  display: none;
+}
+
+.controls {
+  position: absolute;
+  right: 0;
+  font-size: 0.7em;
+  line-height: 2em;
+}
+
+.editForm {
+  display: inline-flex;
+}
+
+.list:nth-child(12) {
+  margin-right: 7em;
+}
+
+.list:nth-child(13) {
+  margin-right: 5.5em;
+}
+
+.list:nth-child(14) {
+  margin-right: 4em;
+}

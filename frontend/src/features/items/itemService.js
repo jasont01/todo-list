@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const API_URL = `${process.env.REACT_APP_API_URL}/lists`
+const API_URL = `${process.env.REACT_APP_API_URL}/items`
 
-const createList = async (data, token) => {
+const createItem = async (data, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -13,7 +13,7 @@ const createList = async (data, token) => {
   return response.data
 }
 
-const getLists = async (token) => {
+const getItems = async (token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ const getLists = async (token) => {
   return response.data
 }
 
-const updateList = async (data, token) => {
+const updateItem = async (data, token) => {
   const id = data._id
   const config = {
     headers: {
@@ -36,7 +36,7 @@ const updateList = async (data, token) => {
   return response.data
 }
 
-const deleteList = async (id, token) => {
+const deleteItem = async (id, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -47,11 +47,11 @@ const deleteList = async (id, token) => {
   return response.data
 }
 
-const listService = {
-  createList,
-  getLists,
-  updateList,
-  deleteList,
+const itemService = {
+  createItem,
+  getItems,
+  updateItem,
+  deleteItem,
 }
 
-export default listService
+export default itemService

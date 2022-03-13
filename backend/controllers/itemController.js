@@ -3,6 +3,17 @@ import { List } from '../models/listModel.js'
 import { Item } from '../models/itemModel.js'
 
 /**
+ * @desc Get all items owned by user
+ * @route GET /api/items
+ * @access Private
+ */
+const getItems = asyncHandler(async (req, res) => {
+  const items = await Item.find({ user: req.userId }).select('-__v')
+
+  res.status(200).json(items)
+})
+
+/**
  * @desc Crate a new Item
  * @route POST /api/items
  * @access Private
@@ -36,7 +47,7 @@ const createItem = asyncHandler(async (req, res) => {
     listId,
   })
 
-  list.items.push(newItem)
+  list.items.push(newItem._id)
   await list.save()
 
   res.status(201).json(newItem)
@@ -76,8 +87,8 @@ const updateItem = asyncHandler(async (req, res) => {
       throw new Error('Not authorized')
     }
 
-    oldList.items.pull(item)
-    newList.items.push(item)
+    oldList.items.pull(item._id)
+    newList.items.push(item._id)
 
     await oldList.save()
     await newList.save()
@@ -133,4 +144,4 @@ const deleteItem = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id })
 })
 
-export { createItem, updateItem, deleteItem }
+export { getItems, createItem, updateItem, deleteItem }

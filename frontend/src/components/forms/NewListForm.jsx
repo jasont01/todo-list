@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
 import { createList } from '../../features/lists/listSlice'
-import { TextField } from '@mui/material'
 
 const NewListForm = ({ cancelNewList, setShowNewListForm }) => {
   const [input, setInput] = useState('')

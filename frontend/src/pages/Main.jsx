@@ -1,26 +1,27 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { getLists, reset } from '../features/lists/listSlice'
-import Lists from '../components/lists/Lists'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { getLists, getActiveList, reset } from '../features/lists/listSlice'
+import { getItems } from '../features/items/itemSlice'
 import Spinner from '../components/Spinner'
-//import Items from '../components/items/Items'
+//import Header from '../components/Header/Header'
+//import Footer from '../components/Footer/Footer'
+import Content from '../components/Content/Content'
+import Mobile from '../components/Mobile'
+
+//const RATIO = 3620 / 2475
 
 const Main = () => {
+  const isDesktop = useMediaQuery('(min-width:900px)')
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.auth)
-  const { isLoading, isError, message } = useSelector((state) => state.lists)
-
-  // const getActiveList = () => {
-  //   let activeList = lists.find((list) => list.active)
-  //   if (!activeList) {
-  //     activeList = lists[0]
-  //     dispatch(updateList(activeList.id, { active: true }))
-  //   }
-  //   return activeList
-  // }
+  const { lists, isLoading, isError, message } = useSelector(
+    (state) => state.lists
+  )
 
   useEffect(() => {
     if (isError) {
@@ -29,6 +30,7 @@ const Main = () => {
 
     if (user) {
       dispatch(getLists())
+      dispatch(getItems())
     } else {
       navigate('/login')
     }
@@ -38,20 +40,20 @@ const Main = () => {
     }
   }, [user, isError, message, navigate, dispatch])
 
+  useEffect(() => {
+    dispatch(getActiveList())
+  }, [lists, dispatch])
+
   if (isLoading) {
     return <Spinner />
   }
 
   return (
-    <>
-      <section className='heading'>
-        <h1>Welcome {user && user.firstName}</h1>
-        <p>ToDo List</p>
-      </section>
-
-      <Lists />
-      {/* <Items list={getActiveList()}/> */}
-    </>
+    <div className='main'>
+      {/* <Header /> */}
+      {isDesktop ? <Content /> : <Mobile content={<Content />} />}
+      {/* <Footer /> */}
+    </div>
   )
 }
 

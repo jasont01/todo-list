@@ -1,5 +1,6 @@
 import express from 'express'
 import {
+  getItems,
   createItem,
   updateItem,
   deleteItem,
@@ -8,7 +9,7 @@ import protect from '../middleware/authMiddleware.js'
 
 const router = express.Router()
 
-router.route('/').post(protect, createItem)
+router.route('/').get(protect, getItems).post(protect, createItem)
 router.route('/:id').put(protect, updateItem).delete(protect, deleteItem)
 
 export default router

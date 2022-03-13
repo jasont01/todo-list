@@ -1,0 +1,29 @@
+.container {
+  position: absolute;
+  top: 1em;
+  left: 30em;
+  width: fit-content;
+  height: 630px;
+  border: 2px solid #bada55;
+}
+
+.items {
+  list-style: none;
+  user-select: none;
+  margin-bottom: 0px;
+}
+
+.priority {
+  display: block;
+  text-align: center;
+  text-transform: capitalize;
+}
+.priority-high {
+  color: crimson;
+}
+.priority-medium {
+  color: goldenrod;
+}
+.priority-low {
+  color: seagreen;
+}

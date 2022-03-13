@@ -1,0 +1,53 @@
+/* https://codepen.io/bbodine1/pen/novBm */
+
+.title {
+  display: inline;
+  position: relative;
+  flex-grow: 1;
+}
+label {
+  cursor: pointer;
+  margin-left: 15px;
+  margin-bottom: 0px;
+}
+label:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 3px;
+  left: 0;
+  background: linear-gradient(to bottom, #222 0%, #45484d 100%);
+  border-radius: 4px;
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5),
+    0px 1px 0px rgba(255, 255, 255, 0.4);
+}
+label:after {
+  content: '';
+  width: 14px;
+  height: 8px;
+  position: absolute;
+  top: 7px;
+  left: 3px;
+  border: 3px solid #bada55;
+  border-top: none;
+  border-right: none;
+  background: transparent;
+  opacity: 0;
+  transform: rotate(-45deg);
+}
+
+label:hover::after {
+  opacity: 0.3;
+}
+
+input[type='checkbox'] {
+  visibility: hidden;
+}
+input:checked + label:after {
+  opacity: 1;
+}
+
+.title.done {
+  text-decoration: line-through;
+}

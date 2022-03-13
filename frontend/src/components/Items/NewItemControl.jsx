@@ -1,18 +1,17 @@
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import { FaPlus } from 'react-icons/fa';
-import NewItemForm from '../forms/NewItemForm';
+import { useState } from 'react'
+import Button from '@mui/material/Button'
+import { FaPlus } from 'react-icons/fa'
+import NewItemForm from '../forms/NewItemForm'
 
-const MAX_ITEMS = 10;
+const MAX_ITEMS = 10
 
-const NewItemControl = ({ createNewItem, numItems }) => {
-  const [showNewItemForm, setShowNewItemForm] = useState(false);
+const NewItemControl = ({ numItems }) => {
+  const [showNewItemForm, setShowNewItemForm] = useState(false)
 
   return (
     <div className='controls'>
       {showNewItemForm ? (
         <NewItemForm
-          createNewItem={createNewItem}
           cancelNewItem={() => setShowNewItemForm(false)}
           setShowNewItemForm={setShowNewItemForm}
         />
@@ -26,7 +25,7 @@ const NewItemControl = ({ createNewItem, numItems }) => {
         </Button>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default NewItemControl;
+export default NewItemControl

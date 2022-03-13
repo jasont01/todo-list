@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
 import listService from './listService'
 
 const initialState = {
@@ -50,20 +50,6 @@ export const updateList = createAsyncThunk(
   }
 )
 
-// export const setActiveList = createAsyncThunk(
-//   'lists/setActive',
-//   async (id, thunkAPI) => {
-//     try {
-//       const token = thunkAPI.getState().auth.user.token
-//       const data = thunkAPI.getState().lists.map((list) => list.id === id ? { ...list, active: true } : { ...list, active: false })
-//       return await listService.updateList(id, data, token)
-//     } catch (error) {
-//       const message = parseError(error)
-//       thunkAPI.rejectWithValue(message)
-//     }
-//   }
-// )
-
 export const deleteList = createAsyncThunk(
   'lists/delete',
   async (id, thunkAPI) => {
@@ -94,14 +80,19 @@ export const listSlice = createSlice({
       state.showNewListForm = action.payload
     },
     getActiveList: (state) => {
-      state.activeList =
-        state.lists.find((list) => list.active) || state.lists[0]
+      const currentState = current(state)
+      const active =
+        currentState.lists.find((list) => list.active) || currentState.lists[0]
+      if (active) {
+        state.activeList = active._id
+      }
     },
     setActiveList: (state, action) => {
       const id = action.payload
       state.lists = state.lists.map((list) =>
         list._id === id ? { ...list, active: true } : { ...list, active: false }
       )
+      state.activeList = action.payload
     },
   },
   extraReducers: (builder) => {

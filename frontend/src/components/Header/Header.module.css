@@ -1,0 +1,9 @@
+.content {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.user {
+  border: 2px solid #bada55;
+  display: flex;
+}
