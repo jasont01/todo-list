@@ -5,6 +5,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+@import 'react-datepicker/dist/react-datepicker.css';
+@import 'react-confirm-alert/src/react-confirm-alert.css';
+
 body {
   margin: 0;
   background: antiquewhite;
@@ -24,4 +27,20 @@ a:hover .list-wrapper:hover,
 .item-controls > svg:hover {
   color: #bada55;
   cursor: pointer;
+}
+
+/* React DatePicker */
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background: #bada55 !important;
+}
+
+.react-datepicker-wrapper {
+  line-height: 1em;
+  display: block;
+}
+
+/* React-Confirm-Alert */
+.react-confirm-alert-body > h1 {
+  font-size: 2rem;
 }

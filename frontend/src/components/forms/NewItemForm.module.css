@@ -1,0 +1,15 @@
+.new-item-form {
+  font-size: 0.8em;
+}
+.form-row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.new-item-date {
+  width: 8em;
+}
+
+.new-item-priority {
+  width: 9em;
+}

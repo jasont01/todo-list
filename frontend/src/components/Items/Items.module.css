@@ -7,6 +7,35 @@
   border: 2px solid #bada55;
 }
 
+.header {
+  position: absolute;
+  right: 50px;
+  width: 400px;
+  height: 129px;
+}
+.title {
+  font-family: 'Fredericka the Great', cursive;
+  font-size: 80px;
+  /* color: $primary; */
+}
+
+.itemHeader,
+.duedateHeader {
+  position: absolute;
+  top: 94px;
+  right: 300px;
+}
+
+.duedateHeader {
+  right: 52px;
+}
+
+.itemContainer {
+  position: absolute;
+  top: 200px;
+  left: 50px;
+}
+
 .items {
   list-style: none;
   user-select: none;
@@ -18,12 +47,32 @@
   text-align: center;
   text-transform: capitalize;
 }
+
 .priority-high {
   color: crimson;
 }
+
 .priority-medium {
   color: goldenrod;
 }
+
 .priority-low {
   color: seagreen;
+}
+
+.controls {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+#new-item-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 2px 3px 10px rgba(82, 82, 82, 0.5);
+}
+
+#new-item-btn:disabled > i {
+  cursor: auto;
 }
