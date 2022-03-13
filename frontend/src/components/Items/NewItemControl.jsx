@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Button from '@mui/material/Button'
 import { FaPlus } from 'react-icons/fa'
-import NewItemForm from '../forms/NewItemForm'
+import NewItemForm from './NewItemForm/NewItemForm'
 
 const MAX_ITEMS = 10
 

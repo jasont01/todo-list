@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import { register, reset } from '../../features/auth/authSlice'
+import { register, reset } from '../features/auth/authSlice'
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({

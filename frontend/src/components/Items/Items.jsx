@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import ItemEntry from './ItemEntry/ItemEntry'
 import CategoryHeader from './CategoryHeader'
 import NewItemControl from './NewItemControl'
+import Spinner from '../../components/Spinner'
 import styles from './Items.module.css'
 
 const categories = ['High', 'Medium', 'Low', 'None']
@@ -27,7 +28,7 @@ const Items = () => {
   }, [items, activeList])
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <Spinner />
   }
 
   return (

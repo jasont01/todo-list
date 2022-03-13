@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createItem } from '../../features/items/itemSlice'
+import { createItem } from '../../../features/items/itemSlice'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -12,6 +12,7 @@ const NewItemForm = ({ cancelNewItem, setShowNewItemForm }) => {
   const [date, setDate] = useState(new Date())
   const [priority, setPriority] = useState('None')
 
+  //TODO
   const [isInvalid, setIsInvalid] = useState(false)
 
   const { activeList } = useSelector((state) => state.lists)

@@ -1,0 +1,17 @@
+.name {
+  width: calc(9.8rem + 1px);
+}
+
+.priority {
+  font-size: 1rem;
+  width: 6em;
+}
+
+.datePicker {
+  width: 3.5em;
+}
+
+.submit {
+  height: fit-content;
+  margin-right: 1em;
+}

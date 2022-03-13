@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Button from '@mui/material/Button'
-import NewListForm from '../forms/NewListForm'
+import NewListForm from './NewListForm/NewListForm'
 
 const MAX_LISTS = 18
 

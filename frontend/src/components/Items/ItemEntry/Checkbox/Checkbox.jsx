@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { updateItem } from '../../../features/items/itemSlice'
+import { updateItem } from '../../../../features/items/itemSlice'
 import styles from './Checkbox.module.css'
 
 const Checkbox = ({

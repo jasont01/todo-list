@@ -8,28 +8,6 @@
   margin-right: 1em;
 }
 
-.controls {
-  font-size: 0.7em;
-  margin-right: 1em;
-}
 svg {
-  margin-right: 1em;
-}
-
-.item-edit-name {
-  width: calc(9.8rem + 1px);
-}
-
-.item-edit-priority {
-  font-size: 1rem;
-  width: 6em;
-}
-
-.item-edit-date {
-  width: 3.5em;
-}
-
-.item-edit-submit {
-  height: fit-content;
   margin-right: 1em;
 }

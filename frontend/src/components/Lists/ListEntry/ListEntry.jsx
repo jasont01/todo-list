@@ -6,10 +6,10 @@ import {
   setActiveList,
 } from '../../../features/lists/listSlice'
 import { confirmAlert } from 'react-confirm-alert'
-import EditListForm from '../../forms/EditListForm'
+import EditListForm from './EditListForm/EditListForm'
 import ListControls from './ListControls'
 import styles from './ListEntry.module.css'
-import Folder from '../Folder/Folder'
+import Folder from './Folder/Folder'
 
 const List = ({ list, list: { _id: id, title, active }, onlyList }) => {
   const [hover, setHover] = useState(false)

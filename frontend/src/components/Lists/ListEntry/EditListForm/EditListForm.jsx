@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+import styles from './EditListForm.module.css'
 
 const EditListForm = ({ title, updateList }) => {
   const [input, setInput] = useState(title)
