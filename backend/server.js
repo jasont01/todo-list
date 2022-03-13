@@ -21,6 +21,8 @@ app.use('/api/user', userRoutes)
 app.use('/api/lists', listRoutes)
 app.use('/api/items', itemRoutes)
 
+app.get('/', (req, res) => res.send({ error: '404 Not Found' }))
+
 app.use(errorHandler)
 
 app.listen(port, () => console.log(`Server started on port ${port}`))
