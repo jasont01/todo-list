@@ -1,38 +1,38 @@
-.list {
+.container {
   font-weight: 300;
   display: flex;
   position: relative;
+  margin-bottom: 0.4em;
 }
 
 .name {
-  margin-left: 5px;
+  margin-left: 0.5em;
   font-size: 1.1em;
   font-family: 'Pangolin', cursive;
   font-variant: small-caps;
 }
-.edit {
-  display: none;
+
+.wrapper:hover {
+  cursor: pointer;
+  color: #bada55;
 }
 
-.controls {
-  position: absolute;
-  right: 0;
-  font-size: 0.7em;
-  line-height: 2em;
-}
-
-.editForm {
-  display: inline-flex;
-}
-
-.list:nth-child(12) {
+.container:nth-child(12) {
   margin-right: 7em;
 }
 
-.list:nth-child(13) {
+.container:nth-child(13) {
   margin-right: 5.5em;
 }
 
-.list:nth-child(14) {
+.container:nth-child(14) {
   margin-right: 4em;
+}
+
+.confirmBtn:hover {
+  background-color: #d32f2f;
+}
+
+.cancelBtn:hover {
+  background-color: #bada55;
 }

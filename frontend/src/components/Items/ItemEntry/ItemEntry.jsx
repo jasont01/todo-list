@@ -2,7 +2,7 @@ import { useState } from 'react'
 import EditItemForm from './EditItemForm/EditItemForm'
 import Checkbox from './Checkbox/Checkbox'
 import DueDate from './DueDate'
-import ItemControls from './ItemControls'
+import ItemControls from './ItemControls/ItemControls'
 import styles from './ItemEntry.module.css'
 
 const Item = ({ item }) => {

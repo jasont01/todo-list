@@ -5,12 +5,12 @@
   position: relative;
   flex-grow: 1;
 }
-label {
+.title > label {
   cursor: pointer;
   margin-left: 15px;
   margin-bottom: 0px;
 }
-label:before {
+.title > label:before {
   content: '';
   width: 20px;
   height: 20px;
@@ -22,7 +22,7 @@ label:before {
   box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5),
     0px 1px 0px rgba(255, 255, 255, 0.4);
 }
-label:after {
+.title > label:after {
   content: '';
   width: 14px;
   height: 8px;
@@ -37,7 +37,7 @@ label:after {
   transform: rotate(-45deg);
 }
 
-label:hover::after {
+.title > label:hover::after {
   opacity: 0.3;
 }
 

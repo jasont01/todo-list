@@ -27,10 +27,6 @@ const Items = () => {
     setSorted(sort)
   }, [items, activeList])
 
-  if (isLoading) {
-    return <Spinner />
-  }
-
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>ToDo List</h1>

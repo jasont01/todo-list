@@ -7,11 +7,11 @@ import {
 } from '../../../features/lists/listSlice'
 import { confirmAlert } from 'react-confirm-alert'
 import EditListForm from './EditListForm/EditListForm'
-import ListControls from './ListControls'
+import ListControls from './ListControls/ListControls'
 import styles from './ListEntry.module.css'
 import Folder from './Folder/Folder'
 
-const List = ({ list, list: { _id: id, title, active }, onlyList }) => {
+const List = ({ list, list: { _id: id, title }, active, onlyList }) => {
   const [hover, setHover] = useState(false)
   const [editMode, setEditMode] = useState(false)
 
@@ -30,19 +30,19 @@ const List = ({ list, list: { _id: id, title, active }, onlyList }) => {
       buttons: [
         {
           label: 'Delete',
-          className: 'btn btn-danger',
+          className: styles.confirmBtn,
           onClick: () => dispatch(deleteList(id)),
         },
         {
           label: 'Cancel',
-          className: 'btn btn-primary',
+          className: styles.cancelBtn,
         },
       ],
     })
   }
 
   return (
-    <li className={styles.list}>
+    <li className={styles.container}>
       {editMode ? (
         <EditListForm id={id} title={title} updateList={handleUpdateList} />
       ) : (

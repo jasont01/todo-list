@@ -4,7 +4,6 @@
   left: 30em;
   width: 480px;
   height: 740px;
-  border: 2px solid #bada55;
 }
 
 .title {
@@ -24,16 +23,16 @@
 .duedateHeader {
   position: absolute;
   margin: 0 0;
-  right: 300px;
+  right: 365px;
 }
 
 .duedateHeader {
-  right: 52px;
+  right: 122px;
 }
 
 .itemContainer {
   position: absolute;
-  top: 108px;
+  top: 110px;
   left: -36px;
   width: 505px;
   height: 630px;
@@ -43,4 +42,8 @@
   list-style: none;
   user-select: none;
   margin-bottom: 0px;
+}
+
+.priorityContainer {
+  margin-bottom: 1em;
 }

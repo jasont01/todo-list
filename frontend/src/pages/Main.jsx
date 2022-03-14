@@ -5,8 +5,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { getLists, getActiveList, reset } from '../features/lists/listSlice'
 import { getItems } from '../features/items/itemSlice'
 import Spinner from '../components/Spinner'
-//import Header from '../components/Header/Header'
-//import Footer from '../components/Footer/Footer'
+import Header from '../components/Header/Header'
 import Content from '../components/Content/Content'
 import Mobile from '../components/Mobile'
 
@@ -50,9 +49,8 @@ const Main = () => {
 
   return (
     <div className='main'>
-      {/* <Header /> */}
+      <Header />
       {isDesktop ? <Content /> : <Mobile content={<Content />} />}
-      {/* <Footer /> */}
     </div>
   )
 }

@@ -16,13 +16,19 @@ const EditListForm = ({ title, updateList }) => {
       <TextField
         id='list-title'
         name='list-title'
-        label='List Title'
         value={input}
         onChange={(e) => setInput(e.target.value)}
         autoFocus
         size='small'
+        className={styles.titleEdit}
       />
-      <Button id='list-add' type='submit' variant='contained' size='small'>
+      <Button
+        id='list-add'
+        type='submit'
+        variant='contained'
+        size='small'
+        sx={{ backgroundColor: '#bada55', color: '#212529' }}
+      >
         Save
       </Button>
     </Box>

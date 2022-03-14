@@ -1,7 +1,12 @@
 .container {
   position: absolute;
-  bottom: 10px;
-  left: 30px;
-  font-size: 0.8em;
+  bottom: -52px;
+  left: 10px;
+  font-size: 0.7em;
   font-family: 'Montserrat', sans-serif;
+  color: #6c757d;
+}
+
+.container > a:hover {
+  color: #bada55;
 }

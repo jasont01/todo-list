@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import { List } from '../models/listModel.js'
+import { Item } from '../models/itemModel.js'
 
 /**
  * @desc Get all lists owned by user
@@ -7,12 +8,7 @@ import { List } from '../models/listModel.js'
  * @access Private
  */
 const getLists = asyncHandler(async (req, res) => {
-  const lists = await List.find({ user: req.userId })
-    // .populate({
-    //   path: 'items',
-    //   select: '-__v',
-    // })
-    .select('-__v')
+  const lists = await List.find({ user: req.userId }).select('-__v')
 
   res.status(200).json(lists)
 })
@@ -85,6 +81,7 @@ const deleteList = asyncHandler(async (req, res) => {
     throw new Error('Not authorized')
   }
 
+  await Item.deleteMany({ listId: req.params.id, user: req.userId })
   await list.remove()
 
   res.status(200).json({ _id: req.params.id })

@@ -1,0 +1,17 @@
+.container {
+  position: absolute;
+  right: 0;
+  font-size: 0.8em;
+  line-height: 2em;
+}
+
+.edit,
+.delete {
+  margin-right: 2em;
+}
+
+.edit:hover,
+.delete:hover {
+  color: #bada55;
+  cursor: pointer;
+}

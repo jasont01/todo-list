@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import listService from './listService'
 
 const initialState = {
@@ -80,12 +80,8 @@ export const listSlice = createSlice({
       state.showNewListForm = action.payload
     },
     getActiveList: (state) => {
-      const currentState = current(state)
-      const active =
-        currentState.lists.find((list) => list.active) || currentState.lists[0]
-      if (active) {
-        state.activeList = active._id
-      }
+      const id = localStorage.getItem('activeList')
+      state.activeList = id
     },
     setActiveList: (state, action) => {
       const id = action.payload
@@ -93,6 +89,7 @@ export const listSlice = createSlice({
         list._id === id ? { ...list, active: true } : { ...list, active: false }
       )
       state.activeList = action.payload
+      localStorage.setItem('activeList', id)
     },
   },
   extraReducers: (builder) => {
@@ -147,6 +144,11 @@ export const listSlice = createSlice({
         state.lists = state.lists.filter(
           (list) => list._id !== action.payload._id
         )
+        if (action.payload._id === state.activeList) {
+          const active = state.lists[0]._id
+          state.activeList = active
+          localStorage.setItem('activeList', active)
+        }
       })
       .addCase(deleteList.rejected, (state, action) => {
         state.isLoading = false

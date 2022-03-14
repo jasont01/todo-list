@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box'
 import {
   formatDistanceToNow,
   differenceInDays,
@@ -19,6 +20,6 @@ const DueDate = ({ date }) => {
     }
   }
 
-  return <div className='due-date'>{formatDate()}</div>
+  return <Box sx={{ marginRight: '1em' }}>{formatDate()}</Box>
 }
 export default DueDate

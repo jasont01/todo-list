@@ -14,7 +14,7 @@
 }
 
 .newItemBtn:hover {
-  background-color: #bada55;
+  background-color: hsl(74, 64%, 49%);
 }
 
 .newItemBtn:disabled > i {

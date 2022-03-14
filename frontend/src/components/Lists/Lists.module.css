@@ -2,14 +2,15 @@
   position: absolute;
   left: 1em;
   top: 1em;
-  font-size: 1em;
-  width: fit-content;
-  border: 2px solid #bada55;
+  width: 420px;
+  height: 675px;
 }
+
 .header {
   font-family: 'Chelsea Market', cursive;
   font-size: 2em;
   margin: 0;
+  font-weight: 500;
 }
 
 .lists {

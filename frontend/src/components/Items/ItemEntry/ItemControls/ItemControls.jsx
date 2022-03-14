@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
-import { deleteItem } from '../../../features/items/itemSlice'
+import { deleteItem } from '../../../../features/items/itemSlice'
 import { FaEdit, FaTrash, FaWindowClose } from 'react-icons/fa'
+import styles from './ItemControls.module.css'
 
 const ItemControls = ({ id, editMode, setEditMode }) => {
   const dispatch = useDispatch()
@@ -9,21 +10,16 @@ const ItemControls = ({ id, editMode, setEditMode }) => {
     dispatch(deleteItem(id))
   }
   return (
-    <div
-      style={{
-        fontSize: '0.7em',
-        marginRight: '1em',
-      }}
-    >
+    <div className={styles.container}>
       {editMode ? (
         <FaWindowClose
-          className='item-edit'
+          className={styles.edit}
           onClick={() => setEditMode(false)}
         />
       ) : (
-        <FaEdit className='item-edit' onClick={() => setEditMode(true)} />
+        <FaEdit className={styles.edit} onClick={() => setEditMode(true)} />
       )}
-      <FaTrash className='item-delete' onClick={handleDelete} />
+      <FaTrash className={styles.delete} onClick={handleDelete} />
     </div>
   )
 }

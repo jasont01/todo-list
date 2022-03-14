@@ -22,8 +22,11 @@ const Mobile = ({ content }) => {
       <Button variant='contained' onClick={() => setShowItems(true)}>
         &gt;
       </Button>
-      <Button variant='contained' onClick={() => setShowItems(false)}>
-        &lt;
+      <Button
+        sx={{ color: '#212529', backgroundColor: '#bada55' }}
+        onClick={() => setShowItems(false)}
+      >
+        &lt; Lists
       </Button>
     </>
   )
