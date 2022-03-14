@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import ListEntry from './ListEntry/ListEntry'
-import NewListControl from './NewListControl'
+import NewListControl from './NewListControl/NewListControl'
 import styles from './Lists.module.css'
 
 const Lists = () => {

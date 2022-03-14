@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import ItemEntry from './ItemEntry/ItemEntry'
-import CategoryHeader from './CategoryHeader'
-import NewItemControl from './NewItemControl'
+import CategoryHeader from './CategoryHeader/CategoryHeader'
+import NewItemControl from './NewItemControl/NewItemControl'
 import Spinner from '../../components/Spinner'
 import styles from './Items.module.css'
 
@@ -33,20 +33,17 @@ const Items = () => {
 
   return (
     <div className={styles.container}>
+      <h1 className={styles.title}>ToDo List</h1>
+      <hr />
       <div className={styles.header}>
-        <h1 className={styles.title}>ToDo List</h1>
-        <hr />
         <h6 className={styles.itemHeader}>Item</h6>
         <h6 className={styles.duedateHeader}>Due Date</h6>
       </div>
       <div className={styles.itemContainer}>
         {sorted.map((category) => (
-          <div
-            key={category.priority}
-            className={`priority-wrapper priority-wrapper-${category.priority}`}
-          >
+          <div key={category.priority} className={styles.priorityContainer}>
             <CategoryHeader category={category} items={null} />
-            <ul className={`items items-${category.priority}`}>
+            <ul className={styles.items}>
               {category.items.map((item) => (
                 <ItemEntry key={item._id} item={item} />
               ))}

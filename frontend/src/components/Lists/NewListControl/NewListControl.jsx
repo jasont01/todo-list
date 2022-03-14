@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Button from '@mui/material/Button'
-import NewListForm from './NewListForm/NewListForm'
+import NewListForm from '../NewListForm/NewListForm'
+import styles from './NewListControl.module.css'
 
 const MAX_LISTS = 18
 
@@ -16,6 +17,7 @@ const NewListControl = ({ numLists }) => {
         />
       ) : (
         <Button
+          className={styles.newListBtn}
           disabled={numLists >= MAX_LISTS}
           onClick={() => setShowNewListForm(true)}
         >

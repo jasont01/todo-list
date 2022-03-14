@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import Button from '@mui/material/Button'
 import { FaPlus } from 'react-icons/fa'
-import NewItemForm from './NewItemForm/NewItemForm'
+import NewItemForm from '../NewItemForm/NewItemForm'
+import styles from './NewItemControl.module.css'
 
 const MAX_ITEMS = 10
 
@@ -9,7 +10,7 @@ const NewItemControl = ({ numItems }) => {
   const [showNewItemForm, setShowNewItemForm] = useState(false)
 
   return (
-    <div className='controls'>
+    <div className={styles.container}>
       {showNewItemForm ? (
         <NewItemForm
           cancelNewItem={() => setShowNewItemForm(false)}
@@ -17,7 +18,7 @@ const NewItemControl = ({ numItems }) => {
         />
       ) : (
         <Button
-          id='new-item-btn'
+          className={styles.newItemBtn}
           disabled={numItems >= MAX_ITEMS}
           onClick={() => setShowNewItemForm(true)}
         >
