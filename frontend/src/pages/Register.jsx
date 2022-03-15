@@ -3,11 +3,11 @@ import Avatar from '@mui/material/Avatar'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import RegisterForm from '../components/RegisterForm'
 import Spinner from '../components/Spinner'
+import Logo from '../components/Logo'
 
 const Register = () => {
   const { isLoading } = useSelector((state) => state.auth)
@@ -42,8 +42,8 @@ const Register = () => {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
+            <Avatar variant='square' sx={{ m: 1 }}>
+              <Logo size={100} />
             </Avatar>
             <Typography component='h1' variant='h5'>
               Sign up

@@ -79,17 +79,15 @@ export const listSlice = createSlice({
     showNewListForm: (state, action) => {
       state.showNewListForm = action.payload
     },
-    getActiveList: (state) => {
-      const id = localStorage.getItem('activeList')
-      state.activeList = id
-    },
     setActiveList: (state, action) => {
       const id = action.payload
       state.lists = state.lists.map((list) =>
         list._id === id ? { ...list, active: true } : { ...list, active: false }
       )
       state.activeList = action.payload
-      localStorage.setItem('activeList', id)
+      if (localStorage.getItem('user')) {
+        localStorage.setItem('activeList', id)
+      }
     },
   },
   extraReducers: (builder) => {
@@ -114,6 +112,8 @@ export const listSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.lists = action.payload
+        state.activeList =
+          localStorage.getItem('activeList') || action.payload[0]._id
       })
       .addCase(getLists.rejected, (state, action) => {
         state.isLoading = false
@@ -147,7 +147,9 @@ export const listSlice = createSlice({
         if (action.payload._id === state.activeList) {
           const active = state.lists[0]._id
           state.activeList = active
-          localStorage.setItem('activeList', active)
+          if (localStorage.getItem('user')) {
+            localStorage.setItem('activeList', active)
+          }
         }
       })
       .addCase(deleteList.rejected, (state, action) => {
@@ -158,6 +160,5 @@ export const listSlice = createSlice({
   },
 })
 
-export const { reset, showNewListForm, getActiveList, setActiveList } =
-  listSlice.actions
+export const { reset, showNewListForm, setActiveList } = listSlice.actions
 export default listSlice.reducer

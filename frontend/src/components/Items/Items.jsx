@@ -6,13 +6,13 @@ import NewItemControl from './NewItemControl/NewItemControl'
 import Spinner from '../../components/Spinner'
 import styles from './Items.module.css'
 
-const categories = ['High', 'Medium', 'Low', 'None']
+const categories = ['high', 'medium', 'low', 'none']
 
 const Items = () => {
   const [sorted, setSorted] = useState([])
 
   const { activeList } = useSelector((state) => state.lists)
-  const { items, isLoading } = useSelector((state) => state.items)
+  const { items } = useSelector((state) => state.items)
 
   useEffect(() => {
     const activeItems = items.filter((item) => item.listId === activeList)
@@ -38,7 +38,7 @@ const Items = () => {
       <div className={styles.itemContainer}>
         {sorted.map((category) => (
           <div key={category.priority} className={styles.priorityContainer}>
-            <CategoryHeader category={category} items={null} />
+            <CategoryHeader category={category} items={items} />
             <ul className={styles.items}>
               {category.items.map((item) => (
                 <ItemEntry key={item._id} item={item} />

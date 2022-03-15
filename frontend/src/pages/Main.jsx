@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { getLists, getActiveList, reset } from '../features/lists/listSlice'
+import { getLists, reset } from '../features/lists/listSlice'
 import { getItems } from '../features/items/itemSlice'
 import Spinner from '../components/Spinner'
 import Header from '../components/Header/Header'
@@ -18,9 +18,7 @@ const Main = () => {
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.auth)
-  const { lists, isLoading, isError, message } = useSelector(
-    (state) => state.lists
-  )
+  const { isLoading, isError, message } = useSelector((state) => state.lists)
 
   useEffect(() => {
     if (isError) {
@@ -39,11 +37,7 @@ const Main = () => {
     }
   }, [user, isError, message, navigate, dispatch])
 
-  useEffect(() => {
-    dispatch(getActiveList())
-  }, [lists, dispatch])
-
-  if (isLoading) {
+  if (isLoading || !user) {
     return <Spinner />
   }
 

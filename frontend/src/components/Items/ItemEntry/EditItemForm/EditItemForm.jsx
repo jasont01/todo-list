@@ -4,7 +4,7 @@ import { parseJSON, startOfDay } from 'date-fns'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import DatePicker from 'react-datepicker'
+import DatePicker from '@mui/lab/DatePicker'
 import PrioritySelect from '../../PrioritySelect'
 import { updateItem } from '../../../../features/items/itemSlice'
 import styles from './EditItemForm.module.css'
@@ -41,7 +41,12 @@ const EditItemForm = ({ item, setEditMode }) => {
   }
 
   return (
-    <Box className={styles.container} component='form' onSubmit={handleSubmit}>
+    <Box
+      className={styles.container}
+      component='form'
+      onSubmit={handleSubmit}
+      sx={{ display: 'flex', height: '1.2em' }}
+    >
       <TextField
         className={styles.name}
         size='small'
@@ -51,20 +56,18 @@ const EditItemForm = ({ item, setEditMode }) => {
         helperText={error ? 'cannot be empty' : null}
         error={error}
       />
-      <PrioritySelect
-        className={styles.priority}
-        defaultValue={priority}
-        onChange={setPriority}
-      />
+      <PrioritySelect value={priority} setPriority={setPriority} />
       <DatePicker
-        showPopperArrow={false}
-        selected={date}
-        onChange={(date) => setDate(date)}
-        minDate={new Date()}
-        dateFormat='yyyy-MM-dd'
-        className={styles.datePicker}
+        value={date}
+        onChange={(input) => setDate(input)}
+        renderInput={(params) => <TextField {...params} size='small' />}
       />
-      <Button size='sm' className={styles.submit} type='submit'>
+      <Button
+        size='small'
+        variant='contained'
+        type='submit'
+        sx={{ color: '#212529', backgroundColor: '#bada55' }}
+      >
         Save
       </Button>
     </Box>

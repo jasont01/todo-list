@@ -17,6 +17,8 @@ const LoginForm = () => {
     password: '',
   })
 
+  const [remember, setRemember] = useState(false)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -51,6 +53,7 @@ const LoginForm = () => {
     const userData = {
       email,
       password,
+      remember,
     }
 
     dispatch(login(userData))
@@ -83,7 +86,14 @@ const LoginForm = () => {
         onChange={onChange}
       />
       <FormControlLabel
-        control={<Checkbox value='remember' color='primary' />}
+        control={
+          <Checkbox
+            name='remember'
+            value={remember}
+            color='primary'
+            onChange={(e) => setRemember(e.target.checked)}
+          />
+        }
         label='Remember me'
       />
       <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>

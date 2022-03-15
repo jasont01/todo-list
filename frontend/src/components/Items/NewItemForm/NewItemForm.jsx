@@ -4,16 +4,16 @@ import { createItem } from '../../../features/items/itemSlice'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
-import DatePicker from 'react-datepicker'
+import DatePicker from '@mui/lab/DatePicker'
 import PrioritySelect from '../PrioritySelect'
+import styles from './NewItemForm.module.css'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
 
 const NewItemForm = ({ cancelNewItem, setShowNewItemForm }) => {
   const [description, setDescription] = useState('')
   const [date, setDate] = useState(new Date())
-  const [priority, setPriority] = useState('None')
-
-  //TODO
-  const [isInvalid, setIsInvalid] = useState(false)
+  const [priority, setPriority] = useState('none')
 
   const { activeList } = useSelector((state) => state.lists)
 
@@ -21,53 +21,51 @@ const NewItemForm = ({ cancelNewItem, setShowNewItemForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    description.length > 0 ? submitNewItem() : setIsInvalid(true)
-  }
-
-  const submitNewItem = () => {
     dispatch(createItem({ description, date, priority, listId: activeList }))
     setShowNewItemForm(false)
   }
 
   return (
-    <Box className='new-item-form' component='form' onSubmit={handleSubmit}>
-      <TextField
-        className='new-item-name'
-        name='description'
-        size='sm'
-        type='text'
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder='Item'
-        autoFocus
-        required
-      />
-      {/* <Form.Control.Feedback type='invalid'>
-          Item name is required.
-        </Form.Control.Feedback> */}
-      <DatePicker
-        showPopperArrow={false}
-        selected={date}
-        onChange={(date) => setDate(date)}
-        minDate={new Date()}
-        dateFormat='yyyy-MM-dd'
-        className='form-control form-control-sm new-item-date'
-      />
-      <PrioritySelect
-        className='new-item-priority'
-        placeholder='--Priority--'
-        name='priority'
-        value={priority}
-        onChange={setPriority}
-      />
-      <Button variant='contained' size='small' type='submit'>
+    <Box className={styles.container} component='form' onSubmit={handleSubmit}>
+      <FormControl fullWidth>
+        <TextField
+          className={styles.name}
+          id='new-item-name'
+          name='description'
+          size='small'
+          type='text'
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          label='Item'
+          autoFocus
+        />
+      </FormControl>
+      <Box sx={{ display: 'flex', margin: '0.7em 0' }}>
+        <DatePicker
+          label='Due Date'
+          value={date}
+          onChange={(input) => setDate(input)}
+          renderInput={(params) => (
+            <TextField {...params} size='small' sx={{ width: '160px' }} />
+          )}
+        />
+        <PrioritySelect value={priority} setPriority={setPriority} />
+      </Box>
+      <Button
+        variant='contained'
+        size='small'
+        type='submit'
+        className={styles.addBtn}
+        disabled={!description}
+      >
         Add
       </Button>
       <Button
-        id='new-item-cancel'
         size='small'
-        variant='secondary'
+        variant='contained'
         onClick={cancelNewItem}
+        className={styles.cancelBtn}
+        sx={{ marginLeft: '0.5em' }}
       >
         cancel
       </Button>

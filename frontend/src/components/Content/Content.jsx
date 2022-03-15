@@ -24,7 +24,7 @@ const Content = () => {
   return (
     <div className={styles.wrapper} ref={ref}>
       <img
-        src='https://res.cloudinary.com/exandria/image/upload/v1646795893/todo-list/notebook.jpg'
+        src='notebook.jpg'
         style={{ height: height, maxHeight: '970px' }}
         alt='notebook'
       />

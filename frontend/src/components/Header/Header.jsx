@@ -1,7 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import Button from '@mui/material/Button'
-import { logout, reset } from '../../features/auth/authSlice'
+import { logout, reset, deleteAccount } from '../../features/auth/authSlice'
+import { confirmAlert } from 'react-confirm-alert'
+import Menu from '../Menu/Menu'
 import styles from './Header.module.css'
 
 const Header = () => {
@@ -15,12 +16,32 @@ const Header = () => {
     navigate('/')
   }
 
+  const handleDeleteAccount = () => {
+    confirmAlert({
+      title: `Delete Account`,
+      message:
+        'This will delete your account and all data associated with it. This is irreversible.  Are you sure?',
+      buttons: [
+        {
+          label: 'Delete',
+          className: styles.confirmBtn,
+          onClick: () => dispatch(deleteAccount(user._id)),
+        },
+        {
+          label: 'Cancel',
+          className: styles.cancelBtn,
+        },
+      ],
+    })
+  }
+
   return (
     <header className={styles.content}>
-      <div className={styles.user}>
-        <h3>Welcome {user && user.firstName}</h3>
-        <Button onClick={handleLogout}>Logout</Button>
-      </div>
+      <Menu
+        user={user}
+        logout={handleLogout}
+        deleteAccount={handleDeleteAccount}
+      />
     </header>
   )
 }

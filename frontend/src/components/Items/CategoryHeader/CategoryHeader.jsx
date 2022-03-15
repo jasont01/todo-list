@@ -4,8 +4,6 @@ import styles from './CategoryHeader.module.css'
 const CategoryHeader = ({ category, items }) => {
   const [showHeader, setShowHeader] = useState(true)
 
-  const priority = category.priority.toLowerCase()
-
   useEffect(() => {
     setShowHeader(
       category.items.length === 0
@@ -19,8 +17,8 @@ const CategoryHeader = ({ category, items }) => {
   return (
     <>
       {showHeader && (
-        <span className={`${styles.priority} ${styles[priority]}`}>
-          {category.priority === 'None' ? 'No' : category.priority} Priority
+        <span className={`${styles.priority} ${styles[category.priority]}`}>
+          {category.priority === 'none' ? 'No' : category.priority} Priority
         </span>
       )}
     </>

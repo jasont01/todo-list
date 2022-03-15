@@ -2,6 +2,14 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import asyncHandler from 'express-async-handler'
 import { User } from '../models/userModel.js'
+import { List } from '../models/listModel.js'
+import { Item } from '../models/itemModel.js'
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: '30d',
+  })
+}
 
 /**
  * @desc   Register user
@@ -9,9 +17,9 @@ import { User } from '../models/userModel.js'
  * @access Public
  */
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body
+  const { firstName, lastName, email, password } = req.body
 
-  if (!name || !email || !password) {
+  if (!firstName || !lastName || !email || !password) {
     res.status(400)
     throw new Error('All fields are required')
   }
@@ -27,7 +35,8 @@ const registerUser = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt)
 
   const user = await User.create({
-    name,
+    firstName,
+    lastName,
     email,
     password: hashedPassword,
   })
@@ -37,9 +46,15 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('Error registering user')
   }
 
+  await List.create({
+    user: user._id,
+    title: 'Default List',
+  })
+
   res.status(201).json({
     _id: user._id,
-    name: user.name,
+    firstName: user.firstName,
+    lastName: user.lastName,
     email: user.email,
     token: generateToken(user._id),
   })
@@ -52,14 +67,15 @@ const registerUser = asyncHandler(async (req, res) => {
  */
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
-
   const user = await User.findOne({ email })
 
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       _id: user.id,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
+      remember: req.body.remember,
       token: generateToken(user.id),
     })
   } else {
@@ -84,10 +100,29 @@ const getUser = asyncHandler(async (req, res) => {
   }
 })
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d',
-  })
-}
+/**
+ * @desc   Delete user
+ * @route  DELETE /api/user
+ * @access Private
+ */
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
 
-export { registerUser, loginUser, getUser }
+  if (!user) {
+    res.status(400)
+    throw new Error('User not found')
+  }
+
+  if (user._id.toString() !== req.userId) {
+    res.status(401)
+    throw new Error('Not authorized')
+  }
+
+  await Item.deleteMany({ user: req.userId })
+  await List.deleteMany({ user: req.userId })
+  await User.findByIdAndDelete(req.userId)
+
+  res.status(204).end()
+})
+
+export { registerUser, loginUser, getUser, deleteUser }

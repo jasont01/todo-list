@@ -17,7 +17,7 @@ const itemSchema = mongoose.Schema(
     },
     priority: {
       type: String,
-      enum: ['Low', 'Medium', 'High', 'None'],
+      enum: ['low', 'medium', 'high', 'none'],
       default: 'None',
     },
     date: {
