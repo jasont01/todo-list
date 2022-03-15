@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import ItemEntry from './ItemEntry/ItemEntry'
 import CategoryHeader from './CategoryHeader/CategoryHeader'
 import NewItemControl from './NewItemControl/NewItemControl'
-import Spinner from '../../components/Spinner'
 import styles from './Items.module.css'
 
 const categories = ['high', 'medium', 'low', 'none']

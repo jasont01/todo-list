@@ -8,7 +8,6 @@ import DatePicker from '@mui/lab/DatePicker'
 import PrioritySelect from '../PrioritySelect'
 import styles from './NewItemForm.module.css'
 import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
 
 const NewItemForm = ({ cancelNewItem, setShowNewItemForm }) => {
   const [description, setDescription] = useState('')

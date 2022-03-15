@@ -1,9 +1,3 @@
-# dependencies
 node_modules
-
-# production
 build
-
 .env
-.firebaserc
-todo-list-*-firebase-adminsdk-*
