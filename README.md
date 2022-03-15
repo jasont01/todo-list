@@ -11,7 +11,7 @@
     The ubiquitous javascript project
     <br />
     <br />
-    <a href="https://jasont01.github.io/todo-list/">View Demo</a>
+    <a href="https://jasont-todo-list.netlify.app/">View Demo</a>
     ·
     <a href="https://github.com/jasont01/todo-list/issues">Report Bug</a>
     ·
@@ -47,7 +47,7 @@
 
 ## About The Project
 
-This project, inspired by the background picture found on [unplash](https://unsplash.com/photos/3ym6i13Y9LU), was started as an assignment while completing [The Odin Project](https://www.theodinproject.com/)'s javascript curriculum. Since then, it has been refactored & rewritten as my skillset has grown. This latest iteration was rewritten as a client / server pair. The client was written as a React app, while the server was written as a node/express app.
+This project, inspired by the background picture found on [unplash](https://unsplash.com/photos/3ym6i13Y9LU), was started as an assignment while completing [The Odin Project](https://www.theodinproject.com/)'s javascript curriculum. Since then, it has been refactored & rewritten as my skillset has grown. This latest iteration was rewritten as a full mern-stack app.
 
 ![preview-screenshot]
 
@@ -55,15 +55,14 @@ This project, inspired by the background picture found on [unplash](https://unsp
 
 - Create multiple lists
 - Assign priority levels to tasks
-- Save your data to the cloud (must be signed in, otherwise data is saved locally to the browser)
+- Save your data to the cloud
 
 ### Built With
 
 - [React](https://reactjs.org/)
-- [Bootstrap](https://getbootstrap.com)
-- [Node](https://nodejs.org)
+- [Node.js](https://nodejs.org)
 - [Express](https://expressjs.com)
-- [Firebase](https://firebase.google.com)
+- [MongoDB](https://www.mongodb.com/)
 
 <!-- GETTING STARTED -->
 
@@ -126,21 +125,13 @@ Project Link: [https://github.com/jasont01/todo-list](https://github.com/jasont0
 
 Hosting:
 
-- [GitHub Pages](https://pages.github.com)
+- Frontend: [Netlify](https://netlify.com)
+- Backend: [Heroku](https://www.heroku.com)
+- Database: [MongoDB](https://www.mongodb.com)
 
 Background Picture:
 
 - [Mike Tinnion](https://unsplash.com/photos/3ym6i13Y9LU) on Unsplash
-
-npm packages:
-
-- [nanoid](https://www.npmjs.com/package/nanoid)
-- [react-confirm-alert](https://www.npmjs.com/package/react-confirm-alert)
-- [react-datepicker](https://www.npmjs.com/package/react-datepicker)
-- [react-google-login](https://www.npmjs.com/package/react-google-login)
-- [react-icons](https://www.npmjs.com/package/react-icons)
-- [react-select](https://www.npmjs.com/package/react-select)
-- [react-spinners](https://www.npmjs.com/package/react-spinners)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
