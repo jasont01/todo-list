@@ -1,0 +1,8 @@
+.content {
+  position: absolute;
+  left: 62em;
+  top: 0.5em;
+  z-index: 1;
+  background-color: #fff;
+  border-radius: 10px;
+}

@@ -1,0 +1,22 @@
+.container {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.newItemBtn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: #212529;
+  background-color: #bada55;
+  box-shadow: 2px 3px 10px rgba(82, 82, 82, 0.5);
+}
+
+.newItemBtn:hover {
+  background-color: hsl(74, 64%, 49%);
+}
+
+.newItemBtn:disabled > i {
+  cursor: auto;
+}

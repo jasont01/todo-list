@@ -1,0 +1,50 @@
+.container {
+  position: absolute;
+  top: 1em;
+  left: 30em;
+  width: 480px;
+  height: 740px;
+}
+
+.title {
+  margin-top: 0;
+  margin-left: 0.3em;
+  margin-bottom: 0.5rem;
+  font-family: 'Fredericka the Great', cursive;
+  font-size: 80px;
+  font-weight: 500;
+}
+
+.header {
+  position: relative;
+  top: -24px;
+}
+
+.itemHeader,
+.duedateHeader {
+  position: absolute;
+  margin: 0 0;
+  right: 365px;
+}
+
+.duedateHeader {
+  right: 122px;
+}
+
+.itemContainer {
+  position: absolute;
+  top: 110px;
+  left: -36px;
+  width: 505px;
+  height: 630px;
+}
+
+.items {
+  list-style: none;
+  user-select: none;
+  margin-bottom: 0px;
+}
+
+.priorityContainer {
+  margin-bottom: 1em;
+}

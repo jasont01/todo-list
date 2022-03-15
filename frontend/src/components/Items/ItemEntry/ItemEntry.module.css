@@ -1,0 +1,9 @@
+.item {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 1.5em;
+  display: flex;
+}
+
+.due-date {
+  margin-right: 1em;
+}

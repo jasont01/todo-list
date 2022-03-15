@@ -1,0 +1,16 @@
+.container {
+  font-size: 0.6em;
+  margin-right: 1em;
+  align-self: center;
+}
+
+.edit,
+.delete {
+  margin-right: 1em;
+}
+
+.edit:hover,
+.delete:hover {
+  cursor: pointer;
+  color: #bada55;
+}

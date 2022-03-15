@@ -1,0 +1,33 @@
+.container {
+  font-size: 0.8em;
+}
+
+/* .name {
+  height: 1em;
+} */
+
+.date {
+  width: 8em;
+}
+
+.priority {
+  width: 15em;
+}
+
+.addBtn {
+  color: #212529;
+  background-color: #bada55;
+}
+
+.addBtn:hover {
+  background-color: hsl(74, 64%, 49%);
+}
+
+.cancelBtn {
+  color: #fff;
+  background-color: #6c757d;
+}
+
+.cancelBtn:hover {
+  background-color: hsl(208, 7%, 36%);
+}

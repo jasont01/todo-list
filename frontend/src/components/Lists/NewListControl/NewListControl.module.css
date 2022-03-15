@@ -1,0 +1,8 @@
+.newListBtn {
+  color: #212529;
+  background-color: #bada55;
+}
+
+.newListBtn:hover {
+  background-color: hsl(74, 64%, 49%);
+}
