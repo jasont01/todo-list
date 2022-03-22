@@ -24,8 +24,7 @@ const Login = () => {
         sm={false}
         md={7}
         sx={{
-          backgroundImage:
-            'url(https://jasont01.github.io/todo-list/static/media/notebook.71c49dd3.jpg)',
+          backgroundImage: 'url(notebook.jpg)',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
