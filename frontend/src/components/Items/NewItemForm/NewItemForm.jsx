@@ -56,6 +56,7 @@ const NewItemForm = ({ cancelNewItem, setShowNewItemForm }) => {
         type='submit'
         className={styles.addBtn}
         disabled={!description}
+        area-label='Add Item'
       >
         Add
       </Button>

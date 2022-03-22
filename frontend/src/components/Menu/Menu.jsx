@@ -14,6 +14,7 @@ import {
   Trash,
   ChevronRight,
 } from 'tabler-icons-react'
+import styles from './Menu.module.css'
 
 const UserButton = forwardRef(
   ({ image, name, email, icon, ...others }, ref) => (
@@ -37,14 +38,14 @@ const UserButton = forwardRef(
       {...others}
     >
       <Group>
-        <Avatar src={image} radius='xl' />
+        <Avatar src={image} radius='xl' alt='avatar' />
 
         <div style={{ flex: 1 }}>
           <Text size='sm' weight={500}>
             {name}
           </Text>
 
-          <Text color='dimmed' size='xs'>
+          <Text className={styles.email} size='xs'>
             {email}
           </Text>
         </div>
