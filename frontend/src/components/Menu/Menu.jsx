@@ -97,6 +97,7 @@ const UserMenu = ({ user, logout, deleteAccount }) => {
           color='red'
           icon={<Trash size={14} />}
           onClick={deleteAccount}
+          disabled={user.email === 'demo@email.com'}
         >
           Delete my account
         </Menu.Item>
