@@ -49,6 +49,13 @@ const Login = () => {
             </Typography>
             <LoginForm />
           </Box>
+          <Box m={4}>
+            <Typography variant='h5'>Demo Login:</Typography>
+            <Box ml={2}>
+              <Typography>email: demo@email.com</Typography>
+              <Typography>pass: demo</Typography>
+            </Box>
+          </Box>
         </Container>
       </Grid>
     </Grid>
