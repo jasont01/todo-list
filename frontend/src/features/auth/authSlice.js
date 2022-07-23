@@ -42,7 +42,7 @@ export const deleteAccount = createAsyncThunk(
   'auth/deleteAccount',
   async (data, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
+      const token = thunkAPI.getState().auth.user.accessToken
 
       return await authService.deleteAccount(data, token)
     } catch (error) {

@@ -1,14 +1,12 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema(
   {
     firstName: {
       type: String,
-      required: [true, 'First name is required'],
     },
     lastName: {
       type: String,
-      required: [true, 'Last name is required'],
     },
     email: {
       type: String,
@@ -18,10 +16,13 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'Password is required'],
     },
+    sessions: [String],
   },
   {
     timestamps: true,
   }
 )
 
-export const User = mongoose.model('User', userSchema)
+const todoListDB = mongoose.connection.useDb('todo-list')
+
+module.exports = todoListDB.model('User', userSchema)

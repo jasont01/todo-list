@@ -15,7 +15,7 @@ export const createList = createAsyncThunk(
   'lists/create',
   async (data, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
+      const token = thunkAPI.getState().auth.user.accessToken
       return await listService.createList(data, token)
     } catch (error) {
       const message = parseError(error)
@@ -28,7 +28,7 @@ export const getLists = createAsyncThunk(
   'lists/getAll',
   async (_, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
+      const token = thunkAPI.getState().auth.user.accessToken
       return await listService.getLists(token)
     } catch (error) {
       const message = parseError(error)
@@ -41,7 +41,7 @@ export const updateList = createAsyncThunk(
   'lists/update',
   async (data, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
+      const token = thunkAPI.getState().auth.user.accessToken
       return await listService.updateList(data, token)
     } catch (error) {
       const message = parseError(error)
@@ -54,7 +54,7 @@ export const deleteList = createAsyncThunk(
   'lists/delete',
   async (id, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
+      const token = thunkAPI.getState().auth.user.accessToken
       return await listService.deleteList(id, token)
     } catch (error) {
       const message = parseError(error)

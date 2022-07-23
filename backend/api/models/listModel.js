@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const listSchema = mongoose.Schema(
   {
@@ -23,4 +23,6 @@ const listSchema = mongoose.Schema(
   }
 )
 
-export const List = mongoose.model('List', listSchema)
+const todoListDB = mongoose.connection.useDb('todo-list')
+
+module.exports = todoListDB.model('List', listSchema)

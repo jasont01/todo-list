@@ -14,7 +14,7 @@ export const createItem = createAsyncThunk(
   'items/create',
   async (data, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
+      const token = thunkAPI.getState().auth.user.accessToken
       return await itemService.createItem(data, token)
     } catch (error) {
       const message = parseError(error)
@@ -27,7 +27,7 @@ export const getItems = createAsyncThunk(
   'items/getAll',
   async (_, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
+      const token = thunkAPI.getState().auth.user.accessToken
       return await itemService.getItems(token)
     } catch (error) {
       const message = parseError(error)
@@ -40,7 +40,7 @@ export const updateItem = createAsyncThunk(
   'items/update',
   async (data, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
+      const token = thunkAPI.getState().auth.user.accessToken
       return await itemService.updateItem(data, token)
     } catch (error) {
       const message = parseError(error)
@@ -53,7 +53,7 @@ export const deleteItem = createAsyncThunk(
   'items/delete',
   async (id, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
+      const token = thunkAPI.getState().auth.user.accessToken
       return await itemService.deleteItem(id, token)
     } catch (error) {
       const message = parseError(error)

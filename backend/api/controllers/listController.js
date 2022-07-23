@@ -1,17 +1,16 @@
-import asyncHandler from 'express-async-handler'
-import { List } from '../models/listModel.js'
-import { Item } from '../models/itemModel.js'
+const List = require('../models/listModel.js')
+const Item = require('../models/itemModel.js')
 
 /**
  * @desc Get all lists owned by user
  * @route GET /api/lists
  * @access Private
  */
-const getLists = asyncHandler(async (req, res) => {
-  const lists = await List.find({ user: req.userId }).select('-__v')
+const getLists = async (req, res) => {
+  const lists = await List.find({ user: req.user._id }).select('-__v')
 
   res.status(200).json(lists)
-})
+}
 
 /**
  * @desc Crate a new list
@@ -19,33 +18,32 @@ const getLists = asyncHandler(async (req, res) => {
  * @access Private
  */
 
-const createList = asyncHandler(async (req, res) => {
+const createList = async (req, res) => {
   const title = req.body.title ? req.body.title : 'Untitled List'
 
   const newList = await List.create({
-    user: req.userId,
+    user: req.user._id,
     title,
   })
 
   res.status(201).json(newList)
-})
+}
 
 /**
  * @desc Update a list
  * @route PUT /api/lists/:id
  * @access Private
  */
-const updateList = asyncHandler(async (req, res) => {
+const updateList = async (req, res) => {
   const list = await List.findById(req.params.id)
 
   if (!list) {
-    res.status(400)
-    throw new Error('List not found')
+    return res.status(400).json({ error: 'List not found' })
   }
 
-  if (list.user.toString() !== req.userId) {
-    res.status(401)
-    throw new Error('Not authorized')
+  //if (list.user.toString() !== req.user._id) {
+  if (!list.user.equals(req.user._id)) {
+    return res.status(403).json({ error: 'Not authorized' })
   }
 
   const title = req.body.title ? req.body.title : list.title
@@ -61,30 +59,28 @@ const updateList = asyncHandler(async (req, res) => {
   )
 
   res.status(200).json(updatedList)
-})
+}
 
 /**
  * @desc Delete a list
  * @route DELETE /api/lists/:id
  * @access Private
  */
-const deleteList = asyncHandler(async (req, res) => {
+const deleteList = async (req, res) => {
   const list = await List.findById(req.params.id)
 
   if (!list) {
-    res.status(400)
-    throw new Error('List not found')
+    return res.status(400).json({ error: 'List not found' })
   }
 
-  if (list.user.toString() !== req.userId) {
-    res.status(401)
-    throw new Error('Not authorized')
+  if (!list.user.equals(req.user._id)) {
+    return res.status(403).json({ error: 'Not authorized' })
   }
 
-  await Item.deleteMany({ listId: req.params.id, user: req.userId })
+  await Item.deleteMany({ listId: req.params.id, user: req.user._id })
   await list.remove()
 
   res.status(200).json({ _id: req.params.id })
-})
+}
 
-export { getLists, createList, updateList, deleteList }
+module.exports = { getLists, createList, updateList, deleteList }

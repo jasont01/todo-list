@@ -1,17 +1,16 @@
-import asyncHandler from 'express-async-handler'
-import { List } from '../models/listModel.js'
-import { Item } from '../models/itemModel.js'
+const List = require('../models/listModel.js')
+const Item = require('../models/itemModel.js')
 
 /**
  * @desc Get all items owned by user
  * @route GET /api/items
  * @access Private
  */
-const getItems = asyncHandler(async (req, res) => {
-  const items = await Item.find({ user: req.userId }).select('-__v')
+const getItems = async (req, res) => {
+  const items = await Item.find({ user: req.user._id }).select('-__v')
 
   res.status(200).json(items)
-})
+}
 
 /**
  * @desc Crate a new Item
@@ -19,28 +18,25 @@ const getItems = asyncHandler(async (req, res) => {
  * @access Private
  */
 
-const createItem = asyncHandler(async (req, res) => {
+const createItem = async (req, res) => {
   const { description, date, priority, listId } = req.body
 
   if (!description) {
-    res.status(400)
-    throw new Error('Please add a description')
+    return res.status(400).json({ error: 'Please add a description' })
   }
 
   const list = await List.findById(listId)
 
   if (!list) {
-    res.status(400)
-    throw new Error('List not found')
+    return res.status(400).json({ error: 'List not found' })
   }
 
-  if (list.user.toString() !== req.userId) {
-    res.status(401)
-    throw new Error('Not authorized')
+  if (!list.user.equals(req.user._id)) {
+    return res.status(403).json({ error: 'Not authorized' })
   }
 
   const newItem = await Item.create({
-    user: req.userId,
+    user: req.user._id,
     description,
     date,
     priority,
@@ -51,24 +47,22 @@ const createItem = asyncHandler(async (req, res) => {
   await list.save()
 
   res.status(201).json(newItem)
-})
+}
 
 /**
  * @desc Update an Item
  * @route PUT /api/items/:id
  * @access Private
  */
-const updateItem = asyncHandler(async (req, res) => {
+const updateItem = async (req, res) => {
   const item = await Item.findById(req.params.id)
 
   if (!item) {
-    res.status(400)
-    throw new Error('Item not found')
+    return res.status(400).json({ error: 'Item not found' })
   }
 
-  if (item.user.toString() !== req.userId) {
-    res.status(401)
-    throw new Error('Not authorized')
+  if (!item.user.equals(req.user._id)) {
+    return res.status(403).json({ error: 'Not authorized' })
   }
 
   const { description, date, priority, completed, listId } = req.body
@@ -78,13 +72,11 @@ const updateItem = asyncHandler(async (req, res) => {
     const newList = await List.findById(listId)
 
     if (!oldList || !newList) {
-      res.status(400)
-      throw new Error('List not found')
+      return res.status(400).json({ error: 'List not found' })
     }
 
-    if (newList.user.toString() !== req.userId) {
-      res.status(401)
-      throw new Error('Not authorized')
+    if (!newList.user.equals(req.user._id)) {
+      return res.status(403).json({ error: 'Not authorized' })
     }
 
     oldList.items.pull(item._id)
@@ -109,31 +101,28 @@ const updateItem = asyncHandler(async (req, res) => {
   )
 
   res.status(200).json(updatedItem)
-})
+}
 
 /**
- * @desc Delete a list
+ * @desc Delete an item
  * @route DELETE /api/items/:id
  * @access Private
  */
-const deleteItem = asyncHandler(async (req, res) => {
+const deleteItem = async (req, res) => {
   const item = await Item.findById(req.params.id)
 
   if (!item) {
-    res.status(400)
-    throw new Error('Item not found')
+    return res.status(400).json({ error: 'Item not found' })
   }
 
-  if (item.user.toString() !== req.userId) {
-    res.status(401)
-    throw new Error('Not authorized')
+  if (!item.user.equals(req.user._id)) {
+    return res.status(403).json({ error: 'Not authorized' })
   }
 
   const list = await List.findById(item.listId)
 
   if (!list) {
-    res.status(400)
-    throw new Error('List not found')
+    return res.status(400).json({ error: 'List not found' })
   }
 
   list.items.pull(item)
@@ -142,6 +131,6 @@ const deleteItem = asyncHandler(async (req, res) => {
   await item.remove()
 
   res.status(200).json({ id: req.params.id })
-})
+}
 
-export { getItems, createItem, updateItem, deleteItem }
+module.exports = { getItems, createItem, updateItem, deleteItem }

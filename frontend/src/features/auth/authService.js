@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = `${process.env.REACT_APP_API_URL}/user`
+const API_URL = `${process.env.REACT_APP_API_URL}`
 
 const storeUserData = (persist, data) => {
   if (persist) {
@@ -11,7 +11,7 @@ const storeUserData = (persist, data) => {
 }
 
 const register = async (userData) => {
-  const res = await axios.post(`${API_URL}/register`, userData)
+  const res = await axios.post(`${API_URL}/user/register`, userData)
   if (res.data) {
     storeUserData(res.data.remember, res.data)
   }
@@ -19,7 +19,7 @@ const register = async (userData) => {
 }
 
 const login = async (userData) => {
-  const res = await axios.post(`${API_URL}/login`, userData)
+  const res = await axios.post(`${API_URL}/auth/login`, userData)
   if (res.data) {
     storeUserData(res.data.remember, res.data)
   }
@@ -39,7 +39,7 @@ const deleteAccount = async (userId, token) => {
     },
   }
 
-  const res = await axios.delete(`${API_URL}/${userId}`, config)
+  const res = await axios.delete(`${API_URL}/user/${userId}`, config)
 
   if (res.status === 204) {
     logout()

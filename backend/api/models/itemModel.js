@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const itemSchema = mongoose.Schema(
   {
@@ -18,7 +18,7 @@ const itemSchema = mongoose.Schema(
     priority: {
       type: String,
       enum: ['low', 'medium', 'high', 'none'],
-      default: 'None',
+      default: 'none',
     },
     date: {
       type: Date,
@@ -35,4 +35,6 @@ const itemSchema = mongoose.Schema(
   }
 )
 
-export const Item = mongoose.model('Item', itemSchema)
+const todoListDB = mongoose.connection.useDb('todo-list')
+
+module.exports = todoListDB.model('Item', itemSchema)
