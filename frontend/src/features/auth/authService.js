@@ -12,10 +12,7 @@ const storeUserData = (persist, data) => {
 
 const register = async (userData) => {
   const res = await axios.post(`${API_URL}/user/register`, userData)
-  if (res.data) {
-    storeUserData(res.data.remember, res.data)
-  }
-  return res.data
+  if (res.data) return login(userData)
 }
 
 const login = async (userData) => {
