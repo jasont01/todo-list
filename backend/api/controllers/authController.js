@@ -42,6 +42,8 @@ const loginUser = async (req, res) => {
       .json({
         _id: user._id,
         email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
         accessToken: generateAccessToken(user._id),
       })
   } else {
