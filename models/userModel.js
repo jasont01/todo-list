@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const db = process.env.MONGO_DB_NS
+
 const userSchema = mongoose.Schema(
   {
     firstName: {
@@ -23,6 +25,6 @@ const userSchema = mongoose.Schema(
   }
 )
 
-const todoListDB = mongoose.connection.useDb('todo-list')
+const todoListDB = mongoose.connection.useDb(db)
 
 module.exports = todoListDB.model('User', userSchema)

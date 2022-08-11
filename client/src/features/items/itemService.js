@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = `${process.env.REACT_APP_API_URL}/items`
+const API_URL = '/api/items'
 
 const createItem = async (data, token) => {
   const config = {

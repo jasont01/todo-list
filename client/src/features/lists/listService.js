@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = `${process.env.REACT_APP_API_URL}/lists`
+const API_URL = '/api/lists'
 
 const createList = async (data, token) => {
   const config = {
