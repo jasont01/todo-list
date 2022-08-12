@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const API_URL = '/api/items'
+const itemsAPI = axios.create({
+  baseURL: `${process.env.REACT_APP_API_URL}/items`,
+})
 
 const createItem = async (data, token) => {
   const config = {
@@ -8,7 +10,7 @@ const createItem = async (data, token) => {
       Authorization: `Bearer ${token}`,
     },
   }
-  const response = await axios.post(API_URL, data, config)
+  const response = await itemsAPI.post('/', data, config)
   return response.data
 }
 
@@ -18,7 +20,7 @@ const getItems = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   }
-  const response = await axios.get(API_URL, config)
+  const response = await itemsAPI.get('/', config)
 
   return response.data
 }
@@ -30,7 +32,7 @@ const updateItem = async (data, token) => {
       Authorization: `Bearer ${token}`,
     },
   }
-  const response = await axios.put(`${API_URL}/${id}`, data, config)
+  const response = await itemsAPI.put(`/${id}`, data, config)
 
   return response.data
 }
@@ -41,7 +43,7 @@ const deleteItem = async (id, token) => {
       Authorization: `Bearer ${token}`,
     },
   }
-  const response = await axios.delete(`${API_URL}/${id}`, config)
+  const response = await itemsAPI.delete(`/${id}`, config)
 
   return response.data
 }
