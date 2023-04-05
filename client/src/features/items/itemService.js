@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const itemsAPI = axios.create({
-  baseURL: `${process.env.REACT_APP_API_URL}/items`,
+  baseURL: `${import.meta.env.VITE_API_URL}/items`,
 })
 
 const createItem = async (data, token) => {

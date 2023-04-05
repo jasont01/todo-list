@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 const authAPI = axios.create({
-  baseURL: `${process.env.REACT_APP_API_URL}/auth`,
+  baseURL: `${import.meta.env.VITE_API_URL}/auth`,
 })
 
 const userAPI = axios.create({
-  baseURL: `${process.env.REACT_APP_API_URL}/user`,
+  baseURL: `${import.meta.env.VITE_API_URL}/user`,
 })
 
 const storeUserData = (persist, data) => {

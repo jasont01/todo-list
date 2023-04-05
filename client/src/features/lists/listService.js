@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const listsAPI = axios.create({
-  baseURL: `${process.env.REACT_APP_API_URL}/lists`,
+  baseURL: `${import.meta.env.VITE_API_URL}/lists`,
 })
 
 const createList = async (data, token) => {
