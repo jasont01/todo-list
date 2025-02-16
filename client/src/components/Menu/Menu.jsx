@@ -1,13 +1,5 @@
 import { forwardRef } from 'react'
 import {
-  Group,
-  Avatar,
-  Text,
-  Menu,
-  UnstyledButton,
-  Divider,
-} from '@mantine/core'
-import {
   Settings,
   Logout,
   BrandGit,

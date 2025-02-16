@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset, deleteAccount } from '../../features/auth/authSlice'
 import { confirmAlert } from 'react-confirm-alert'
-import Menu from '../Menu/Menu'
+//import Menu from '../Menu/Menu'
 import styles from './Header.module.css'
 
 const Header = () => {
@@ -37,11 +37,11 @@ const Header = () => {
 
   return (
     <header className={styles.content}>
-      <Menu
+      {/* <Menu
         user={user}
         logout={handleLogout}
         deleteAccount={handleDeleteAccount}
-      />
+      /> */}
     </header>
   )
 }

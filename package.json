@@ -7,24 +7,23 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm run dev --prefix ./client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "deploy": "git push heroku master",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "jason@jasont.us",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cookie-parser": "^1.4.6",
+    "bcryptjs": "^3.0.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
-    "express": "^4.19.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "express-async-handler": "^1.2.0",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^8.1.0"
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.10.1"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "nodemon": "^3.0.3"
-  }
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9"
+  },
+  "packageManager": "pnpm@9.7.0+sha512.dc09430156b427f5ecfc79888899e1c39d2d690f004be70e05230b72cb173d96839587545d09429b55ac3c429c801b4dc3c0e002f653830a420fa2dd4e3cf9cf"
 }
