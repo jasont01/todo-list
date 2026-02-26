@@ -12,7 +12,7 @@
     "@mui/system": "^6.5.0",
     "@mui/x-date-pickers": "^7.29.4",
     "@reduxjs/toolkit": "^2.11.0",
-    "axios": "^1.13.2",
+    "axios": "^1.13.5",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.23.25",
     "react": "^19.2.1",
